@@ -1,15 +1,37 @@
 export class Time {
-    constructor(public hours: number,
-        public minutes: number) {}
+    private minutesTotal: number;
+
+    constructor(hours: number, minutes: number) {
+        this.minutesTotal = minutes + hours * 60;
+    }
 
     public substract(time: Time): Time {
-        const minutesTotalA = this.minutes + this.hours * 60;
-        const minutesTotalB = time.minutes + time.hours * 60;
+        const result = new Time(0, 0);
+        result.minutesTotal = this.minutesTotal - time.minutesTotal;
+        return result;
+    }
 
-        const resultMinutesTotal = minutesTotalA - minutesTotalB;
+    public add(time: Time): Time {
+        const result = new Time(0, 0);
+        result.minutesTotal = this.minutesTotal + time.minutesTotal;
+        return result;
+    }
 
-        this.hours = Math.floor(resultMinutesTotal / 60);
-        this.minutes = resultMinutesTotal % 60;
-        return this;
+    public multiply(factor: number): Time {
+        const result = new Time(0, 0);
+        result.minutesTotal = this.minutesTotal * factor;
+        return result;
+    }
+
+    public getMinutes(): number {
+        return this.minutesTotal % 60;
+    }
+
+    public getHours(): number {
+        return Math.floor(this.minutesTotal / 60);
+    }
+
+    public isNegativeTime(): boolean {
+        return this.minutesTotal < 0;
     }
 }

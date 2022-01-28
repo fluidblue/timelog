@@ -6,13 +6,15 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { DaycardComponent } from './daycard/daycard.component';
 import { Daycard2Component } from './daycard2/daycard2.component';
 import { TimePipe } from './time.pipe';
+import { TotalTimePipe } from './total-time.pipe';
 
 @NgModule({
   declarations: [
     AppComponent,
     DaycardComponent,
     Daycard2Component,
-    TimePipe
+    TimePipe,
+    TotalTimePipe
   ],
   imports: [
     BrowserModule,

@@ -7,17 +7,24 @@ import { Time } from './Time';
 export class TimePipe implements PipeTransform {
 
   transform(value: Time, fullHours: boolean = false): string {
-    let hours = value.hours.toString();
+    let result = ""
+    if (value.isNegativeTime()) {
+      result = "-"
+      value.multiply(-1);
+    }
+
+    let hours = value.getHours().toString();
     if (fullHours && hours.length <= 1) {
       hours = "0" + hours
     }
 
-    let minutes = value.minutes.toString();
+    let minutes = value.getMinutes().toString();
     if (minutes.length <= 1) {
       minutes = "0" + minutes
     }
 
-    return hours + ":" + minutes;
+    result += hours + ":" + minutes;
+    return result;
   }
 
 }
