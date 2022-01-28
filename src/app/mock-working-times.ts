@@ -1,32 +1,28 @@
-import { WeekDay, StandardWorkingTimes } from "./StandardWorkingTimes";
+import { WorkingTime } from "./WorkingTime";
 
-export const STANDARD_WORKING_TIMES: StandardWorkingTimes = {
-    [WeekDay.Monday]: {
-        hours: 8,
-        minutes: 0
-    },
-    [WeekDay.Tuesday]: {
-        hours: 8,
-        minutes: 0
-    },
-    [WeekDay.Wednesday]: {
-        hours: 8,
-        minutes: 0
-    },
-    [WeekDay.Thursday]: {
-        hours: 8,
-        minutes: 0
-    },
-    [WeekDay.Friday]: {
-        hours: 8,
-        minutes: 0
-    },
-    [WeekDay.Saturday]: {
-        hours: 0,
-        minutes: 0
-    },
-    [WeekDay.Sunday]: {
-        hours: 0,
-        minutes: 0
-    }
+export interface WorkingTimes {
+    [key: number]: WorkingTime[]
+}
+
+export const WORKING_TIMES: WorkingTimes = {
+    [(new Date(2022, 0, 27)).valueOf()]: [
+        {
+            from: { hours: 8, minutes: 0 },
+            to: { hours: 12, minutes: 0 }
+        },
+        {
+            from: { hours: 13, minutes: 0 },
+            to: { hours: 17, minutes: 0 }
+        }
+    ],
+    [(new Date(2022, 0, 28)).valueOf()]: [
+        {
+            from: { hours: 8, minutes: 0 },
+            to: { hours: 12, minutes: 0 }
+        },
+        {
+            from: { hours: 13, minutes: 0 },
+            to: { hours: 17, minutes: 10 }
+        }
+    ]
 };

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
-import { STANDARD_WORKING_TIMES } from 'src/app/mock-working-times';
+import { STANDARD_WORKING_TIMES } from 'src/app/mock-standard-working-times';
 import { StandardWorkingTimes } from 'src/app/StandardWorkingTimes';
 
 @Injectable({
