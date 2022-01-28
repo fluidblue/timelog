@@ -6,11 +6,13 @@ import { Time } from './Time';
 })
 export class TimePipe implements PipeTransform {
 
-  transform(value: Time, fullHours: boolean = false): string {
+  transform(value: Time, fullHours: boolean = false, showPlus = false): string {
     let result = ""
     if (value.isNegativeTime()) {
       result = "-"
       value.multiply(-1);
+    } else if (showPlus) {
+      result = "+"
     }
 
     let hours = value.getHours().toString();

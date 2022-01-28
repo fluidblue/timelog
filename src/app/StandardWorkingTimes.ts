@@ -1,15 +1,15 @@
 import { Time } from "./Time";
 
 export enum WeekDay {
-    Monday = 0,
+    Sunday = 0,
+    Monday,
     Tuesday,
     Wednesday,
     Thursday,
     Friday,
-    Saturday,
-    Sunday
+    Saturday
 }
 
 export type StandardWorkingTimes = {
-    [key in WeekDay]: Time;
+    [key: number]: Time;
 };

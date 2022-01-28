@@ -14,7 +14,7 @@ export class DaycardComponent implements OnInit {
 
   @Input() date?: Date;
 
-  private standardWorkingTimes?: StandardWorkingTimes;
+  standardWorkingTimes?: StandardWorkingTimes;
   workingTimes?: WorkingTime[];
 
   constructor(private standardWorkingTimesService: StandardWorkingTimesService,

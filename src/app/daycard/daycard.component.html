@@ -1,6 +1,6 @@
-<div class="card daycard" style="width: 18rem;">
+<div class="card daycard" *ngIf="date">
   <div class="card-body">
-    <h5 class="card-title">{{date | date : "EEEE, yyyy-MM-dd" }}</h5>
+    <h5 class="card-title">{{date | date:"EEEE, yyyy-MM-dd" }}</h5>
     <div class="card-text">
       <table>
         <tr *ngFor="let workingTime of workingTimes">
@@ -13,9 +13,12 @@
           <td class="pt-3" colspan="3">Total:</td>
           <td class="pt-3 time">{{workingTimes | totalTime | time}}h</td>
         </tr>
-        <tr>
+        <tr *ngIf="standardWorkingTimes">
           <td colspan="3">Under/Overtime:</td>
-          <td class="time">+0:10h</td>
+          <td class="time">{{
+            (workingTimes | totalTime).substract(
+              standardWorkingTimes[date.getDay()]) | time:false:true
+          }}h</td>
         </tr>
       </table>
     </div>
