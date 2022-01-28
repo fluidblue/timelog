@@ -6,9 +6,9 @@ import { Time } from './Time';
 })
 export class TimePipe implements PipeTransform {
 
-  transform(value: Time): string {
+  transform(value: Time, fullHours: boolean = false): string {
     let hours = value.hours.toString();
-    if (hours.length <= 1) {
+    if (fullHours && hours.length <= 1) {
       hours = "0" + hours
     }
 

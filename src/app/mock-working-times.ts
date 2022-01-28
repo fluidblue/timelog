@@ -13,7 +13,7 @@ export const WORKING_TIMES: WorkingTimes = {
         },
         {
             from: new Time(13, 0),
-            to: new Time(17, 0)
+            to: new Time(17, 10)
         }
     ],
     [(new Date(2022, 0, 28)).valueOf()]: [
@@ -23,7 +23,7 @@ export const WORKING_TIMES: WorkingTimes = {
         },
         {
             from: new Time(13, 0),
-            to: new Time(17, 10)
+            to: new Time(17, 0)
         }
     ]
 };
