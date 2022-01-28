@@ -1,0 +1,23 @@
+.daycard2 .time-entry {
+    display: flex;
+    justify-content: space-between;
+}
+
+.daycard2 .time-entry .from,
+.daycard2 .time-entry .separator,
+.daycard2 .time-entry .to,
+.daycard2 .time-entry .duration {
+    /* flex-basis: 20px; */
+    /* flex-grow: 1; */
+    text-align: center;
+    /* flex-basis: 5rem; */
+}
+
+.daycard2 .time-entry .separator {
+    flex-basis: 2rem;
+}
+
+.daycard2 .time-summary {
+    display: flex;
+    justify-content: space-between;
+}
