@@ -15,6 +15,12 @@
           <td class="time">17:10</td>
           <td class="time">(4:00h)</td>
         </tr>
+        <tr *ngFor="let workingTime of workingTimes">
+          <td class="time">{{workingTime.from | time}}</td>
+          <td class="separator">-</td>
+          <td class="time">{{workingTime.to | time}}</td>
+          <td class="time">(x:xxh)</td>
+        </tr>
         <tr>
           <td class="pt-3" colspan="3">Total:</td>
           <td class="pt-3 time">8:00h</td>

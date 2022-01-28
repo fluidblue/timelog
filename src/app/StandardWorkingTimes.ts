@@ -1,4 +1,4 @@
-import { Time } from "@angular/common";
+import { Time } from "./Time";
 
 export enum WeekDay {
     Monday = 0,
