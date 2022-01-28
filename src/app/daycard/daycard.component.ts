@@ -13,7 +13,6 @@ import { WEEK_DAYS } from '../WeekDays';
 export class DaycardComponent implements OnInit {
 
   @Input() date?: Date;
-  dateString?: string;
 
   private standardWorkingTimes?: StandardWorkingTimes;
   workingTimes?: WorkingTime[];
@@ -24,7 +23,6 @@ export class DaycardComponent implements OnInit {
   ngOnInit(): void {
     this.getStandardWorkingTimes();
     this.getWorkingTimes();
-    this.setDateString();
 
     // TODO: Check if values from above calls are updated when `date` is changed.
   }
@@ -44,29 +42,6 @@ export class DaycardComponent implements OnInit {
     this.workingTimesService.getWorkingTimes(this.date).subscribe(workingTimes => {
       this.workingTimes = workingTimes;
     });
-  }
-
-  setDateString(): void {
-    if (!this.date) {
-      this.dateString = undefined;
-      return;
-    }
-
-    const weekDay = WEEK_DAYS[this.date.getDay()];
-    const year = this.date.getFullYear().toString();
-    let month = (this.date.getMonth() + 1).toString();
-    if (month.length <= 1) {
-      month = "0" + month;
-    }
-    let day = this.date.getDate().toString();
-    if (day.length <= 1) {
-      day = "0" + day;
-    }
-
-    this.dateString = weekDay + ", " +
-      year + "-" +
-      month + "-" +
-      day;
   }
 
 }
