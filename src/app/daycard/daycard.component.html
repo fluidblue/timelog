@@ -3,18 +3,6 @@
     <h5 class="card-title">{{date | date : "EEEE, yyyy-MM-dd" }}</h5>
     <div class="card-text">
       <table>
-        <tr>
-          <td class="time">8:00</td>
-          <td class="separator">-</td>
-          <td class="time">12:00</td>
-          <td class="time">(4:00h)</td>
-        </tr>
-        <tr>
-          <td class="time">13:00</td>
-          <td class="separator">-</td>
-          <td class="time">17:10</td>
-          <td class="time">(4:00h)</td>
-        </tr>
         <tr *ngFor="let workingTime of workingTimes">
           <td class="time">{{workingTime.from | time}}</td>
           <td class="separator">-</td>
