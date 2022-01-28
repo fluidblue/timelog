@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { StandardWorkingTimesService } from '../standard-working-times.service';
 import { WorkingTimesService } from '../working-times.service';
 
 @Component({
@@ -8,7 +9,8 @@ import { WorkingTimesService } from '../working-times.service';
 })
 export class DaycardComponent implements OnInit {
 
-  constructor(private workingTimesService: WorkingTimesService) { }
+  constructor(private standardWorkingTimesService: StandardWorkingTimesService,
+    private workingTimesService: WorkingTimesService) { }
 
   ngOnInit(): void {
   }

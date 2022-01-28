@@ -10,6 +10,6 @@ export enum WeekDay {
     Sunday
 }
 
-export type WorkingTimes = {
+export type StandardWorkingTimes = {
     [key in WeekDay]: Time;
 };

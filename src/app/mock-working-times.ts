@@ -1,6 +1,6 @@
-import { WeekDay, WorkingTimes } from "./WorkingTimes";
+import { WeekDay, StandardWorkingTimes } from "./StandardWorkingTimes";
 
-export const WORKING_TIMES: WorkingTimes = {
+export const STANDARD_WORKING_TIMES: StandardWorkingTimes = {
     [WeekDay.Monday]: {
         hours: 8,
         minutes: 0
