@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { WorkingTimesService } from '../working-times.service';
 
 @Component({
   selector: 'app-daycard',
@@ -7,7 +8,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DaycardComponent implements OnInit {
 
-  constructor() { }
+  constructor(private workingTimesService: WorkingTimesService) { }
 
   ngOnInit(): void {
   }
