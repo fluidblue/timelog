@@ -24,11 +24,11 @@ export class Time {
     }
 
     public getMinutes(): number {
-        return this.minutesTotal % 60;
+        return Math.abs(this.minutesTotal % 60);
     }
 
     public getHours(): number {
-        return Math.floor(this.minutesTotal / 60);
+        return Math.abs(Math.floor(this.minutesTotal / 60));
     }
 
     public isNegativeTime(): boolean {

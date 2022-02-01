@@ -1,9 +1,9 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { StandardWorkingTimesService } from '../standard-working-times.service';
 import { StandardWorkingTimes } from '../StandardWorkingTimes';
+import { Time } from '../Time';
 import { WorkingTimesService } from '../working-times.service';
 import { WorkingTime } from '../WorkingTime';
-import { WEEK_DAYS } from '../WeekDays';
 
 @Component({
   selector: 'app-daycard',
@@ -42,6 +42,24 @@ export class DaycardComponent implements OnInit {
     this.workingTimesService.getWorkingTimes(this.date).subscribe(workingTimes => {
       this.workingTimes = workingTimes;
     });
+  }
+
+  getTimeDifference(from: Time, to: Time): Time {
+    return to.substract(from);
+  }
+
+  getTotalTime(): Time {
+    if (!this.workingTimes) {
+      return new Time(0, 0);
+    }
+
+    const durations = this.workingTimes.map((workingTime) => this.getTimeDifference(workingTime.from, workingTime.to));
+    const totalTime = durations.reduce((previousValue, currentValue) => previousValue.add(currentValue))
+    return totalTime;
+  }
+
+  getUnderOverTime(date: Date, standardWorkingTimes: StandardWorkingTimes): Time {
+    return this.getTimeDifference(this.getTotalTime(), standardWorkingTimes[date.getDay()]);
   }
 
 }

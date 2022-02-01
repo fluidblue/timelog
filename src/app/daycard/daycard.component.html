@@ -7,17 +7,16 @@
           <td class="time">{{workingTime.from | time}}</td>
           <td class="separator">-</td>
           <td class="time">{{workingTime.to | time}}</td>
-          <td class="time">({{workingTime.to.substract(workingTime.from) | time}}h)</td>
+          <td class="time">({{this.getTimeDifference(workingTime.from, workingTime.to)| time}}h)</td>
         </tr>
         <tr>
           <td class="pt-3" colspan="3">Total:</td>
-          <td class="pt-3 time">{{workingTimes | totalTime | time}}h</td>
+          <td class="pt-3 time">{{this.getTotalTime() | time}}h</td>
         </tr>
         <tr *ngIf="standardWorkingTimes">
           <td colspan="3">Under/Overtime:</td>
           <td class="time">{{
-            (workingTimes | totalTime).substract(
-              standardWorkingTimes[date.getDay()]) | time:false:true
+            this.getUnderOverTime(date, standardWorkingTimes) | time:false:true
           }}h</td>
         </tr>
       </table>
