@@ -6,6 +6,5 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'timelog';
-  daycardDate = new Date(2022, 0, 27)
+  title = 'TimeLog';
 }
