@@ -1,10 +1,12 @@
 <div>
     From:
-    <input type="date" class="form-control">
+    <input type="date" class="form-control" [value]="dateFrom | date:'yyyy-MM-dd'" (input)="dateFrom = this.parseDateEvent($event)" />
 </div>
 <div>
     To:
-    <input type="date" class="form-control">
+    <input type="date" class="form-control" />
 </div>
+
+{{dateFrom | json}}
 
 <app-daycard [date]="daycardDate"></app-daycard>
