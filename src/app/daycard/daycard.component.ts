@@ -17,30 +17,40 @@ export class DaycardComponent implements OnInit {
   standardWorkingTimes?: StandardWorkingTimes;
   workingTimes?: WorkingTime[];
 
+  totalTime?: Time;
+  underOverTime?: Time;
+
   constructor(private standardWorkingTimesService: StandardWorkingTimesService,
     private workingTimesService: WorkingTimesService) { }
 
   ngOnInit(): void {
     this.getStandardWorkingTimes();
     this.getWorkingTimes();
+  }
 
-    // TODO: Check if values from above calls are updated when `date` is changed.
+  updateView(): void {
+    this.totalTime = this.getTotalTime();
+
+    if (this.date && this.standardWorkingTimes) {
+      this.underOverTime = this.getUnderOverTime(this.date, this.standardWorkingTimes);
+    }
   }
 
   getStandardWorkingTimes(): void {
     this.standardWorkingTimesService.getStandardWorkingTimes().subscribe(standardWorkingTimes => {
       this.standardWorkingTimes = standardWorkingTimes;
+      this.updateView();
     });
   }
 
   getWorkingTimes(): void {
     if (!this.date) {
-      this.workingTimes = undefined;
-      return;
+      throw new Error("Date is undefined");
     }
 
     this.workingTimesService.getWorkingTimes(this.date).subscribe(workingTimes => {
       this.workingTimes = workingTimes;
+      this.updateView();
     });
   }
 

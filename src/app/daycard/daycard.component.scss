@@ -1,15 +1,25 @@
 .daycard {
     height: 100%;
-}
 
-.daycard table {
-    width: 100%;
-}
+    table {
+        width: 100%;
 
-.daycard table tr td.time {
-    text-align: right;
-}
+        tr td {
+            &.time {
+                text-align: right;
+            }
+            
+            &.separator {
+                text-align: center;
+            }
 
-.daycard table tr td.separator {
-    text-align: center;
+            &.red {
+                color: rgb(190, 0, 0);
+            }
+
+            &.green {
+                color: rgb(0, 180, 0);
+            }
+        }
+    }
 }
