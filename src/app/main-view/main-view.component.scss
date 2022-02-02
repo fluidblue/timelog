@@ -1,0 +1,36 @@
+.dateContainer {
+    width: 100%;
+
+    tr {
+        &:not(:last-child) td {
+            padding-bottom: 1rem;
+        }
+
+        td {
+            padding: 0;
+
+            &:first-child {
+                padding-right: 1rem;
+            }
+    
+            &:nth-child(2) {
+                width: 100%;
+            }
+        }
+    }
+}
+
+.daycardContainer {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: stretch;
+
+    margin: -1rem;
+    margin-top: 1rem;
+
+    app-daycard {
+        width: 18rem;
+        margin: 1rem;
+    }
+}
