@@ -59,7 +59,7 @@ export class DaycardComponent implements OnInit {
   }
 
   getUnderOverTime(date: Date, standardWorkingTimes: StandardWorkingTimes): Time {
-    return this.getTimeDifference(this.getTotalTime(), standardWorkingTimes[date.getDay()]);
+    return this.getTimeDifference(standardWorkingTimes[date.getDay()], this.getTotalTime());
   }
 
 }
