@@ -7,10 +7,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MainViewComponent implements OnInit {
 
-  dateFrom?: Date
-  dateTo?: Date
+  dateFrom?: Date = this.getBeginOfWeek()
+  dateTo?: Date = new Date()
 
-  daycardDate = this.getBeginOfWeek();
+  daycardDate = new Date(2022, 0, 27); // TODO: Remove
 
   constructor() { }
 
@@ -18,7 +18,7 @@ export class MainViewComponent implements OnInit {
   }
 
   getBeginOfWeek(): Date {
-    // TODO
+    // TODO: Implement
     return new Date(2022, 0, 27);
   }
 
