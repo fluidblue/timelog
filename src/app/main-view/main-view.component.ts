@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { DEFAULT_SETTINGS, Settings } from '../Settings';
+import { Settings } from '../Settings';
 import { SettingsService } from '../settings.service';
 import { WEEK_DAYS } from '../WeekDays';
 
@@ -10,7 +10,7 @@ import { WEEK_DAYS } from '../WeekDays';
 })
 export class MainViewComponent implements OnInit {
 
-  settings: Settings = DEFAULT_SETTINGS;
+  settings?: Settings;
 
   dateFrom?: Date;
   dateTo?: Date;
@@ -23,28 +23,30 @@ export class MainViewComponent implements OnInit {
     this.getSettings();
   }
 
-  updateView(): void {
+  setInitialDates(): void {
     const currentDate = new Date();
 
     this.dateFrom = this.getBeginOfWeek(currentDate);
     this.dateTo = this.getEndOfWeek(currentDate);
+  }
 
+  updateView(): void {
     this.setDaycardDates();
   }
 
   setDaycardDates(): void {
     this.daycardDates = [];
     const date = new Date(this.dateFrom!);
-    while (date < this.dateTo!) {
+    while (date <= this.dateTo!) {
       this.daycardDates.push(new Date(date));
       date.setDate(date.getDate() + 1);
     }
-    this.daycardDates.push(date);
   }
 
   getSettings(): void {
     this.settingsService.getSettings().subscribe((settings) => {
       this.settings = settings;
+      this.setInitialDates();
       this.updateView();
     });
   }
@@ -54,6 +56,9 @@ export class MainViewComponent implements OnInit {
    * at which the week starts.
    */
   getStartDayOfWeek(): number {
+    if (!this.settings) {
+      throw new Error("Settings have not yet been loaded.");
+    }
     return WEEK_DAYS.indexOf(this.settings.startOfWeek);
   }
 

@@ -1,10 +1,10 @@
 <div>
     From:
-    <input type="date" class="form-control" [value]="dateFrom | date:'yyyy-MM-dd'" (input)="dateFrom = parseDateEvent($event)" />
+    <input type="date" class="form-control" [value]="dateFrom | date:'yyyy-MM-dd'" (input)="dateFrom = parseDateEvent($event); updateView();" />
 </div>
 <div>
     To:
-    <input type="date" class="form-control" [value]="dateTo | date:'yyyy-MM-dd'" (input)="dateTo = parseDateEvent($event)" />
+    <input type="date" class="form-control" [value]="dateTo | date:'yyyy-MM-dd'" (input)="dateTo = parseDateEvent($event); updateView();" />
 </div>
 
 <app-daycard *ngFor="let daycardDate of daycardDates" [date]="daycardDate"></app-daycard>
