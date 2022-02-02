@@ -7,8 +7,4 @@
     <input type="date" class="form-control" [value]="dateTo | date:'yyyy-MM-dd'" (input)="dateTo = parseDateEvent($event)" />
 </div>
 
-{{dateFrom | json}}
-
-{{dateTo | json}}
-
-<app-daycard [date]="daycardDate"></app-daycard>
+<app-daycard *ngFor="let daycardDate of daycardDates" [date]="daycardDate"></app-daycard>
