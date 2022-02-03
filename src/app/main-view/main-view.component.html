@@ -1,14 +1,20 @@
-<table class="dateContainer">
-    <tr>
-        <td>From:</td>
-        <td><input type="date" class="form-control" [value]="dateFrom | date:'yyyy-MM-dd'" (input)="dateFrom = parseDateEvent($event); updateView();" /></td>
-    </tr>
-    <tr>
-        <td>To:</td>
-        <td><input type="date" class="form-control" [value]="dateTo | date:'yyyy-MM-dd'" (input)="dateTo = parseDateEvent($event); updateView();" /></td>
-    </tr>
-</table>
+<div class="mainContainer">
+    <table class="dateContainer">
+        <tr>
+            <td>From:</td>
+            <td><input type="date" class="form-control" [value]="dateFrom | date:'yyyy-MM-dd'" (input)="dateFrom = parseDateEvent($event); updateView();" /></td>
+        </tr>
+        <tr>
+            <td>To:</td>
+            <td><input type="date" class="form-control" [value]="dateTo | date:'yyyy-MM-dd'" (input)="dateTo = parseDateEvent($event); updateView();" /></td>
+        </tr>
+    </table>
 
-<div class="daycardContainer">
-    <app-daycard *ngFor="let daycardDate of daycardDates" [date]="daycardDate"></app-daycard>
+    <div class="daycardContainer">
+        <app-daycard *ngFor="let daycardDate of daycardDates" [date]="daycardDate"></app-daycard>
+    </div>
+
+    <button type="button" class="btn btn-danger rounded-circle button-add" title="Add">
+        <i class="bi bi-plus-lg"></i>
+    </button>
 </div>
