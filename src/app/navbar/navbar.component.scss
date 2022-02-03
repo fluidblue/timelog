@@ -1,25 +1,8 @@
 .main-icon {
-	font-size: 2rem;
-
-	margin-right: 0.5rem;
-}
-
-.brand {
-	display: flex;
-	align-items: center;
-
-	margin-right: 2rem;
-}
-
-.brand h4, .brand h5 {
-	margin: 0;
+	// font-size: 1.5rem;
+	margin-right: 0.25rem;
 }
 
 .navbar-collapse-custom {
-	flex-grow: unset;
-}
-
-.navbar-nav-custom a i {
-	margin-left: 0.4rem;
-	margin-right: 0.1rem;
+	justify-content: flex-end;
 }
