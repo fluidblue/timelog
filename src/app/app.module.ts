@@ -9,6 +9,8 @@ import { TimePipe } from './time.pipe';
 import { MainViewComponent } from './main-view/main-view.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { AppRoutingModule } from './app-routing.module';
+import { SettingsComponent } from './settings/settings.component';
+import { UnderOverTimeComponent } from './under-over-time/under-over-time.component';
 
 @NgModule({
   declarations: [
@@ -17,7 +19,9 @@ import { AppRoutingModule } from './app-routing.module';
     Daycard2Component,
     TimePipe,
     MainViewComponent,
-    NavbarComponent
+    NavbarComponent,
+    SettingsComponent,
+    UnderOverTimeComponent
   ],
   imports: [
     BrowserModule,

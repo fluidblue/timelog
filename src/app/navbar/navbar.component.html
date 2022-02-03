@@ -1,5 +1,5 @@
 <nav class="navbar navbar-expand-md navbar-light bg-light">
-  <a class="navbar-brand" href=".">
+  <a class="navbar-brand" routerLink=".">
     <i class="bi bi-clock main-icon"></i>
     TimeLog
   </a>
@@ -11,19 +11,19 @@
   <div [ngbCollapse]="isMenuCollapsed" class="collapse navbar-collapse navbar-collapse-custom">
     <ul class="navbar-nav navbar-nav-custom">
       <li class="nav-item active">
-        <a class="nav-link" href="/overview" (click)="isMenuCollapsed = true">
+        <a class="nav-link" routerLink="/overview" (click)="isMenuCollapsed = true">
           <i class="bi bi-grid"></i>
           &nbsp;Overview
         </a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="/underovertime" (click)="isMenuCollapsed = true">
+        <a class="nav-link" routerLink="/underovertime" (click)="isMenuCollapsed = true">
           <i class="bi bi-clock-history"></i>
           &nbsp;Under/Overtime
         </a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="/settings" (click)="isMenuCollapsed = true">
+        <a class="nav-link" routerLink="/settings" (click)="isMenuCollapsed = true">
           <i class="bi bi-gear"></i>
           &nbsp;Settings
         </a>
