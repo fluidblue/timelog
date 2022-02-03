@@ -1,4 +1,4 @@
-.dateContainer {
+table.dateContainer {
     width: 100%;
 
     tr {
@@ -48,4 +48,26 @@
     position: fixed;
     bottom: 2rem;
     right: 2rem;
+}
+
+table.time {
+    width: 100%;
+
+    tr {
+        td {
+            padding: 0;
+
+            &:last-child {
+                width: 40%;
+            }
+        }
+
+        &:not(:last-child) td {
+            padding-bottom: 1rem;
+        }
+    }
+}
+
+.radioGroupAddAnotherEntry {
+    float: right;
 }

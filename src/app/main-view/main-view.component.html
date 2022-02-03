@@ -14,7 +14,46 @@
         <app-daycard *ngFor="let daycardDate of daycardDates" [date]="daycardDate"></app-daycard>
     </div>
 
-    <button type="button" class="btn btn-danger rounded-circle button-add" title="Add">
+    <ng-template #content let-modal>
+        <div class="modal-header">
+            <h4 class="modal-title" id="modal-basic-title">Add time</h4>
+            <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <table class="time">
+                <tr>
+                    <td>From:</td>
+                    <td><input type="time" class="form-control" /></td>
+                </tr>
+                <tr>
+                    <td>To:</td>
+                    <td><input type="time" class="form-control" /></td>
+                </tr>
+                <tr>
+                    <td>
+                        Add another entry:
+                    </td>
+                    <td>
+                        <div class="btn-group btn-group-toggle radioGroupAddAnotherEntry" ngbRadioGroup>
+                            <label ngbButtonLabel class="btn-danger">
+                                <input ngbButton type="radio" value="1"> Yes
+                            </label>
+                            <label ngbButtonLabel class="btn-danger">
+                                <input ngbButton type="radio" value="0"> No
+                            </label>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-danger" (click)="modal.close('Save click')">Add</button>
+        </div>
+    </ng-template>
+
+    <button type="button" class="btn btn-danger rounded-circle button-add" title="Add" (click)="openAddTimeDialog(content)">
         <i class="bi bi-plus-lg"></i>
     </button>
 </div>

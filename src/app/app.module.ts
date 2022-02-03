@@ -11,6 +11,7 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { AppRoutingModule } from './app-routing.module';
 import { SettingsComponent } from './settings/settings.component';
 import { UnderOverTimeComponent } from './under-over-time/under-over-time.component';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -25,6 +26,7 @@ import { UnderOverTimeComponent } from './under-over-time/under-over-time.compon
   ],
   imports: [
     BrowserModule,
+    FormsModule,
     NgbModule,
     AppRoutingModule
   ],

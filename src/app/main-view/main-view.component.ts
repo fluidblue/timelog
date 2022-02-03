@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, TemplateRef } from '@angular/core';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Settings } from '../Settings';
 import { SettingsService } from '../settings.service';
 import { WEEK_DAYS } from '../WeekDays';
@@ -17,7 +18,7 @@ export class MainViewComponent implements OnInit {
 
   daycardDates: Date[] = [];
 
-  constructor(private settingsService: SettingsService) { }
+  constructor(private settingsService: SettingsService, private modalService: NgbModal) { }
 
   ngOnInit(): void {
     this.getSettings();
@@ -106,6 +107,14 @@ export class MainViewComponent implements OnInit {
       return undefined;
     }
     return new Date(dateString);
+  }
+
+  openAddTimeDialog(content: TemplateRef<any>) {
+    this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' }).result.then((result) => {
+      console.log(`Closed with: ${result}`);
+    }, (reason) => {
+      console.log(`Dismissed with: ${reason}`);
+    });
   }
 
 }
