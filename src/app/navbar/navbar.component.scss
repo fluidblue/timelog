@@ -1,8 +1,20 @@
+nav {
+    margin: 0.25rem;
+}
+
 .main-icon {
-	// font-size: 1.5rem;
-	margin-right: 0.25rem;
+	margin-right: 0.375rem;
+}
+
+.navbar-toggler-custom {
+    font-size: 1.6rem;
 }
 
 .navbar-collapse-custom {
 	justify-content: flex-end;
+}
+
+.navbar-nav-custom a i {
+	margin-left: 0.4rem;
+	margin-right: 0.1rem;
 }

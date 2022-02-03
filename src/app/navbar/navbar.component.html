@@ -4,28 +4,28 @@
     TimeLog
   </a>
 
-  <button class="navbar-toggler" type="button" (click)="isMenuCollapsed = !isMenuCollapsed">
+  <button class="navbar-toggler navbar-toggler-custom" type="button" (click)="isMenuCollapsed = !isMenuCollapsed">
     &#9776;
   </button>
 
   <div [ngbCollapse]="isMenuCollapsed" class="collapse navbar-collapse navbar-collapse-custom">
-    <ul class="navbar-nav">
+    <ul class="navbar-nav navbar-nav-custom">
       <li class="nav-item active">
         <a class="nav-link" href="/overview" (click)="isMenuCollapsed = true">
           <i class="bi bi-grid"></i>
-          Overview
+          &nbsp;Overview
         </a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="/underovertime" (click)="isMenuCollapsed = true">
           <i class="bi bi-clock-history"></i>
-          Under/Overtime
+          &nbsp;Under/Overtime
         </a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="/settings" (click)="isMenuCollapsed = true">
           <i class="bi bi-gear"></i>
-          Settings
+          &nbsp;Settings
         </a>
       </li>
     </ul>
