@@ -1,1 +1,32 @@
-<p>navbar works!</p>
+<nav class="navbar navbar-expand-md navbar-light bg-light">
+  <div class="container-fluid">
+    <a href="." class="navbar-brand brand">
+      <i class="bi bi-clock main-icon"></i>
+      <h5>TimeLog</h5>
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse navbar-collapse-custom" id="navbarNavAltMarkup">
+      <div class="navbar-nav navbar-nav-custom">
+        <a
+          href="/overview"
+          class="nav-link"
+          [ngClass]="{ 'active': true }"
+          aria-current="page"
+        >
+          <i class="bi bi-grid"></i>
+          &nbsp;Overview
+        </a>
+        <a href="/underovertime" class="nav-link" [ngClass]="{ 'active': false }" aria-current="page">
+          <i class="bi bi-clock-history"></i>
+          &nbsp;Under/Overtime
+        </a>
+        <a href="/settings" class="nav-link" [ngClass]="{ 'active': false }" aria-current="page">
+          <i class="bi bi-gear"></i>
+          &nbsp;Settings
+        </a>
+      </div>
+    </div>
+  </div>
+</nav>
