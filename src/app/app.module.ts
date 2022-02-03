@@ -7,6 +7,7 @@ import { DaycardComponent } from './daycard/daycard.component';
 import { Daycard2Component } from './daycard2/daycard2.component';
 import { TimePipe } from './time.pipe';
 import { MainViewComponent } from './main-view/main-view.component';
+import { NavbarComponent } from './navbar/navbar.component';
 
 @NgModule({
   declarations: [
@@ -14,7 +15,8 @@ import { MainViewComponent } from './main-view/main-view.component';
     DaycardComponent,
     Daycard2Component,
     TimePipe,
-    MainViewComponent
+    MainViewComponent,
+    NavbarComponent
   ],
   imports: [
     BrowserModule,
