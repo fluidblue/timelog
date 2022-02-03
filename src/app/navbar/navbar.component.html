@@ -10,17 +10,23 @@
 
   <div [ngbCollapse]="isMenuCollapsed" class="collapse navbar-collapse navbar-collapse-custom">
     <ul class="navbar-nav navbar-nav-custom">
-      <li class="nav-item nav-link" routerLink="/overview" routerLinkActive="active" (click)="isMenuCollapsed = true">
+      <li class="nav-item active">
+        <a class="nav-link" routerLink="/overview" (click)="isMenuCollapsed = true">
           <i class="bi bi-grid"></i>
           &nbsp;Overview
+        </a>
       </li>
-      <li class="nav-item nav-link" routerLink="/underovertime" routerLinkActive="active" (click)="isMenuCollapsed = true">
-        <i class="bi bi-clock-history"></i>
-        &nbsp;Under/Overtime
+      <li class="nav-item">
+        <a class="nav-link" routerLink="/underovertime" (click)="isMenuCollapsed = true">
+          <i class="bi bi-clock-history"></i>
+          &nbsp;Under/Overtime
+        </a>
       </li>
-      <li class="nav-item nav-link" routerLink="/settings" (click)="isMenuCollapsed = true">
-        <i class="bi bi-gear"></i>
-        &nbsp;Settings
+      <li class="nav-item">
+        <a class="nav-link" routerLink="/settings" (click)="isMenuCollapsed = true">
+          <i class="bi bi-gear"></i>
+          &nbsp;Settings
+        </a>
       </li>
     </ul>
   </div>
