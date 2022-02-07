@@ -12,4 +12,9 @@ export class SettingsService {
   getSettings(): Observable<Settings> {
     return of(DEFAULT_SETTINGS);
   }
+
+  setSettings(settings: Settings): void {
+    // TODO
+    console.log("Saving settings: ", settings);
+  }
 }

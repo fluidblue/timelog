@@ -12,6 +12,10 @@
             padding: 0;
         }
 
+        td:last-child {
+            width: 68%;
+        }
+
         &:not(:last-child) td {
             padding-bottom: 0.5rem;
         }

@@ -1,7 +1,7 @@
 export class Time {
     private minutesTotal: number;
 
-    private static reTime = /^(?<hours>[0-9]{1,2}):(?<minutes>[0-9]{2})$/gm;
+    private static reTime = /^(?<hours>[0-9]{1,2}):(?<minutes>[0-9]{2})$/;
 
     constructor(hours: number, minutes: number) {
         this.minutesTotal = minutes + hours * 60;

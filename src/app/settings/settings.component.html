@@ -4,47 +4,110 @@
         <table class="table-working-hours">
             <tr>
                 <td>Monday:</td>
-                <td><input type="text" class="form-control" value="08:00" /></td>
+                <td>
+                    <input
+                        type="text"
+                        class="form-control"
+                        value="08:00"
+                        [(ngModel)]="workingTimesStrings.monday"
+                        (change)="workingTimes['monday'] = parseTime($event)"
+                        [ngClass]="{ 'is-invalid': workingTimes['monday'] === null }"
+                    />
+                </td>
             </tr>
             <tr>
                 <td>Tuesday:</td>
-                <td><input type="text" class="form-control" value="08:00" /></td>
+                <td>
+                    <input
+                        type="text"
+                        class="form-control"
+                        value="08:00"
+                        [(ngModel)]="workingTimesStrings.tuesday"
+                        (change)="workingTimes['tuesday'] = parseTime($event)"
+                        [ngClass]="{ 'is-invalid': workingTimes['tuesday'] === null }"
+                    />
+                </td>
             </tr>
             <tr>
                 <td>Wednesday:</td>
-                <td><input type="text" class="form-control" value="08:00" /></td>
+                <td>
+                    <input
+                        type="text"
+                        class="form-control"
+                        value="08:00"
+                        [(ngModel)]="workingTimesStrings.wednesday"
+                        (change)="workingTimes['wednesday'] = parseTime($event)"
+                        [ngClass]="{ 'is-invalid': workingTimes['wednesday'] === null }"
+                    />
+                </td>
             </tr>
             <tr>
                 <td>Thursday:</td>
-                <td><input type="text" class="form-control" value="08:00" /></td>
+                <td>
+                    <input
+                        type="text"
+                        class="form-control"
+                        value="08:00"
+                        [(ngModel)]="workingTimesStrings.thursday"
+                        (change)="workingTimes['thursday'] = parseTime($event)"
+                        [ngClass]="{ 'is-invalid': workingTimes['thursday'] === null }"
+                    />
+                </td>
             </tr>
             <tr>
                 <td>Friday:</td>
-                <td><input type="text" class="form-control" value="08:00" /></td>
+                <td>
+                    <input
+                        type="text"
+                        class="form-control"
+                        value="08:00"
+                        [(ngModel)]="workingTimesStrings.friday"
+                        (change)="workingTimes['friday'] = parseTime($event)"
+                        [ngClass]="{ 'is-invalid': workingTimes['friday'] === null }"
+                    />
+                </td>
             </tr>
             <tr>
                 <td>Saturday:</td>
-                <td><input type="text" class="form-control" value="00:00" /></td>
+                <td>
+                    <input
+                        type="text"
+                        class="form-control"
+                        value="00:00"
+                        [(ngModel)]="workingTimesStrings.saturday"
+                        (change)="workingTimes['saturday'] = parseTime($event)"
+                        [ngClass]="{ 'is-invalid': workingTimes['saturday'] === null }"
+                    />
+                </td>
             </tr>
             <tr>
                 <td>Sunday:</td>
-                <td><input type="text" class="form-control" value="00:00" /></td>
+                <td>
+                    <input
+                        type="text"
+                        class="form-control"
+                        value="00:00"
+                        [(ngModel)]="workingTimesStrings.sunday"
+                        (change)="workingTimes['sunday'] = parseTime($event)"
+                        [ngClass]="{ 'is-invalid': workingTimes['sunday'] === null }"
+                    />
+                </td>
             </tr>
         </table>
     </div>
 
     <h6 class="mt-3">Week starts on:</h6>
     <div class="indent">
-        <select class="form-control" aria-label="Week starts on">
-            <option value="1" selected>Monday</option>
-            <option value="2">Tuesday</option>
-            <option value="3">Wednesday</option>
-            <option value="4">Thursday</option>
-            <option value="5">Friday</option>
-            <option value="6">Saturday</option>
-            <option value="0">Sunday</option>
+        <select class="form-control" aria-label="Week starts on" [(ngModel)]="startOfWeek">
+            <option value="Monday" selected>Monday</option>
+            <option value="Tuesday">Tuesday</option>
+            <option value="Wednesday">Wednesday</option>
+            <option value="Thursday">Thursday</option>
+            <option value="Friday">Friday</option>
+            <option value="Saturday">Saturday</option>
+            <option value="Sunday">Sunday</option>
         </select>
     </div>
 
-    <button type="button" class="btn btn-danger mt-4 btn-settings-save">Save</button>
+    <button type="button" class="btn btn-danger mt-4 mb-4 btn-settings-save" (click)="save()">Save</button>
 </div>

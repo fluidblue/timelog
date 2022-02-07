@@ -14,4 +14,9 @@ export class StandardWorkingTimesService {
     const workingTimes = of(STANDARD_WORKING_TIMES);
     return workingTimes;
   }
+
+  setStandardWorkingTimes(standardWorkingTimes: StandardWorkingTimes): void {
+    // TODO
+    console.log("Saving standardWorkingTimes: ", standardWorkingTimes);
+  }
 }
