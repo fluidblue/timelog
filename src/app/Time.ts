@@ -32,6 +32,28 @@ export class Time {
         return timeObject;
     }
 
+    public toString(fullHours: boolean = false, showPlus = false): string {
+        let result = ""
+        if (this.isNegativeTime()) {
+            result = "-"
+        } else if (showPlus) {
+            result = "+"
+        }
+
+        let hours = this.getHours().toString();
+        if (fullHours && hours.length <= 1) {
+            hours = "0" + hours
+        }
+
+        let minutes = this.getMinutes().toString();
+        if (minutes.length <= 1) {
+            minutes = "0" + minutes
+        }
+
+        result += hours + ":" + minutes;
+        return result;
+    }
+
     public substract(time: Time): Time {
         const result = new Time(0, 0);
         result.minutesTotal = this.minutesTotal - time.minutesTotal;
