@@ -14,4 +14,4 @@ git clone https://github.com/fluidblue/timelog.git
 docker-compose up -d
 ```
 
-5. After starting up, start the angular development server (see [Angular.md](Angular.md)).
+5. After starting up, start the angular development server (see the [frontend readme](../frontend/README.md)).
