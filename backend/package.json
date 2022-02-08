@@ -1,5 +1,5 @@
 {
-  "name": "timelog",
+  "name": "@fluidblue/timelog",
   "version": "0.0.1",
   "description": "TimeLog is a web application allowing you to track your time",
   "scripts": {
