@@ -2,7 +2,8 @@ import mariadb from "mariadb";
 import fs from "fs";
 
 import Log from "../Log/Log";
-import { SettingsData, settingsDataDefault, WorkingTimes } from "./SettingsData";
+import { SettingsData, settingsDataDefault } from "./SettingsData";
+import { TimeLogData } from "./TimeLogData";
 
 export default class Database {
 	private pool: mariadb.Pool;
@@ -99,5 +100,31 @@ export default class Database {
 			}
 		}
 		return true;
+	}
+
+	async timeLogGet(): Promise<TimeLogData[]> {
+		const timeLogEntries: TimeLogData[] = [];
+
+		let conn: mariadb.PoolConnection | null = null;
+		try {
+			conn = await this.pool.getConnection();
+
+			let rows = await conn.query("SELECT `date`, TIME_TO_SEC(`from`) AS `from`, TIME_TO_SEC(`to`) AS `to` FROM `TimeLog`");
+			for (const row of rows) {
+				timeLogEntries.push({
+					date: new Date(row.date),
+					from: row.from / 60,
+					to: row.to / 60
+				});
+			}
+		} catch (err) {
+			Log.error(err);
+		} finally {
+			if (conn) {
+				conn.end();
+			}
+		}
+
+		return timeLogEntries;
 	}
 }
