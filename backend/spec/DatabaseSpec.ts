@@ -2,6 +2,7 @@ import "jasmine";
 
 import Database from "../src/Database/Database"
 import { SettingsData, settingsDataDefault } from "../src/Database/SettingsData";
+import { TimeLogData } from "../src/Database/TimeLogData";
 
 describe("Database", () => {
 	let database: Database;
@@ -26,6 +27,16 @@ describe("Database", () => {
 	it("should get and put the settings", async () => {
 		const settingsData: SettingsData = settingsDataDefault;
 		const result: boolean = await database.settingsPut(settingsData);
+		expect(result).toBeTrue();
+	});
+
+	it("should add a TimeLogData entry", async () => {
+		const timeLogEntry: TimeLogData = {
+			date: new Date(),
+			from: 480,
+			to: 960
+		};
+		const result: boolean = await database.timeLogAdd(timeLogEntry)
 		expect(result).toBeTrue();
 	});
 });
