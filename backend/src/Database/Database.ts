@@ -129,9 +129,9 @@ export default class Database {
 
 	private jsDate2MySQLDate(date: Date): string {
 		const pad = (num: number) => ("00" + num).slice(-2)
-		return date.getFullYear() + "-" +
-			pad(date.getMonth() + 1) + "-" +
-			pad(date.getDate());
+		return date.getUTCFullYear() + "-" +
+			pad(date.getUTCMonth() + 1) + "-" +
+			pad(date.getUTCDate());
 	}
 
 	async timeLogAdd(timeLogEntry: TimeLogData): Promise<boolean> {

@@ -31,9 +31,8 @@ describe("Database", () => {
 	});
 
 	it("should add a TimeLogData entry", async () => {
-		const now = new Date();
 		const timeLogEntry: TimeLogData = {
-			date: new Date(now.getFullYear(), now.getMonth(), now.getDate()),
+			date: new Date(),
 			from: 480,
 			to: 720
 		};
@@ -43,9 +42,8 @@ describe("Database", () => {
 
 	it("should put and get TimeLogData entries", async () => {
 		// Put a TimeLogData entry
-		const now = new Date();
 		const timeLogEntry: TimeLogData = {
-			date: new Date(now.getFullYear(), now.getMonth(), now.getDate()),
+			date: new Date(),
 			from: 780,
 			to: 1020
 		};
@@ -59,7 +57,9 @@ describe("Database", () => {
 		expect(timeLogEntries.length).toBeGreaterThanOrEqual(1);
 		
 		const lastItem = timeLogEntries[timeLogEntries.length - 1];
-		expect(lastItem.date).toEqual(timeLogEntry.date);
+		expect(lastItem.date.getFullYear()).toEqual(timeLogEntry.date.getFullYear());
+		expect(lastItem.date.getMonth()).toEqual(timeLogEntry.date.getMonth());
+		expect(lastItem.date.getDate()).toEqual(timeLogEntry.date.getDate());
 		expect(lastItem.from).toEqual(timeLogEntry.from);
 		expect(lastItem.to).toEqual(timeLogEntry.to);
 	});
