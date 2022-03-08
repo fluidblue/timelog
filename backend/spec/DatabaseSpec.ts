@@ -10,7 +10,7 @@ describe("Database", () => {
 		database = new Database();
 	});
 
-	it("should get and put the settings", async () => {
+	it("should get the settings", async () => {
 		const settingsData: SettingsData = await database.settingsGet();
 
 		expect(settingsData.weekStartsOn).toBeDefined();
@@ -21,5 +21,22 @@ describe("Database", () => {
 		expect(settingsData.workingTimes["friday"]).toBeDefined();
 		expect(settingsData.workingTimes["saturday"]).toBeDefined();
 		expect(settingsData.workingTimes["sunday"]).toBeDefined();
+	});
+
+	it("should get and put the settings", async () => {
+		const settingsData: SettingsData = {
+			weekStartsOn: 'monday',
+			workingTimes: {
+				monday: 480,
+				tuesday: 480,
+				wednesday: 480,
+				thursday: 480,
+				friday: 480,
+				saturday: 0,
+				sunday: 0
+			}
+		};
+		const result: boolean = await database.settingsPut(settingsData);
+		expect(result).toBeTrue();
 	});
 });
