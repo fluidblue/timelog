@@ -9,19 +9,18 @@ SET NAMES utf8mb4;
 
 DROP TABLE IF EXISTS `Settings`;
 CREATE TABLE `Settings` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `weekStartsOn` varchar(255) NOT NULL,
-  PRIMARY KEY (`id`)
+  `weekStartsOn` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
-INSERT INTO `Settings` (`id`, `weekStartsOn`) VALUES
-(1,	'monday');
+INSERT INTO `Settings` (`weekStartsOn`) VALUES
+('monday');
 
 DROP TABLE IF EXISTS `TimeLog`;
 CREATE TABLE `TimeLog` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `from` datetime NOT NULL,
-  `to` datetime NOT NULL,
+  `date` date NOT NULL,
+  `from` time NOT NULL,
+  `to` time NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -43,4 +42,4 @@ INSERT INTO `WorkingTimes` (`id`, `name`, `workingTime`) VALUES
 (5,	'friday',	480),
 (6,	'saturday',	0);
 
--- 2022-02-08 16:12:44
+-- 2022-03-08 17:44:01
