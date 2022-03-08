@@ -20,6 +20,8 @@ import wrap from "./wrap";
 
 import Database from "./Database/Database";
 import Log from "./Log/Log";
+import { SettingsData } from "./Database/SettingsData";
+import { TimeLogData } from "./Database/TimeLogData";
 
 const app = express();
 
@@ -72,7 +74,41 @@ async function main() {
 	 * In the following, the REST API is defined.
 	 */
 
-	// TODO
+	app.get("/api/settings", wrap(async (req, res, next) => {
+		const settingsData = await database.settingsGet();
+
+		res.set("Content-Type", "application/json");
+		res.send(JSON.stringify(settingsData));
+	}));
+
+	app.put("/api/settings", wrap(async (req, res, next) => {
+		const settingsData: SettingsData = req.body;
+		const result = await database.settingsPut(settingsData);
+
+		res.set("Content-Type", "application/json");
+		res.send(JSON.stringify({
+			result: result
+		}));
+	}));
+
+	app.get("/api/timelog", wrap(async (req, res, next) => {
+		const timeLogEntries = await database.timeLogGet();
+
+		res.set("Content-Type", "application/json");
+		res.send(JSON.stringify(timeLogEntries));
+	}));
+
+	app.post("/api/timelog", wrap(async (req, res, next) => {
+		const timeLogEntry: TimeLogData = req.body;
+		timeLogEntry.date = new Date(timeLogEntry.date);
+
+		const result: boolean = await database.timeLogAdd(timeLogEntry);
+
+		res.set("Content-Type", "application/json");
+		res.send(JSON.stringify({
+			result: result
+		}));
+	}));
 
 	app.listen(port, () => {
 		console.log(`timelog listening at http://localhost:${port}`);
