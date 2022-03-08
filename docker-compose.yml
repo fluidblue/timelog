@@ -3,6 +3,7 @@ version: "3.8"
 services:
     mariadb:
         image: mariadb:10.7
+        restart: always
         environment:
             MARIADB_RANDOM_ROOT_PASSWORD: "yes"
             MARIADB_DATABASE: "${DATABASE_DB}"
@@ -22,6 +23,7 @@ services:
 
     adminer:
         image: adminer
+        restart: always
         ports:
             - 127.0.0.1:8080:8080
 
