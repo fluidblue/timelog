@@ -127,7 +127,7 @@ export default class Database {
 		return timeLogEntries;
 	}
 
-	private jsDate2MySQLDate(date: Date): string {
+	private jsDate2MysqlDate(date: Date): string {
 		const pad = (num: number) => ("00" + num).slice(-2)
 		return date.getUTCFullYear() + "-" +
 			pad(date.getUTCMonth() + 1) + "-" +
@@ -139,7 +139,7 @@ export default class Database {
 		try {
 			conn = await this.pool.getConnection();
 
-			const date = this.jsDate2MySQLDate(timeLogEntry.date);
+			const date = this.jsDate2MysqlDate(timeLogEntry.date);
 			let res = await conn.query(
 				"INSERT INTO `TimeLog` (`date`, `from`, `to`) VALUES (?, SEC_TO_TIME(?), SEC_TO_TIME(?))",
 				[date, timeLogEntry.from * 60, timeLogEntry.to * 60]
