@@ -1,7 +1,7 @@
 import "jasmine";
 
 import Database from "../src/Database/Database"
-import { SettingsData } from "../src/Database/SettingsData";
+import { SettingsData, settingsDataDefault } from "../src/Database/SettingsData";
 
 describe("Database", () => {
 	let database: Database;
@@ -24,18 +24,7 @@ describe("Database", () => {
 	});
 
 	it("should get and put the settings", async () => {
-		const settingsData: SettingsData = {
-			weekStartsOn: 'monday',
-			workingTimes: {
-				monday: 480,
-				tuesday: 480,
-				wednesday: 480,
-				thursday: 480,
-				friday: 480,
-				saturday: 0,
-				sunday: 0
-			}
-		};
+		const settingsData: SettingsData = settingsDataDefault;
 		const result: boolean = await database.settingsPut(settingsData);
 		expect(result).toBeTrue();
 	});
