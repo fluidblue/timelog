@@ -129,9 +129,9 @@ export default class Database {
 
 	private jsDate2MySQLDate(date: Date): string {
 		const pad = (num: number) => ("00" + num).slice(-2)
-		return date.getUTCFullYear() + "-" +
-			pad(date.getUTCMonth() + 1) + "-" +
-			pad(date.getUTCHours());
+		return date.getFullYear() + "-" +
+			pad(date.getMonth() + 1) + "-" +
+			pad(date.getDate());
 	}
 
 	async timeLogAdd(timeLogEntry: TimeLogData): Promise<boolean> {
@@ -139,9 +139,10 @@ export default class Database {
 		try {
 			conn = await this.pool.getConnection();
 
+			const date = this.jsDate2MySQLDate(timeLogEntry.date);
 			let res = await conn.query(
 				"INSERT INTO `TimeLog` (`date`, `from`, `to`) VALUES (?, SEC_TO_TIME(?), SEC_TO_TIME(?))",
-				[this.jsDate2MySQLDate(timeLogEntry.date), timeLogEntry.from * 60, timeLogEntry.to * 60]
+				[date, timeLogEntry.from * 60, timeLogEntry.to * 60]
 			);
 			if (!res || res.affectedRows < 1) {
 				return false;
