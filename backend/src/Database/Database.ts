@@ -58,4 +58,46 @@ export default class Database {
 
 		return settingsData;
 	}
+
+	async settingsPut(settingsData: SettingsData): Promise<boolean> {
+		let conn: mariadb.PoolConnection | null = null;
+		try {
+			conn = await this.pool.getConnection();
+			let res: any;
+
+			for (const day in settingsData.workingTimes) {
+				const workingTime = settingsData.workingTimes[day];
+				console.log(`day: ${day}, workingTime: ${workingTime}`); // TODO: Remove
+
+				res = await conn.query(
+					"UPDATE `WorkingTimes` SET `workingTime` = ? WHERE `name` = ?",
+					[workingTime, day]
+				);
+				if (!res || res.warningStatus) {
+					return false;
+				}
+			}
+
+			res = await conn.query("DELETE FROM `Settings`");
+			if (res.warningStatus) {
+				return false;
+			}
+
+			res = await conn.query(
+				"INSERT INTO `Settings` (`weekStartsOn`) VALUES (?)",
+				[settingsData.weekStartsOn]
+			);
+			if (!res || res.affectedRows < 1) {
+				return false;
+			}
+		} catch (err) {
+			Log.error(err);
+			return false;
+		} finally {
+			if (conn) {
+				conn.end();
+			}
+		}
+		return true;
+	}
 }
