@@ -68,7 +68,6 @@ export default class Database {
 
 			for (const day in settingsData.workingTimes) {
 				const workingTime = settingsData.workingTimes[day];
-				console.log(`day: ${day}, workingTime: ${workingTime}`); // TODO: Remove
 
 				res = await conn.query(
 					"UPDATE `WorkingTimes` SET `workingTime` = ? WHERE `name` = ?",
