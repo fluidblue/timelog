@@ -127,4 +127,34 @@ export default class Database {
 
 		return timeLogEntries;
 	}
+
+	private jsDate2MySQLDate(date: Date): string {
+		const pad = (num: number) => ("00" + num).slice(-2)
+		return date.getUTCFullYear() + "-" +
+			pad(date.getUTCMonth() + 1) + "-" +
+			pad(date.getUTCHours());
+	}
+
+	async timeLogAdd(timeLogEntry: TimeLogData): Promise<boolean> {
+		let conn: mariadb.PoolConnection | null = null;
+		try {
+			conn = await this.pool.getConnection();
+
+			let res = await conn.query(
+				"INSERT INTO `TimeLog` (`date`, `from`, `to`) VALUES (?, SEC_TO_TIME(?), SEC_TO_TIME(?))",
+				[this.jsDate2MySQLDate(timeLogEntry.date), timeLogEntry.from * 60, timeLogEntry.to * 60]
+			);
+			if (!res || res.affectedRows < 1) {
+				return false;
+			}
+		} catch (err) {
+			Log.error(err);
+			return false;
+		} finally {
+			if (conn) {
+				conn.end();
+			}
+		}
+		return true;
+	}
 }
