@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { StandardWorkingTimesService } from '../standard-working-times.service';
-import { StandardWorkingTimes } from '../StandardWorkingTimes';
+import { Settings, StandardWorkingTimes } from '../Settings';
+import { SettingsService } from '../settings.service';
 import { Time } from '../Time';
 import { WorkingTimesService } from '../working-times.service';
 import { WorkingTime } from '../WorkingTime';
@@ -14,31 +14,31 @@ export class DaycardComponent implements OnInit {
 
   @Input() date?: Date;
 
-  standardWorkingTimes?: StandardWorkingTimes;
+  settings?: Settings;
   workingTimes?: WorkingTime[];
 
   totalTime?: Time;
   underOverTime?: Time;
 
-  constructor(private standardWorkingTimesService: StandardWorkingTimesService,
+  constructor(private settingsService: SettingsService,
     private workingTimesService: WorkingTimesService) { }
 
   ngOnInit(): void {
-    this.getStandardWorkingTimes();
+    this.getSettings();
     this.getWorkingTimes();
   }
 
   updateView(): void {
     this.totalTime = this.getTotalTime();
 
-    if (this.date && this.standardWorkingTimes) {
-      this.underOverTime = this.getUnderOverTime(this.date, this.standardWorkingTimes);
+    if (this.date && this.settings && this.settings.standardWorkingTimes) {
+      this.underOverTime = this.getUnderOverTime(this.date, this.settings.standardWorkingTimes);
     }
   }
 
-  getStandardWorkingTimes(): void {
-    this.standardWorkingTimesService.getStandardWorkingTimes().subscribe(standardWorkingTimes => {
-      this.standardWorkingTimes = standardWorkingTimes;
+  getSettings(): void {
+    this.settingsService.getSettings().subscribe(settings => {
+      this.settings = settings;
       this.updateView();
     });
   }

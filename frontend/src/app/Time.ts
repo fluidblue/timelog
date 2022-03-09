@@ -7,6 +7,10 @@ export class Time {
         this.minutesTotal = minutes + hours * 60;
     }
 
+    public static fromMinutes(minutes: number): Time {
+        return new Time(0, minutes);
+    }
+
     public static fromString(time: string): Time | null {
         let negativeTime = false;
         if (time.startsWith("-")) {

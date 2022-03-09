@@ -13,7 +13,7 @@
           <td class="pt-3" colspan="3">Total:</td>
           <td class="pt-3 time">{{totalTime | time}}h</td>
         </tr>
-        <tr *ngIf="standardWorkingTimes">
+        <tr *ngIf="settings && settings.standardWorkingTimes">
           <td colspan="3">Under/Overtime:</td>
           <td class="time" [ngClass]="{
             'red': underOverTime.isNegativeTime(),

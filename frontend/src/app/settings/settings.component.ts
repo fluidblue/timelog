@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { StartOfWeek } from '../Settings';
+import { WeekDayJson, WeekDay } from '../Settings';
 import { SettingsService } from '../settings.service';
-import { StandardWorkingTimesService } from '../standard-working-times.service';
-import { WeekDay } from '../StandardWorkingTimes';
 import { Time } from '../Time';
 import { WorkingTimes } from './WorkingTimes';
 
@@ -33,38 +31,12 @@ export class SettingsComponent implements OnInit {
     "sunday": null
   };
 
-  startOfWeek: StartOfWeek = "monday";
+  startOfWeek: WeekDayJson = "monday";
 
-  constructor(private settingsService: SettingsService, private standardWorkingTimes: StandardWorkingTimesService) { }
+  constructor(private settingsService: SettingsService) { }
 
   ngOnInit(): void {
-    this.getStandardWorkingTimes();
     this.getSettings();
-  }
-
-  getStandardWorkingTimes() {
-    this.standardWorkingTimes.getStandardWorkingTimes().subscribe((standardWorkingTimes) => {
-      this.workingTimesStrings.monday = standardWorkingTimes[WeekDay.Monday].toString(true);
-      this.workingTimes["monday"] = standardWorkingTimes[WeekDay.Monday];
-
-      this.workingTimesStrings.tuesday = standardWorkingTimes[WeekDay.Tuesday].toString(true);
-      this.workingTimes["tuesday"] = standardWorkingTimes[WeekDay.Tuesday];
-
-      this.workingTimesStrings.wednesday = standardWorkingTimes[WeekDay.Wednesday].toString(true);
-      this.workingTimes["wednesday"] = standardWorkingTimes[WeekDay.Wednesday];
-
-      this.workingTimesStrings.thursday = standardWorkingTimes[WeekDay.Thursday].toString(true);
-      this.workingTimes["thursday"] = standardWorkingTimes[WeekDay.Thursday];
-
-      this.workingTimesStrings.friday = standardWorkingTimes[WeekDay.Friday].toString(true);
-      this.workingTimes["friday"] = standardWorkingTimes[WeekDay.Friday];
-
-      this.workingTimesStrings.saturday = standardWorkingTimes[WeekDay.Saturday].toString(true);
-      this.workingTimes["saturday"] = standardWorkingTimes[WeekDay.Saturday];
-
-      this.workingTimesStrings.sunday = standardWorkingTimes[WeekDay.Sunday].toString(true);
-      this.workingTimes["sunday"] = standardWorkingTimes[WeekDay.Sunday];
-    });
   }
 
   parseTime(event: Event): Time | null {
@@ -75,6 +47,27 @@ export class SettingsComponent implements OnInit {
   getSettings(): void {
     this.settingsService.getSettings().subscribe((settings) => {
       this.startOfWeek = settings.startOfWeek;
+
+      this.workingTimesStrings.monday = settings.standardWorkingTimes[WeekDay.Monday].toString(true);
+      this.workingTimes["monday"] = settings.standardWorkingTimes[WeekDay.Monday];
+
+      this.workingTimesStrings.tuesday = settings.standardWorkingTimes[WeekDay.Tuesday].toString(true);
+      this.workingTimes["tuesday"] = settings.standardWorkingTimes[WeekDay.Tuesday];
+
+      this.workingTimesStrings.wednesday = settings.standardWorkingTimes[WeekDay.Wednesday].toString(true);
+      this.workingTimes["wednesday"] = settings.standardWorkingTimes[WeekDay.Wednesday];
+
+      this.workingTimesStrings.thursday = settings.standardWorkingTimes[WeekDay.Thursday].toString(true);
+      this.workingTimes["thursday"] = settings.standardWorkingTimes[WeekDay.Thursday];
+
+      this.workingTimesStrings.friday = settings.standardWorkingTimes[WeekDay.Friday].toString(true);
+      this.workingTimes["friday"] = settings.standardWorkingTimes[WeekDay.Friday];
+
+      this.workingTimesStrings.saturday = settings.standardWorkingTimes[WeekDay.Saturday].toString(true);
+      this.workingTimes["saturday"] = settings.standardWorkingTimes[WeekDay.Saturday];
+
+      this.workingTimesStrings.sunday = settings.standardWorkingTimes[WeekDay.Sunday].toString(true);
+      this.workingTimes["sunday"] = settings.standardWorkingTimes[WeekDay.Sunday];
     });
   }
 
@@ -86,7 +79,9 @@ export class SettingsComponent implements OnInit {
       }
     }
 
-    this.standardWorkingTimes.setStandardWorkingTimes({
+    this.settingsService.setSettings({
+      startOfWeek: this.startOfWeek,
+      standardWorkingTimes: {
         [WeekDay.Monday]: this.workingTimes["monday"]!,
         [WeekDay.Tuesday]: this.workingTimes["tuesday"]!,
         [WeekDay.Wednesday]: this.workingTimes["wednesday"]!,
@@ -94,9 +89,7 @@ export class SettingsComponent implements OnInit {
         [WeekDay.Friday]: this.workingTimes["friday"]!,
         [WeekDay.Saturday]: this.workingTimes["saturday"]!,
         [WeekDay.Sunday]: this.workingTimes["sunday"]!,
-    });
-    this.settingsService.setSettings({
-      startOfWeek: this.startOfWeek
+      }
     });
   }
 }
