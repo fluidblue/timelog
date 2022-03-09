@@ -3,7 +3,7 @@ import fs from "fs";
 
 import Log from "../Log/Log";
 import { SettingsData, settingsDataDefault, WorkingTimes } from "./SettingsData";
-import { TimeLogData } from "./TimeLogData";
+import { TimeLogDataIn, TimeLogDataOut } from "./TimeLogData";
 
 export default class Database {
 	private pool: mariadb.Pool;
@@ -102,17 +102,19 @@ export default class Database {
 		return true;
 	}
 
-	async timeLogGet(): Promise<TimeLogData[]> {
-		const timeLogEntries: TimeLogData[] = [];
+	async timeLogGet(date: string): Promise<TimeLogDataOut[]> {
+		const timeLogEntries: TimeLogDataOut[] = [];
 
 		let conn: mariadb.PoolConnection | null = null;
 		try {
 			conn = await this.pool.getConnection();
 
-			let rows = await conn.query("SELECT `date`, TIME_TO_SEC(`from`) AS `from`, TIME_TO_SEC(`to`) AS `to` FROM `TimeLog`");
+			let rows = await conn.query(
+				"SELECT TIME_TO_SEC(`from`) AS `from`, TIME_TO_SEC(`to`) AS `to` FROM `TimeLog` WHERE `date` = ?",
+				[date]
+			);
 			for (const row of rows) {
 				timeLogEntries.push({
-					date: new Date(row.date),
 					from: row.from / 60,
 					to: row.to / 60
 				});
@@ -135,7 +137,7 @@ export default class Database {
 			pad(date.getUTCDate());
 	}
 
-	async timeLogAdd(timeLogEntry: TimeLogData): Promise<boolean> {
+	async timeLogAdd(timeLogEntry: TimeLogDataIn): Promise<boolean> {
 		let conn: mariadb.PoolConnection | null = null;
 		try {
 			conn = await this.pool.getConnection();
