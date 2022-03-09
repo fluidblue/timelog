@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { StartOfWeek } from '../Settings';
 import { SettingsService } from '../settings.service';
 import { StandardWorkingTimesService } from '../standard-working-times.service';
 import { WeekDay } from '../StandardWorkingTimes';
@@ -32,7 +33,7 @@ export class SettingsComponent implements OnInit {
     "sunday": null
   };
 
-  startOfWeek: "Monday" | "Tuesday" | "Wednesday" | "Thursday" | "Friday" | "Saturday" | "Sunday" = "Monday";
+  startOfWeek: StartOfWeek = "monday";
 
   constructor(private settingsService: SettingsService, private standardWorkingTimes: StandardWorkingTimesService) { }
 

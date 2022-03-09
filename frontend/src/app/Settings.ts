@@ -1,7 +1,9 @@
+export type StartOfWeek = "monday" | "tuesday" | "wednesday" | "thursday" | "friday" | "saturday" | "sunday";
+
 export interface Settings {
-    startOfWeek: "Monday" | "Tuesday" | "Wednesday" | "Thursday" | "Friday" | "Saturday" | "Sunday"
+    startOfWeek: StartOfWeek
 }
 
 export const DEFAULT_SETTINGS: Settings = {
-    startOfWeek: "Monday"
+    startOfWeek: "monday"
 };
