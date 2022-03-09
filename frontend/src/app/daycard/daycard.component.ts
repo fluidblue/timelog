@@ -59,7 +59,7 @@ export class DaycardComponent implements OnInit {
   }
 
   getTotalTime(): Time {
-    if (!this.workingTimes) {
+    if (!this.workingTimes || this.workingTimes.length === 0) {
       return new Time(0, 0);
     }
 
