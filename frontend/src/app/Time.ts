@@ -11,11 +11,14 @@ export class Time {
         return new Time(0, minutes);
     }
 
-    public static fromString(time: string): Time | null {
+    public static fromString(time: string, disallowNegativeTime: boolean = false): Time | null {
         let negativeTime = false;
         if (time.startsWith("-")) {
             time = time.substring(1);
             negativeTime = true;
+        }
+        if (negativeTime && disallowNegativeTime) {
+            return null;
         }
 
         const matchResult = time.match(Time.reTime);

@@ -32,6 +32,7 @@ export class SettingsComponent implements OnInit {
   };
 
   startOfWeek: WeekDayJson = "monday";
+  settingsLoaded: boolean = false;
 
   constructor(private settingsService: SettingsService) { }
 
@@ -41,7 +42,7 @@ export class SettingsComponent implements OnInit {
 
   parseTime(event: Event): Time | null {
     const value = (event.target as HTMLInputElement).value;
-    return Time.fromString(value);
+    return Time.fromString(value, true);
   }
 
   getSettings(): void {
@@ -68,6 +69,8 @@ export class SettingsComponent implements OnInit {
 
       this.workingTimesStrings.sunday = settings.standardWorkingTimes[WeekDay.Sunday].toString(true);
       this.workingTimes["sunday"] = settings.standardWorkingTimes[WeekDay.Sunday];
+
+      this.settingsLoaded = true;
     });
   }
 
