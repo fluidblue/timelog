@@ -110,7 +110,7 @@ export default class Database {
 			conn = await this.pool.getConnection();
 
 			let rows = await conn.query(
-				"SELECT TIME_TO_SEC(`from`) AS `from`, TIME_TO_SEC(`to`) AS `to` FROM `TimeLog` WHERE `date` = ?",
+				"SELECT TIME_TO_SEC(`from`) AS `from`, TIME_TO_SEC(`to`) AS `to` FROM `TimeLog` WHERE `date` = ? ORDER BY `from` ASC",
 				[date]
 			);
 			for (const row of rows) {
