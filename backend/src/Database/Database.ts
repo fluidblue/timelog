@@ -2,7 +2,7 @@ import mariadb from "mariadb";
 import fs from "fs";
 
 import Log from "../Log/Log";
-import { SettingsData, settingsDataDefault } from "./SettingsData";
+import { SettingsData, settingsDataDefault, WorkingTimes } from "./SettingsData";
 import { TimeLogData } from "./TimeLogData";
 
 export default class Database {
@@ -39,8 +39,8 @@ export default class Database {
 
 			let rows: any[] = await conn.query("SELECT * FROM `WorkingTimes` ORDER BY `id` ASC");
 			for (let i = 0; i < rows.length; i++) {
-				const name = rows[i].name;
-				const workingTime = rows[i].workingTime;
+				const name: keyof WorkingTimes = rows[i].name;
+				const workingTime: number = rows[i].workingTime;
 				settingsData.workingTimes[name] = workingTime;
 			}
 
@@ -66,7 +66,8 @@ export default class Database {
 			conn = await this.pool.getConnection();
 			let res: any;
 
-			for (const day in settingsData.workingTimes) {
+			let day: keyof WorkingTimes;
+			for (day in settingsData.workingTimes) {
 				const workingTime = settingsData.workingTimes[day];
 
 				res = await conn.query(
