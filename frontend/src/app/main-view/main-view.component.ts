@@ -38,7 +38,12 @@ export class MainViewComponent implements OnInit {
   setDaycardDates(): void {
     this.daycardDates = [];
     const date = new Date(this.dateFrom!);
-    while (date <= this.dateTo!) {
+
+    function isDateLessThanOrEqual(a: Date, b: Date) {
+      return new Date(a.getFullYear(), a.getMonth(), a.getDate()) <= new Date(b.getFullYear(), b.getMonth(), b.getDate());
+    }
+
+    while (isDateLessThanOrEqual(date, this.dateTo!)) {
       this.daycardDates.push(new Date(date));
       date.setDate(date.getDate() + 1);
     }
