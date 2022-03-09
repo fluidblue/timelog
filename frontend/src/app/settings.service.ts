@@ -4,7 +4,7 @@ import { map, Observable, of } from 'rxjs';
 import { Settings, SettingsJson, WeekDay } from './Settings';
 import API from './API';
 import { Time } from './Time';
-import { Response } from './Response';
+import { ResponseJson } from './ResponseJson';
 
 @Injectable({
   providedIn: 'root'
@@ -52,13 +52,8 @@ export class SettingsService {
     return observable.pipe(map((settingsJson) => this.convertJsonToSettings(settingsJson)));
   }
 
-  setSettings(settings: Settings): void {
+  setSettings(settings: Settings): Observable<ResponseJson> {
     const settingsJson = this.convertSettingsToJson(settings);
-    const observable = this.http.put<Response>(this.apiUri, settingsJson);
-
-    console.log("Saving settings: ", settings);
-    observable.subscribe((response: Response) => {
-      console.log("Saving settings, result: ", response.result);
-    })
+    return this.http.put<ResponseJson>(this.apiUri, settingsJson);
   }
 }

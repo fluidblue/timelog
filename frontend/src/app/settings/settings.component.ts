@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ResponseJson } from '../ResponseJson';
 import { WeekDayJson, WeekDay } from '../Settings';
 import { SettingsService } from '../settings.service';
 import { Time } from '../Time';
@@ -82,7 +83,7 @@ export class SettingsComponent implements OnInit {
       }
     }
 
-    this.settingsService.setSettings({
+    const observable = this.settingsService.setSettings({
       startOfWeek: this.startOfWeek,
       standardWorkingTimes: {
         [WeekDay.Monday]: this.workingTimes["monday"]!,
@@ -93,6 +94,10 @@ export class SettingsComponent implements OnInit {
         [WeekDay.Saturday]: this.workingTimes["saturday"]!,
         [WeekDay.Sunday]: this.workingTimes["sunday"]!,
       }
+    });
+    observable.subscribe((response: ResponseJson) => {
+      // TODO: Use bootstrap toast
+      console.log("Saving settings, result: ", response.result);
     });
   }
 }
