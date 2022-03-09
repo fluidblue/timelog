@@ -4,17 +4,20 @@ import { map, Observable, of } from 'rxjs';
 import { Settings, SettingsJson, WeekDay } from './Settings';
 import API from './API';
 import { Time } from './Time';
+import { Response } from './Response';
 
 @Injectable({
   providedIn: 'root'
 })
 export class SettingsService {
 
+  private apiUri = API.apiUri + "/settings"
+
   constructor(
     private http: HttpClient
   ) { }
 
-  private convertSettings(settingsJson: SettingsJson): Settings {
+  private convertJsonToSettings(settingsJson: SettingsJson): Settings {
     return {
       startOfWeek: settingsJson.weekStartsOn,
       standardWorkingTimes: {
@@ -29,13 +32,33 @@ export class SettingsService {
     };
   }
 
+  private convertSettingsToJson(settings: Settings): SettingsJson {
+    return {
+      weekStartsOn: settings.startOfWeek,
+      workingTimes: {
+        monday: settings.standardWorkingTimes[WeekDay.Monday].getTotalMinutes(),
+        tuesday: settings.standardWorkingTimes[WeekDay.Tuesday].getTotalMinutes(),
+        wednesday: settings.standardWorkingTimes[WeekDay.Wednesday].getTotalMinutes(),
+        thursday: settings.standardWorkingTimes[WeekDay.Thursday].getTotalMinutes(),
+        friday: settings.standardWorkingTimes[WeekDay.Friday].getTotalMinutes(),
+        saturday: settings.standardWorkingTimes[WeekDay.Saturday].getTotalMinutes(),
+        sunday: settings.standardWorkingTimes[WeekDay.Sunday].getTotalMinutes()
+      }
+    };
+  }
+
   getSettings(): Observable<Settings> {
-    const observable = this.http.get<SettingsJson>(API.apiUri + "/settings");
-    return observable.pipe(map((settingsJson) => this.convertSettings(settingsJson)));
+    const observable = this.http.get<SettingsJson>(this.apiUri);
+    return observable.pipe(map((settingsJson) => this.convertJsonToSettings(settingsJson)));
   }
 
   setSettings(settings: Settings): void {
-    // TODO
+    const settingsJson = this.convertSettingsToJson(settings);
+    const observable = this.http.put<Response>(this.apiUri, settingsJson);
+
     console.log("Saving settings: ", settings);
+    observable.subscribe((response: Response) => {
+      console.log("Saving settings, result: ", response.result);
+    })
   }
 }

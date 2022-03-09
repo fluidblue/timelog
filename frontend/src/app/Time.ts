@@ -80,6 +80,10 @@ export class Time {
         return Math.abs(this.minutesTotal % 60);
     }
 
+    public getTotalMinutes(): number {
+        return this.minutesTotal;
+    }
+
     public getHours(): number {
         return Math.abs(Math.floor(this.minutesTotal / 60));
     }
