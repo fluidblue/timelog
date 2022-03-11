@@ -3,6 +3,7 @@ import { ResponseJson } from '../ResponseJson';
 import { WeekDayJson, WeekDay } from '../Settings';
 import { SettingsService } from '../settings.service';
 import { Time } from '../Time';
+import { ToastService } from '../toast.service';
 import { WorkingTimes } from './WorkingTimes';
 
 @Component({
@@ -35,7 +36,10 @@ export class SettingsComponent implements OnInit {
   startOfWeek: WeekDayJson = "monday";
   settingsLoaded: boolean = false;
 
-  constructor(private settingsService: SettingsService) { }
+  constructor(
+    private settingsService: SettingsService,
+    private toastService: ToastService
+  ) { }
 
   ngOnInit(): void {
     this.getSettings();
@@ -96,8 +100,12 @@ export class SettingsComponent implements OnInit {
       }
     });
     observable.subscribe((response: ResponseJson) => {
-      // TODO: Use bootstrap toast
-      console.log("Saving settings, result: ", response.result);
+      if (response.result) {
+        this.toastService.showInfo("The settings have been saved.");
+      } else {
+        // TODO: Show this error also when XHR request fails
+        this.toastService.showInfo("The settings could not be saved.");
+      }
     });
   }
 }
