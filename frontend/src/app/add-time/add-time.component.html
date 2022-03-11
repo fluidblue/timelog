@@ -37,7 +37,7 @@
                     type="time"
                     class="form-control"
                     (change)="to = parseTimeEvent($event)"
-                    [ngClass]="{ 'is-invalid': saveClicked && to === null }"
+                    [ngClass]="{ 'is-invalid': saveClicked && (to === null || !isValidTimeRange()) }"
                 />
             </td>
         </tr>
@@ -46,12 +46,12 @@
                 Add another entry:
             </td>
             <td>
-                <div class="btn-group btn-group-toggle radioGroupAddAnotherEntry" ngbRadioGroup>
+                <div class="btn-group btn-group-toggle radioGroupAddAnotherEntry" ngbRadioGroup [(ngModel)]="addAnotherEntry">
                     <label ngbButtonLabel class="btn-secondary">
-                        <input ngbButton type="radio" value="1"> Yes
+                        <input ngbButton type="radio" [value]="1"> Yes
                     </label>
                     <label ngbButtonLabel class="btn-secondary">
-                        <input ngbButton type="radio" value="0"> No
+                        <input ngbButton type="radio" [value]="0"> No
                     </label>
                 </div>
             </td>
