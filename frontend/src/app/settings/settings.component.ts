@@ -1,6 +1,6 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { catchError, of } from 'rxjs';
+import { catchError, EMPTY, of } from 'rxjs';
 import { ResponseJson } from '../ResponseJson';
 import { WeekDayJson, WeekDay } from '../Settings';
 import { SettingsService } from '../settings.service';
@@ -53,32 +53,42 @@ export class SettingsComponent implements OnInit {
   }
 
   getSettings(): void {
-    this.settingsService.getSettings().subscribe((settings) => {
-      this.startOfWeek = settings.startOfWeek;
+    const observable = this.settingsService.getSettings();
+    observable.pipe(
+      catchError(
+        (error: HttpErrorResponse) => {
+          this.toastService.showError("Could not load settings.");
+          return EMPTY;
+        }
+      )
+    ).subscribe(
+      (settings) => {
+        this.startOfWeek = settings.startOfWeek;
 
-      this.workingTimesStrings.monday = settings.standardWorkingTimes[WeekDay.Monday].toString(true);
-      this.workingTimes["monday"] = settings.standardWorkingTimes[WeekDay.Monday];
+        this.workingTimesStrings.monday = settings.standardWorkingTimes[WeekDay.Monday].toString(true);
+        this.workingTimes["monday"] = settings.standardWorkingTimes[WeekDay.Monday];
 
-      this.workingTimesStrings.tuesday = settings.standardWorkingTimes[WeekDay.Tuesday].toString(true);
-      this.workingTimes["tuesday"] = settings.standardWorkingTimes[WeekDay.Tuesday];
+        this.workingTimesStrings.tuesday = settings.standardWorkingTimes[WeekDay.Tuesday].toString(true);
+        this.workingTimes["tuesday"] = settings.standardWorkingTimes[WeekDay.Tuesday];
 
-      this.workingTimesStrings.wednesday = settings.standardWorkingTimes[WeekDay.Wednesday].toString(true);
-      this.workingTimes["wednesday"] = settings.standardWorkingTimes[WeekDay.Wednesday];
+        this.workingTimesStrings.wednesday = settings.standardWorkingTimes[WeekDay.Wednesday].toString(true);
+        this.workingTimes["wednesday"] = settings.standardWorkingTimes[WeekDay.Wednesday];
 
-      this.workingTimesStrings.thursday = settings.standardWorkingTimes[WeekDay.Thursday].toString(true);
-      this.workingTimes["thursday"] = settings.standardWorkingTimes[WeekDay.Thursday];
+        this.workingTimesStrings.thursday = settings.standardWorkingTimes[WeekDay.Thursday].toString(true);
+        this.workingTimes["thursday"] = settings.standardWorkingTimes[WeekDay.Thursday];
 
-      this.workingTimesStrings.friday = settings.standardWorkingTimes[WeekDay.Friday].toString(true);
-      this.workingTimes["friday"] = settings.standardWorkingTimes[WeekDay.Friday];
+        this.workingTimesStrings.friday = settings.standardWorkingTimes[WeekDay.Friday].toString(true);
+        this.workingTimes["friday"] = settings.standardWorkingTimes[WeekDay.Friday];
 
-      this.workingTimesStrings.saturday = settings.standardWorkingTimes[WeekDay.Saturday].toString(true);
-      this.workingTimes["saturday"] = settings.standardWorkingTimes[WeekDay.Saturday];
+        this.workingTimesStrings.saturday = settings.standardWorkingTimes[WeekDay.Saturday].toString(true);
+        this.workingTimes["saturday"] = settings.standardWorkingTimes[WeekDay.Saturday];
 
-      this.workingTimesStrings.sunday = settings.standardWorkingTimes[WeekDay.Sunday].toString(true);
-      this.workingTimes["sunday"] = settings.standardWorkingTimes[WeekDay.Sunday];
+        this.workingTimesStrings.sunday = settings.standardWorkingTimes[WeekDay.Sunday].toString(true);
+        this.workingTimes["sunday"] = settings.standardWorkingTimes[WeekDay.Sunday];
 
-      this.settingsLoaded = true;
-    });
+        this.settingsLoaded = true;
+      }
+    );
   }
 
   save(): void {
