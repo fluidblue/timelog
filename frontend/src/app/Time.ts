@@ -80,7 +80,7 @@ export class Time {
     }
 
     public getMinutes(): number {
-        return Math.abs(this.minutesTotal % 60);
+        return Math.abs(this.minutesTotal) % 60;
     }
 
     public getTotalMinutes(): number {
@@ -88,7 +88,7 @@ export class Time {
     }
 
     public getHours(): number {
-        return Math.abs(Math.floor(this.minutesTotal / 60));
+        return Math.floor(Math.abs(this.minutesTotal) / 60);
     }
 
     public isNegativeTime(): boolean {
