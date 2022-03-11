@@ -1,0 +1,13 @@
+.toast-container-custom {
+    z-index: 1200;
+
+    /* Positioning styles corresponding to classes in original Bootstrap: */
+    bottom: 0!important; /* bottom-0 */
+    left: 50%!important; /* start-50 */
+    transform: translateX(-50%)!important; /* translate-middle-x */
+}
+
+/* Fix for ng-bootstrap class toast */
+.toast {
+    width: 350px;
+}

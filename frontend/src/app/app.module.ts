@@ -13,6 +13,7 @@ import { SettingsComponent } from './settings/settings.component';
 import { UnderOverTimeComponent } from './under-over-time/under-over-time.component';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { ToastsComponent } from './toasts/toasts.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { HttpClientModule } from '@angular/common/http';
     MainViewComponent,
     NavbarComponent,
     SettingsComponent,
-    UnderOverTimeComponent
+    UnderOverTimeComponent,
+    ToastsComponent
   ],
   imports: [
     BrowserModule,
