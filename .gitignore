@@ -1,6 +1,7 @@
 # Project specific
 /stuff
 /database_password.txt
+.angular/
 
 # IDEs and editors
 .idea/
