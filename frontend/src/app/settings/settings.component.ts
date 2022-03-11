@@ -1,4 +1,6 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { catchError, of } from 'rxjs';
 import { ResponseJson } from '../ResponseJson';
 import { WeekDayJson, WeekDay } from '../Settings';
 import { SettingsService } from '../settings.service';
@@ -79,14 +81,6 @@ export class SettingsComponent implements OnInit {
     });
   }
 
-  private showSettingsSavedSuccessInfo() {
-    this.toastService.showInfo("The settings have been saved.");
-  }
-
-  private showSettingsSavedFailedInfo() {
-    this.toastService.showError("The settings could not be saved.");
-  }
-
   save(): void {
     for (const key in this.workingTimes) {
       if (!this.workingTimes[key]) {
@@ -95,7 +89,7 @@ export class SettingsComponent implements OnInit {
       }
     }
 
-    const observable = this.settingsService.setSettings({
+    const settings = {
       startOfWeek: this.startOfWeek,
       standardWorkingTimes: {
         [WeekDay.Monday]: this.workingTimes["monday"]!,
@@ -106,17 +100,23 @@ export class SettingsComponent implements OnInit {
         [WeekDay.Saturday]: this.workingTimes["saturday"]!,
         [WeekDay.Sunday]: this.workingTimes["sunday"]!,
       }
-    });
-    observable.subscribe(
+    };
+    const observable = this.settingsService.setSettings(settings);
+    observable.pipe(
+      catchError(
+        (error: HttpErrorResponse) => {
+          return of({
+            result: false
+          });
+        }
+      )
+    ).subscribe(
       (response: ResponseJson) => {
         if (response.result) {
-          this.showSettingsSavedSuccessInfo();
+          this.toastService.showInfo("The settings have been saved.");
         } else {
-          this.showSettingsSavedFailedInfo();
+          this.toastService.showError("The settings could not be saved.");
         }
-      },
-      (error) => {
-        this.showSettingsSavedFailedInfo();
       }
     );
   }
