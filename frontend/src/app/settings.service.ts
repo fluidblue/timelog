@@ -1,10 +1,11 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { map, Observable, of, tap } from 'rxjs';
+import { catchError, EMPTY, map, Observable, of, tap } from 'rxjs';
 import { Settings, SettingsJson, WeekDay } from './Settings';
 import API from './API';
 import { Time } from './Time';
 import { ResponseJson } from './ResponseJson';
+import { ToastService } from './toast.service';
 
 @Injectable({
   providedIn: 'root'
@@ -16,7 +17,8 @@ export class SettingsService {
   private settings?: Settings;
 
   constructor(
-    private http: HttpClient
+    private http: HttpClient,
+    private toastService: ToastService
   ) { }
 
   private convertJsonToSettings(settingsJson: SettingsJson): Settings {
@@ -56,6 +58,13 @@ export class SettingsService {
 
     const observable = this.http.get<SettingsJson>(this.apiUri);
     return observable.pipe(
+      catchError(
+        (error: HttpErrorResponse) => {
+          this.toastService.showError("Could not load settings.");
+          return EMPTY;
+        }
+      )
+    ).pipe(
       map((settingsJson) => this.convertJsonToSettings(settingsJson))
     ).pipe(
       tap((settings) => this.settings = settings)
@@ -66,6 +75,24 @@ export class SettingsService {
     this.settings = settings;
 
     const settingsJson = this.convertSettingsToJson(settings);
-    return this.http.put<ResponseJson>(this.apiUri, settingsJson);
+    const observable = this.http.put<ResponseJson>(this.apiUri, settingsJson);
+    observable.pipe(
+      catchError(
+        (error: HttpErrorResponse) => {
+          return of({
+            result: false
+          });
+        }
+      )
+    ).subscribe(
+      (response: ResponseJson) => {
+        if (response.result) {
+          this.toastService.showInfo("The settings have been saved.");
+        } else {
+          this.toastService.showError("The settings could not be saved.");
+        }
+      }
+    );
+    return observable;
   }
 }

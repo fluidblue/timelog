@@ -1,12 +1,7 @@
-import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { catchError, EMPTY, of } from 'rxjs';
 import { CommonFunctions } from '../CommonFunctions';
-import { ResponseJson } from '../ResponseJson';
 import { WeekDayJson, WeekDay } from '../Settings';
 import { SettingsService } from '../settings.service';
-import { Time } from '../Time';
-import { ToastService } from '../toast.service';
 import { WorkingTimes } from './WorkingTimes';
 
 @Component({
@@ -43,7 +38,6 @@ export class SettingsComponent implements OnInit {
 
   constructor(
     private settingsService: SettingsService,
-    private toastService: ToastService
   ) { }
 
   ngOnInit(): void {
@@ -52,14 +46,7 @@ export class SettingsComponent implements OnInit {
 
   getSettings(): void {
     const observable = this.settingsService.getSettings();
-    observable.pipe(
-      catchError(
-        (error: HttpErrorResponse) => {
-          this.toastService.showError("Could not load settings.");
-          return EMPTY;
-        }
-      )
-    ).subscribe(
+    observable.subscribe(
       (settings) => {
         this.startOfWeek = settings.startOfWeek;
 
@@ -109,23 +96,6 @@ export class SettingsComponent implements OnInit {
         [WeekDay.Sunday]: this.workingTimes["sunday"]!,
       }
     };
-    const observable = this.settingsService.setSettings(settings);
-    observable.pipe(
-      catchError(
-        (error: HttpErrorResponse) => {
-          return of({
-            result: false
-          });
-        }
-      )
-    ).subscribe(
-      (response: ResponseJson) => {
-        if (response.result) {
-          this.toastService.showInfo("The settings have been saved.");
-        } else {
-          this.toastService.showError("The settings could not be saved.");
-        }
-      }
-    );
+    this.settingsService.setSettings(settings);
   }
 }
