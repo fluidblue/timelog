@@ -79,6 +79,14 @@ export class SettingsComponent implements OnInit {
     });
   }
 
+  private showSettingsSavedSuccessInfo() {
+    this.toastService.showInfo("The settings have been saved.");
+  }
+
+  private showSettingsSavedFailedInfo() {
+    this.toastService.showError("The settings could not be saved.");
+  }
+
   save(): void {
     for (const key in this.workingTimes) {
       if (!this.workingTimes[key]) {
@@ -99,13 +107,17 @@ export class SettingsComponent implements OnInit {
         [WeekDay.Sunday]: this.workingTimes["sunday"]!,
       }
     });
-    observable.subscribe((response: ResponseJson) => {
-      if (response.result) {
-        this.toastService.showInfo("The settings have been saved.");
-      } else {
-        // TODO: Show this error also when XHR request fails
-        this.toastService.showInfo("The settings could not be saved.");
+    observable.subscribe(
+      (response: ResponseJson) => {
+        if (response.result) {
+          this.showSettingsSavedSuccessInfo();
+        } else {
+          this.showSettingsSavedFailedInfo();
+        }
+      },
+      (error) => {
+        this.showSettingsSavedFailedInfo();
       }
-    });
+    );
   }
 }
