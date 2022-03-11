@@ -11,6 +11,12 @@ export class Time {
         return new Time(0, minutes);
     }
 
+    public static now(): Time {
+        const date = new Date();
+        const minutesNow = date.getHours() * 60 + date.getMinutes();
+        return new Time(0, minutesNow);
+    }
+
     public static fromString(time: string, disallowNegativeTime: boolean = false): Time | null {
         let negativeTime = false;
         if (time.startsWith("-")) {
