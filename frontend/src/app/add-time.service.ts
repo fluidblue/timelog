@@ -21,42 +21,47 @@ export class AddTimeService {
     private toastService: ToastService
   ) { }
 
-  openAddTimeDialog() {
-    const modalRef = this.modalService.open(AddTimeComponent, { ariaLabelledBy: 'modal-basic-title' });
+  openAddTimeDialog(): Promise<boolean> {
+    return new Promise<boolean>((resolve, reject) => {
+      const modalRef = this.modalService.open(AddTimeComponent, { ariaLabelledBy: 'modal-basic-title' });
 
-    modalRef.result.then(
-      (result: AddTimeDataResult) => {
-        const addTimeDataJson: AddTimeDataJson = {
-          date: result.date,
-          from: result.from.getTotalMinutes(),
-          to: result.to.getTotalMinutes(),
-        };
+      modalRef.result.then(
+        (result: AddTimeDataResult) => {
+          const addTimeDataJson: AddTimeDataJson = {
+            date: result.date,
+            from: result.from.getTotalMinutes(),
+            to: result.to.getTotalMinutes(),
+          };
 
-        this.http.post<ResponseJson>(this.apiUri, addTimeDataJson).pipe(
-          catchError(
-            (error): ObservableInput<ResponseJson> => {
-              return of({
-                result: false
-              });
+          this.http.post<ResponseJson>(this.apiUri, addTimeDataJson).pipe(
+            catchError(
+              (error): ObservableInput<ResponseJson> => {
+                return of({
+                  result: false
+                });
+              }
+            )
+          ).subscribe(
+            (reponse: ResponseJson) => {
+              if (reponse.result) {
+                this.toastService.showInfo("Successfully added time.");
+                resolve(true);
+              } else {
+                this.toastService.showInfo("Failed to add time.");
+                resolve(false);
+              }
             }
-          )
-        ).subscribe(
-          (reponse: ResponseJson) => {
-            if (reponse.result) {
-              this.toastService.showInfo("Successfully added time.")
-            } else {
-              this.toastService.showInfo("Failed to add time.")
-            }
+          );
+
+          if (result.addAnotherEntry) {
+            this.openAddTimeDialog();
           }
-        );
-
-        if (result.addAnotherEntry) {
-          this.openAddTimeDialog();
+        },
+        (reason) => {
+          // Silently ignore closing of dialog (e.g. by clicking x or clicking on backdrop shadow)
+          resolve(false);
         }
-      },
-      (reason) => {
-        // Silently ignore closing of dialog (e.g. by clicking x or clicking on backdrop shadow)
-      }
-    );
+      );
+    });
   }
 }

@@ -14,7 +14,7 @@
         <app-daycard *ngFor="let daycardDate of daycardDates" [date]="daycardDate"></app-daycard>
     </div>
 
-    <button type="button" class="btn btn-danger rounded-circle button-add" title="Add" (click)="this.addTimeService.openAddTimeDialog()">
+    <button type="button" class="btn btn-danger rounded-circle button-add" title="Add" (click)="openAddTimeDialog()">
         <i class="bi bi-plus-lg"></i>
     </button>
 </div>

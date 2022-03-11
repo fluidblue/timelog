@@ -106,4 +106,15 @@ export class MainViewComponent implements OnInit {
     return result;
   }
 
+  openAddTimeDialog() {
+    this.addTimeService.openAddTimeDialog().then(
+      (result) => {
+        if (result) {
+          // Refresh component
+          this.ngOnInit();
+        }
+      }
+    );
+  }
+
 }
