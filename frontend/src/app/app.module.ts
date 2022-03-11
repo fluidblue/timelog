@@ -14,6 +14,7 @@ import { UnderOverTimeComponent } from './under-over-time/under-over-time.compon
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { ToastsComponent } from './toasts/toasts.component';
+import { AddTimeComponent } from './add-time/add-time.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import { ToastsComponent } from './toasts/toasts.component';
     NavbarComponent,
     SettingsComponent,
     UnderOverTimeComponent,
-    ToastsComponent
+    ToastsComponent,
+    AddTimeComponent
   ],
   imports: [
     BrowserModule,

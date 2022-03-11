@@ -1,6 +1,7 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { catchError, EMPTY, of } from 'rxjs';
+import { CommonFunctions } from '../CommonFunctions';
 import { ResponseJson } from '../ResponseJson';
 import { WeekDayJson, WeekDay } from '../Settings';
 import { SettingsService } from '../settings.service';
@@ -38,6 +39,8 @@ export class SettingsComponent implements OnInit {
   startOfWeek: WeekDayJson = "monday";
   settingsLoaded: boolean = false;
 
+  parseTimeEvent = CommonFunctions.parseTimeEvent;
+
   constructor(
     private settingsService: SettingsService,
     private toastService: ToastService
@@ -45,11 +48,6 @@ export class SettingsComponent implements OnInit {
 
   ngOnInit(): void {
     this.getSettings();
-  }
-
-  parseTime(event: Event): Time | null {
-    const value = (event.target as HTMLInputElement).value;
-    return Time.fromString(value, true);
   }
 
   getSettings(): void {

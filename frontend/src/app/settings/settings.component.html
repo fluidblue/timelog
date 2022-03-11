@@ -10,7 +10,7 @@
                         class="form-control"
                         value="08:00"
                         [(ngModel)]="workingTimesStrings.monday"
-                        (change)="workingTimes['monday'] = parseTime($event)"
+                        (change)="workingTimes['monday'] = parseTimeEvent($event)"
                         [ngClass]="{ 'is-invalid': settingsLoaded && workingTimes['monday'] === null }"
                     />
                 </td>
@@ -23,7 +23,7 @@
                         class="form-control"
                         value="08:00"
                         [(ngModel)]="workingTimesStrings.tuesday"
-                        (change)="workingTimes['tuesday'] = parseTime($event)"
+                        (change)="workingTimes['tuesday'] = parseTimeEvent($event)"
                         [ngClass]="{ 'is-invalid': settingsLoaded && workingTimes['tuesday'] === null }"
                     />
                 </td>
@@ -36,7 +36,7 @@
                         class="form-control"
                         value="08:00"
                         [(ngModel)]="workingTimesStrings.wednesday"
-                        (change)="workingTimes['wednesday'] = parseTime($event)"
+                        (change)="workingTimes['wednesday'] = parseTimeEvent($event)"
                         [ngClass]="{ 'is-invalid': settingsLoaded && workingTimes['wednesday'] === null }"
                     />
                 </td>
@@ -49,7 +49,7 @@
                         class="form-control"
                         value="08:00"
                         [(ngModel)]="workingTimesStrings.thursday"
-                        (change)="workingTimes['thursday'] = parseTime($event)"
+                        (change)="workingTimes['thursday'] = parseTimeEvent($event)"
                         [ngClass]="{ 'is-invalid': settingsLoaded && workingTimes['thursday'] === null }"
                     />
                 </td>
@@ -62,7 +62,7 @@
                         class="form-control"
                         value="08:00"
                         [(ngModel)]="workingTimesStrings.friday"
-                        (change)="workingTimes['friday'] = parseTime($event)"
+                        (change)="workingTimes['friday'] = parseTimeEvent($event)"
                         [ngClass]="{ 'is-invalid': settingsLoaded && workingTimes['friday'] === null }"
                     />
                 </td>
@@ -75,7 +75,7 @@
                         class="form-control"
                         value="00:00"
                         [(ngModel)]="workingTimesStrings.saturday"
-                        (change)="workingTimes['saturday'] = parseTime($event)"
+                        (change)="workingTimes['saturday'] = parseTimeEvent($event)"
                         [ngClass]="{ 'is-invalid': settingsLoaded && workingTimes['saturday'] === null }"
                     />
                 </td>
@@ -88,7 +88,7 @@
                         class="form-control"
                         value="00:00"
                         [(ngModel)]="workingTimesStrings.sunday"
-                        (change)="workingTimes['sunday'] = parseTime($event)"
+                        (change)="workingTimes['sunday'] = parseTimeEvent($event)"
                         [ngClass]="{ 'is-invalid': settingsLoaded && workingTimes['sunday'] === null }"
                     />
                 </td>
