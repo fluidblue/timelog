@@ -10,7 +10,7 @@ import { WorkingTime, WorkingTimeJson } from './WorkingTime';
 })
 export class WorkingTimesService {
 
-  private apiUri = API.apiUri + "/timelog"
+  private readonly apiUri = API.apiUri + "/timelog"
 
   constructor(private http: HttpClient) { }
 

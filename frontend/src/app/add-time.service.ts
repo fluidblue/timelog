@@ -13,7 +13,7 @@ import { ToastService } from './toast.service';
 })
 export class AddTimeService {
 
-  readonly apiUri = API.apiUri + "/timelog"
+  private readonly apiUri = API.apiUri + "/timelog"
 
   constructor(
     private modalService: NgbModal,
