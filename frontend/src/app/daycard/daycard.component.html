@@ -8,14 +8,19 @@
           <td class="separator">-</td>
           <td class="time">{{workingTime.to | time}}</td>
           <td class="time">({{getTimeDifference(workingTime.from, workingTime.to)| time}}h)</td>
+          <td>
+            <button type="button" class="btn btn-sm" title="Remove">
+              <i class="bi bi-trash"></i>
+            </button>
+          </td>
         </tr>
         <tr>
           <td class="pt-3" colspan="3">Total:</td>
-          <td class="pt-3 time">{{totalTime | time}}h</td>
+          <td class="pt-3 time" colspan="2">{{totalTime | time}}h</td>
         </tr>
         <tr *ngIf="settings && settings.standardWorkingTimes">
           <td colspan="3">Under/Overtime:</td>
-          <td class="time" [ngClass]="{
+          <td class="time" colspan="2" [ngClass]="{
             'red': underOverTime.isNegativeTime(),
             'green': !underOverTime.isNegativeTime()
           }">
