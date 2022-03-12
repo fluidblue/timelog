@@ -1,4 +1,4 @@
-<div class="card daycard" *ngIf="date">
+<div class="card daycard" *ngIf="date && workingTimes">
   <div class="card-body">
     <h5 class="card-title">{{date | date:"EEEE, yyyy-MM-dd" }}</h5>
     <div class="card-text">

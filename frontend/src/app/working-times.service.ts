@@ -1,8 +1,9 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { map, Observable, of } from 'rxjs';
+import { catchError, EMPTY, map, Observable, of } from 'rxjs';
 import API from './API';
 import { Time } from './Time';
+import { ToastService } from './toast.service';
 import { WorkingTime, WorkingTimeJson } from './WorkingTime';
 
 @Injectable({
@@ -12,7 +13,7 @@ export class WorkingTimesService {
 
   private readonly apiUri = API.apiUri + "/timelog"
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private toastService: ToastService) { }
 
   private convertDateToString(date: Date): string {
     const pad = (num: number) => ("00" + num).slice(-2);
@@ -30,6 +31,15 @@ export class WorkingTimesService {
 
   getWorkingTimes(date: Date): Observable<WorkingTime[]> {
     const observable = this.http.get<WorkingTimeJson[]>(this.apiUri + "/" + this.convertDateToString(date));
-    return observable.pipe(map((workingTimesJson) => workingTimesJson.map((workingTimeJson) => this.convertJsonToWorkingTime(workingTimeJson))));
+    return observable.pipe(
+      catchError(
+        (error: HttpErrorResponse) => {
+          this.toastService.showError("Could not load timelog data from server.");
+          return EMPTY;
+        }
+      )
+    ).pipe(
+      map((workingTimesJson) => workingTimesJson.map((workingTimeJson) => this.convertJsonToWorkingTime(workingTimeJson)))
+    );
   }
 }

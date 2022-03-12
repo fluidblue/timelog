@@ -102,7 +102,7 @@ export default class Database {
 		return true;
 	}
 
-	async timeLogGet(date: string): Promise<TimeLogDataOut[]> {
+	async timeLogGet(date: string): Promise<TimeLogDataOut[] | null> {
 		const timeLogEntries: TimeLogDataOut[] = [];
 
 		let conn: mariadb.PoolConnection | null = null;
@@ -121,6 +121,7 @@ export default class Database {
 			}
 		} catch (err) {
 			Log.error(err);
+			return null;
 		} finally {
 			if (conn) {
 				conn.end();

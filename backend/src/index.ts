@@ -94,6 +94,12 @@ async function main() {
 	app.get("/api/timelog/:date", wrap(async (req, res, next) => {
 		const timeLogEntries = await database.timeLogGet(req.params.date);
 
+		if (!timeLogEntries) {
+			res.status(503); // HTTP 503: Service Unavailable
+			res.end();
+			return;
+		}
+
 		res.set("Content-Type", "application/json");
 		res.send(JSON.stringify(timeLogEntries));
 	}));
