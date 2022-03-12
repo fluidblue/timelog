@@ -7,6 +7,7 @@ import { AddTimeDataResult, AddTimeDataJson } from './add-time/AddTimeData';
 import API from './API';
 import { ResponseJson } from './ResponseJson';
 import { ToastService } from './toast.service';
+import { WorkingTimesService } from './working-times.service';
 
 @Injectable({
   providedIn: 'root'
@@ -18,7 +19,8 @@ export class AddTimeService {
   constructor(
     private modalService: NgbModal,
     private http: HttpClient,
-    private toastService: ToastService
+    private toastService: ToastService,
+    private workingTimesService: WorkingTimesService
   ) { }
 
   openAddTimeDialog(): Promise<boolean> {
@@ -33,15 +35,8 @@ export class AddTimeService {
             to: result.to.getTotalMinutes(),
           };
 
-          this.http.post<ResponseJson>(this.apiUri, addTimeDataJson).pipe(
-            catchError(
-              (error): ObservableInput<ResponseJson> => {
-                return of({
-                  result: false
-                });
-              }
-            )
-          ).subscribe(
+          const observable = this.workingTimesService.addWorkingTime(addTimeDataJson);
+          observable.subscribe(
             (reponse: ResponseJson) => {
               if (reponse.result) {
                 this.toastService.showInfo("Successfully added time.");

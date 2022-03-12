@@ -1,7 +1,9 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, EMPTY, map, Observable, of } from 'rxjs';
+import { AddTimeDataJson } from './add-time/AddTimeData';
 import API from './API';
+import { ResponseJson } from './ResponseJson';
 import { Time } from './Time';
 import { ToastService } from './toast.service';
 import { WorkingTime, WorkingTimeJson } from './WorkingTime';
@@ -41,5 +43,19 @@ export class WorkingTimesService {
     ).pipe(
       map((workingTimesJson) => workingTimesJson.map((workingTimeJson) => this.convertJsonToWorkingTime(workingTimeJson)))
     );
+  }
+
+  addWorkingTime(addTimeDataJson: AddTimeDataJson): Observable<ResponseJson> {
+    const observable = this.http.post<ResponseJson>(this.apiUri, addTimeDataJson);
+    observable.pipe(
+      catchError(
+        (error) => {
+          return of({
+            result: false
+          });
+        }
+      )
+    );
+    return observable;
   }
 }
