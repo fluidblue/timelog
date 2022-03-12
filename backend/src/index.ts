@@ -116,6 +116,18 @@ async function main() {
 		}));
 	}));
 
+	app.delete("/api/timelog", wrap(async (req, res, next) => {
+		const timeLogEntry: TimeLogDataIn = req.body;
+		timeLogEntry.date = new Date(timeLogEntry.date);
+
+		const result: boolean = await database.timeLogRemove(timeLogEntry);
+
+		res.set("Content-Type", "application/json");
+		res.send(JSON.stringify({
+			result: result
+		}));
+	}));
+
 	app.listen(port, () => {
 		console.log(`timelog listening at http://localhost:${port}`);
 	});

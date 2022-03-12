@@ -161,4 +161,28 @@ export default class Database {
 		}
 		return true;
 	}
+
+	async timeLogRemove(timeLogEntry: TimeLogDataIn): Promise<boolean> {
+		let conn: mariadb.PoolConnection | null = null;
+		try {
+			conn = await this.pool.getConnection();
+
+			const date = this.jsDate2MysqlDate(timeLogEntry.date);
+			let res = await conn.query(
+				"DELETE FROM `TimeLog` WHERE (`date` = ? AND `from` = SEC_TO_TIME(?) AND `to` = SEC_TO_TIME(?))",
+				[date, timeLogEntry.from * 60, timeLogEntry.to * 60]
+			);
+			if (!res || res.affectedRows < 1) {
+				return false;
+			}
+		} catch (err) {
+			Log.error(err);
+			return false;
+		} finally {
+			if (conn) {
+				conn.end();
+			}
+		}
+		return true;
+	}
 }
