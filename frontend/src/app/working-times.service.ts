@@ -1,7 +1,7 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, EMPTY, map, Observable, of } from 'rxjs';
-import { AddTimeDataJson } from './add-time/AddTimeData';
+import { TimeDataJson } from './add-time/AddTimeData';
 import API from './API';
 import { ResponseJson } from './ResponseJson';
 import { Time } from './Time';
@@ -45,7 +45,7 @@ export class WorkingTimesService {
     );
   }
 
-  addWorkingTime(addTimeDataJson: AddTimeDataJson): Observable<ResponseJson> {
+  addWorkingTime(addTimeDataJson: TimeDataJson): Observable<ResponseJson> {
     const observable = this.http.post<ResponseJson>(this.apiUri, addTimeDataJson);
     observable.pipe(
       catchError(
@@ -59,7 +59,7 @@ export class WorkingTimesService {
     return observable;
   }
 
-  removeWorkingTime(removeTimeDataJson: AddTimeDataJson): Observable<ResponseJson> {
+  removeWorkingTime(removeTimeDataJson: TimeDataJson): Observable<ResponseJson> {
     const observable = this.http.post<ResponseJson>(this.apiUri + "/delete", removeTimeDataJson);
     observable.pipe(
       catchError(

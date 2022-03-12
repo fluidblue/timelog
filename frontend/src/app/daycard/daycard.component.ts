@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { AddTimeDataJson } from '../add-time/AddTimeData';
+import { TimeDataJson } from '../add-time/AddTimeData';
 import { ResponseJson } from '../ResponseJson';
 import { Settings, StandardWorkingTimes } from '../Settings';
 import { SettingsService } from '../settings.service';
@@ -79,7 +79,7 @@ export class DaycardComponent implements OnInit {
   }
 
   onRemove(date: Date, from: Time, to: Time) {
-    const removeTimeDataJson: AddTimeDataJson = { // TODO: Rename AddTimeDataJson to TimeDataJson
+    const removeTimeDataJson: TimeDataJson = {
       date: date,
       from: from.getTotalMinutes(),
       to: to.getTotalMinutes(),

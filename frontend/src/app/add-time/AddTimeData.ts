@@ -1,6 +1,6 @@
 import { Time } from "../Time";
 
-export interface AddTimeDataJson {
+export interface TimeDataJson {
     date: Date;
 
     from: number;

@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { catchError, ObservableInput, of } from 'rxjs';
 import { AddTimeComponent } from './add-time/add-time.component';
-import { AddTimeDataResult, AddTimeDataJson } from './add-time/AddTimeData';
+import { AddTimeDataResult, TimeDataJson } from './add-time/AddTimeData';
 import API from './API';
 import { ResponseJson } from './ResponseJson';
 import { ToastService } from './toast.service';
@@ -29,7 +29,7 @@ export class AddTimeService {
 
       modalRef.result.then(
         (result: AddTimeDataResult) => {
-          const addTimeDataJson: AddTimeDataJson = {
+          const addTimeDataJson: TimeDataJson = {
             date: result.date,
             from: result.from.getTotalMinutes(),
             to: result.to.getTotalMinutes(),
