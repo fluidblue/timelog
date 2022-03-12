@@ -9,7 +9,7 @@
           <td class="time">{{workingTime.to | time}}</td>
           <td class="time">({{getTimeDifference(workingTime.from, workingTime.to)| time}}h)</td>
           <td>
-            <button type="button" class="btn btn-sm" title="Remove">
+            <button type="button" class="btn btn-sm" title="Remove" (click)="onRemove(date, workingTime.from, workingTime.to)">
               <i class="bi bi-trash"></i>
             </button>
           </td>

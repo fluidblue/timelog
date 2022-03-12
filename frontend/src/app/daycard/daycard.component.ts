@@ -1,7 +1,10 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { AddTimeDataJson } from '../add-time/AddTimeData';
+import { ResponseJson } from '../ResponseJson';
 import { Settings, StandardWorkingTimes } from '../Settings';
 import { SettingsService } from '../settings.service';
 import { Time } from '../Time';
+import { ToastService } from '../toast.service';
 import { WorkingTimesService } from '../working-times.service';
 import { WorkingTime } from '../WorkingTime';
 
@@ -20,8 +23,11 @@ export class DaycardComponent implements OnInit {
   totalTime?: Time;
   underOverTime?: Time;
 
-  constructor(private settingsService: SettingsService,
-    private workingTimesService: WorkingTimesService) { }
+  constructor(
+    private settingsService: SettingsService,
+    private workingTimesService: WorkingTimesService,
+    private toastService: ToastService
+  ) { }
 
   ngOnInit(): void {
     this.getSettings();
@@ -70,6 +76,26 @@ export class DaycardComponent implements OnInit {
 
   getUnderOverTime(date: Date, standardWorkingTimes: StandardWorkingTimes): Time {
     return this.getTimeDifference(standardWorkingTimes[date.getDay()], this.getTotalTime());
+  }
+
+  onRemove(date: Date, from: Time, to: Time) {
+    const removeTimeDataJson: AddTimeDataJson = { // TODO: Rename AddTimeDataJson to TimeDataJson
+      date: date,
+      from: from.getTotalMinutes(),
+      to: to.getTotalMinutes(),
+    };
+
+    const observable = this.workingTimesService.removeWorkingTime(removeTimeDataJson);
+    observable.subscribe(
+      (reponse: ResponseJson) => {
+        if (reponse.result) {
+          this.toastService.showInfo("Successfully removed time.");
+        } else {
+          this.toastService.showInfo("Failed to remove time.");
+        }
+        this.ngOnInit();
+      }
+    );
   }
 
 }

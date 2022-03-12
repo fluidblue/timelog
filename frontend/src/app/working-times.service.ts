@@ -58,4 +58,19 @@ export class WorkingTimesService {
     );
     return observable;
   }
+
+  removeWorkingTime(removeTimeDataJson: AddTimeDataJson): Observable<ResponseJson> {
+    const observable = this.http.post<ResponseJson>(this.apiUri + "/delete", removeTimeDataJson);
+    observable.pipe(
+      catchError(
+        (error) => {
+          return of({
+            result: false
+          });
+        }
+      )
+    );
+    return observable;
+  }
+
 }

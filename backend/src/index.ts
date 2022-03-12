@@ -116,7 +116,7 @@ async function main() {
 		}));
 	}));
 
-	app.delete("/api/timelog", wrap(async (req, res, next) => {
+	app.post("/api/timelog/delete", wrap(async (req, res, next) => {
 		const timeLogEntry: TimeLogDataIn = req.body;
 		timeLogEntry.date = new Date(timeLogEntry.date);
 
