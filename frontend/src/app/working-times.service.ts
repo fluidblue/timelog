@@ -1,7 +1,7 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, EMPTY, map, Observable, of } from 'rxjs';
-import { TimeDataJson } from './add-time/AddTimeData';
+import { TimeDataJson } from './TimeData';
 import API from './API';
 import { ResponseJson } from './ResponseJson';
 import { Time } from './Time';

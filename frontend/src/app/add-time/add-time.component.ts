@@ -2,8 +2,7 @@ import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { CommonFunctions } from '../CommonFunctions';
 import { Time } from '../Time';
-import { ToastService } from '../toast.service';
-import { AddTimeDataResult } from './AddTimeData';
+import { AddTimeDataResult } from './AddTimeDataResult';
 
 @Component({
   selector: 'app-add-time',

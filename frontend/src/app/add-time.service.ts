@@ -1,11 +1,11 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { catchError, ObservableInput, of } from 'rxjs';
 import { AddTimeComponent } from './add-time/add-time.component';
-import { AddTimeDataResult, TimeDataJson } from './add-time/AddTimeData';
+import { AddTimeDataResult } from './add-time/AddTimeDataResult';
 import API from './API';
 import { ResponseJson } from './ResponseJson';
+import { TimeDataJson } from './TimeData';
 import { ToastService } from './toast.service';
 import { WorkingTimesService } from './working-times.service';
 

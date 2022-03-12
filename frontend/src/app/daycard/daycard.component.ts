@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { TimeDataJson } from '../add-time/AddTimeData';
+import { TimeDataJson } from '../TimeData';
 import { ResponseJson } from '../ResponseJson';
 import { Settings, StandardWorkingTimes } from '../Settings';
 import { SettingsService } from '../settings.service';
