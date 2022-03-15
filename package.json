@@ -1,14 +1,26 @@
 {
-  "name": "timelog",
+  "name": "@fluidblue/timelog",
   "version": "0.0.0",
+  "description": "TimeLog is a desktop application allowing you to track your time",
   "scripts": {
+    "start": "npm-run-all -p ng:start electron:start",
+    "build": "npm run ng:build && npm run electron:build",
+    "electron:build": "tsc -p tsconfig.electron.json",
+    "electron:watch": "tsc -p tsconfig.electron.json -w",
+    "electron:lint": "eslint -c .eslintrc --ext .ts ./src",
+    "electron:start": "npm run electron:build && electron ./dist/main.js",
     "ng": "ng",
-    "start": "ng serve",
-    "build": "ng build",
-    "watch": "ng build --watch --configuration development",
-    "test": "ng test"
+    "ng:start": "ng serve",
+    "ng:build": "ng build",
+    "ng:watch": "ng build --watch --configuration development",
+    "ng:test": "ng test"
   },
-  "private": true,
+  "author": "fluidblue",
+  "license": "GPL-3.0-or-later",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/fluidblue/timelog"
+  },
   "dependencies": {
     "@angular/animations": "~13.2.0",
     "@angular/common": "~13.2.0",
@@ -32,12 +44,14 @@
     "@angular/compiler-cli": "~13.2.0",
     "@types/jasmine": "~3.10.0",
     "@types/node": "^12.20.47",
+    "electron": "^17.1.2",
     "jasmine-core": "~4.0.0",
     "karma": "~6.3.0",
     "karma-chrome-launcher": "~3.1.0",
     "karma-coverage": "~2.1.0",
     "karma-jasmine": "~4.0.0",
     "karma-jasmine-html-reporter": "~1.7.0",
+    "npm-run-all": "^4.1.5",
     "typescript": "~4.5.2"
   }
 }
