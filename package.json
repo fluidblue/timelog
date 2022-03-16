@@ -5,8 +5,8 @@
   "description": "TimeLog is a desktop application allowing you to track your time",
   "scripts": {
     "start": "npm-run-all -p ng:start electron:start",
-    "package": "npm run ng:build && npm run electron-forge:package",
-    "make": "npm run ng:build && npm run electron-forge:make",
+    "package": "npm run build && npm run electron-forge:package",
+    "make": "npm run build && npm run electron-forge:make",
     "build": "npm run ng:build && npm run electron:build",
     "electron:build": "tsc -p tsconfig.electron.json",
     "electron:watch": "tsc -p tsconfig.electron.json -w",
