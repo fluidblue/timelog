@@ -12,7 +12,7 @@ function createWindow() {
   });
 
   console.log("app.isPackaged", app.isPackaged); // TODO: Remove
-  if (app.isPackaged){
+  if (app.isPackaged) {
     // Load the index.html of the app
     mainWindow.loadFile(path.join(__dirname, "./timelog/index.html"));
   } else {
