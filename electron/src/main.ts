@@ -1,9 +1,8 @@
 import { app, BrowserWindow } from "electron";
 import * as path from "path";
-// TODO
-// import Database from "./Database";
+import Database from "./Database";
 
-// const database = new Database();
+const database = new Database();
 
 function createWindow() {
     // Create the browser window
