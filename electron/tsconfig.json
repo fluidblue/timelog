@@ -2,7 +2,7 @@
   "compilerOptions": {
     "module": "commonjs",
     "noImplicitAny": true,
-    "inlineSourceMap": true,
+    "sourceMap": true,
     "outDir": "dist",
     "baseUrl": ".",
     "paths": {
@@ -10,6 +10,6 @@
     }
   },
   "include": [
-    "app/**/*"
+    "src/**/*"
   ]
 }

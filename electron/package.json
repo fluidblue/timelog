@@ -1,0 +1,34 @@
+{
+  "name": "timelog",
+  "version": "0.0.0",
+  "private": true,
+  "description": "TimeLog is a desktop application allowing you to track your time",
+  "author": "fluidblue",
+  "license": "GPL-3.0-or-later",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/fluidblue/timelog"
+  },
+  "scripts": {
+    "build": "tsc",
+    "watch": "tsc -w",
+    "lint": "eslint -c .eslintrc --ext .ts ./src",
+    "start": "npm run build && electron ./dist/main.js"
+  },
+  "keywords": [
+    "Electron",
+    "quick",
+    "start",
+    "tutorial",
+    "demo",
+    "typescript"
+  ],
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^4.33.0",
+    "@typescript-eslint/parser": "^4.33.0",
+    "electron": "^17.1.2",
+    "eslint": "^7.32.0",
+    "typescript": "^4.5.5"
+  },
+  "dependencies": {}
+}
