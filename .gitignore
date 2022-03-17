@@ -3,7 +3,3 @@
 # Project specific
 /stuff
 /electron_old
-
-# Compiled output
-/dist
-/out
