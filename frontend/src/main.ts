@@ -5,7 +5,8 @@ import { AppModule } from './app/app.module';
 import { environment } from './environments/environment';
 
 // Manually import API definition
-import {} from '../app/api.definition';
+// TODO
+//import {} from '../app/api.definition';
 
 if (environment.production) {
   enableProdMode();
