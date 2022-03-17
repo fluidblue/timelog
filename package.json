@@ -4,11 +4,14 @@
   "description": "Loader for timelog",
   "private": true,
   "scripts": {
+    "install": "npm run frontend:install && npm run electron:install",
     "start": "npm-run-all -p frontend:start electron:start",
     "build": "npm run frontend:build && npm run electron:build",
     "make": "npm run build && npm run electron:make",
+    "frontend:install": "npm --prefix \"./frontend\" install",
     "frontend:build": "npm --prefix \"./frontend\" run build",
     "frontend:start": "npm --prefix \"./frontend\" start",
+    "electron:install": "npm --prefix \"./electron\" install",
     "electron:build": "npm --prefix \"./electron\" run build",
     "electron:start": "npm --prefix \"./electron\" start",
     "electron:make": "npm --prefix \"./electron\" run make"
