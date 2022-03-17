@@ -17,7 +17,7 @@ npm install
 npm run make
 ```
 
-Finally open the compiled application, which is placed in the `out` directory.
+Finally open the compiled application, which is placed in the `./electron/out` directory.
 
 
 ### Development installation
