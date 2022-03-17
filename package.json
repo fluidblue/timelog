@@ -39,10 +39,13 @@
     "@angular/platform-browser-dynamic": "~13.2.0",
     "@angular/router": "~13.2.0",
     "@ng-bootstrap/ng-bootstrap": "^11.0.0",
+    "@types/sqlite3": "^3.1.8",
     "bootstrap": "^4.6.0",
     "bootstrap-icons": "^1.8.0",
     "electron-squirrel-startup": "^1.0.0",
     "rxjs": "~7.5.0",
+    "sqlite": "^4.0.25",
+    "sqlite3": "^4.2.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.11.4"
   },
