@@ -5,8 +5,7 @@ import { AppModule } from './app/app.module';
 import { environment } from './environments/environment';
 
 // Manually import API definition
-// TODO
-//import {} from '../app/api.definition';
+import {} from '../../electron/src/api.definition';
 
 if (environment.production) {
   enableProdMode();
