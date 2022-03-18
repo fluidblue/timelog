@@ -21,6 +21,8 @@ npm run make
 
 Finally open the compiled application, which is placed in the `./electron/out` directory.
 
+Hint: On Windows, you must use an administrative shell.
+
 
 ### Development installation
 
@@ -40,3 +42,5 @@ npm run electron:start
 ```
 
 An electron instance will open automatically.
+
+Hint: On Windows, you must use an administrative shell.
