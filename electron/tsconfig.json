@@ -3,7 +3,7 @@
     "allowJs": true,
     "module": "commonjs",
     "noImplicitAny": true,
-    "sourceMap": true,
+    "inlineSourceMap": true,
     "baseUrl": ".",
     "outDir": "dist",
     "moduleResolution": "node",
