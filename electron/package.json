@@ -7,9 +7,9 @@
   "main": "dist/main.js",
   "scripts": {
     "start": "tsc && electron-forge start",
-    "package": "electron-forge package",
-    "make": "electron-forge make",
-    "publish": "electron-forge publish",
+    "package": "tsc && electron-forge package",
+    "make": "tsc && electron-forge make",
+    "publish": "tsc && electron-forge publish",
     "lint": "eslint --ext .ts ."
   },
   "keywords": [],
