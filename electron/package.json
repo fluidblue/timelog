@@ -1,9 +1,10 @@
 {
   "name": "timelog",
   "productName": "timelog",
-  "version": "1.0.0",
-  "description": "My Electron application description",
-  "main": "dist/index.js",
+  "version": "0.0.0",
+  "private": true,
+  "description": "TimeLog is a desktop application allowing you to track your time",
+  "main": "dist/main.js",
   "scripts": {
     "start": "tsc && electron-forge start",
     "package": "electron-forge package",
@@ -16,7 +17,7 @@
     "name": "fluidblue",
     "email": "fluidblue@users.noreply.github.com"
   },
-  "license": "MIT",
+  "license": "GPL-3.0-or-later",
   "config": {
     "forge": {
       "packagerConfig": {},
