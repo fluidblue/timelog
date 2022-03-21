@@ -7,7 +7,7 @@ export default class DatabaseClient {
     constructor() {
         const file = path.join(app.getPath("appData"), "db.sqlite3");
         const options = {
-            verbose: console.log // TODO: Set to null in production
+            verbose: app.isPackaged ? null : console.log
         };
         const db = new Database(file, options);
         console.log(db); // TODO: Remove
