@@ -7,6 +7,7 @@ import API from './API';
 import { Time } from './Time';
 import { ResponseJson } from './ResponseJson';
 import { ToastService } from './toast.service';
+import { nextTick } from 'process';
 
 @Injectable({
   providedIn: 'root'
@@ -57,7 +58,8 @@ export class SettingsService {
       return of(this.settings);
     }
 
-    const observable = this.http.get<ApiSettings>(this.apiUri);
+    const promise: Promise<ApiSettings> = window.timelogAPI.settingsGet();
+    const observable = API.convertPromise2Observable(promise);
     return observable.pipe(
       catchError(
         (error: HttpErrorResponse) => {
