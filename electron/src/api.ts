@@ -40,7 +40,7 @@ export interface TimeLogDataOut {
 }
 
 export interface TimelogAPI {
-    settingsGet: () => Promise<Settings | null>;
+    settingsGet: () => Promise<Settings>;
     settingsSet: (settings: Settings) => Promise<boolean>;
     timeLogGet: (date: string) => Promise<TimeLogDataOut[] | null>;
     timeLogAdd: (timeLogEntry: TimeLogDataIn) => Promise<boolean>;

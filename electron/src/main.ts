@@ -1,4 +1,4 @@
-import { app, BrowserWindow } from "electron";
+import { app, BrowserWindow, ipcMain } from "electron";
 import { dialog, FileFilter } from "electron";
 import * as path from "path";
 import DatabaseClient from "./DatabaseClient";
@@ -85,6 +85,13 @@ app.on("ready", () => {
         return;
     }
     databaseClient = new DatabaseClient(dbFile);
+
+    // Setup IPC
+    ipcMain.handle("settings:get", async () => { return databaseClient.settingsGet });
+    ipcMain.handle("settings:set", async (event, settings) => { return databaseClient.settingsSet(settings); });
+    ipcMain.handle("timelog:get", async (event, date) => { return databaseClient.timeLogGet(date); });
+    ipcMain.handle("timelog:add", async (event, timeLogEntry) => { return databaseClient.timeLogAdd(timeLogEntry); });
+    ipcMain.handle("timelog:remove", async (event, timeLogEntry) => { return databaseClient.timeLogRemove(timeLogEntry); });
 
     // Create main window
     createWindow();
