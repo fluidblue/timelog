@@ -36,7 +36,7 @@ export class WorkingTimesService {
     return observable.pipe(
       catchError(
         (error: HttpErrorResponse) => {
-          this.toastService.showError("Could not load timelog data from server.");
+          this.toastService.showError("Could not load timelog data.");
           return EMPTY;
         }
       )
