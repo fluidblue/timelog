@@ -33,19 +33,19 @@ export default class DatabaseClient {
 
     settingsGet(): Settings {
         // TODO
-        Log.info("Executing settingsGet")
+        Log.info("Executing settingsGet");
         return settingsDataDefault;
     }
 
     settingsSet(settings: Settings): boolean {
         // TODO
-        console.log("settingsSet:", settings);
+        Log.info("Executing settingsSet");
         return false;
     }
 
     timeLogGet(date: string): TimeLogDataOut[] | null {
         // TODO
-        console.log("timeLogGet:", date);
+        Log.info("Executing timeLogGet");
         return null;
     }
 
@@ -58,13 +58,13 @@ export default class DatabaseClient {
 
     timeLogAdd(timeLogEntry: TimeLogDataIn): boolean {
         // TODO
-        console.log("timeLogAdd:", timeLogEntry);
+        Log.info("Executing timeLogAdd");
         return false;
     }
 
     timeLogRemove(timeLogEntry: TimeLogDataIn): boolean {
         // TODO
-        console.log("timeLogRemove:", timeLogEntry);
+        Log.info("Executing timeLogRemove");
         return false;
     }
 }
