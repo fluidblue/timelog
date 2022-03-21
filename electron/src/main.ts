@@ -87,7 +87,7 @@ app.on("ready", () => {
     databaseClient = new DatabaseClient(dbFile);
 
     // Setup IPC
-    ipcMain.handle("settings:get", async () => { return databaseClient.settingsGet });
+    ipcMain.handle("settings:get", async () => { return databaseClient.settingsGet() });
     ipcMain.handle("settings:set", async (event, settings) => { return databaseClient.settingsSet(settings); });
     ipcMain.handle("timelog:get", async (event, date) => { return databaseClient.timeLogGet(date); });
     ipcMain.handle("timelog:add", async (event, timeLogEntry) => { return databaseClient.timeLogAdd(timeLogEntry); });
