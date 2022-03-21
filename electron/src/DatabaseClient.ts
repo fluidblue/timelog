@@ -1,23 +1,39 @@
 import Database from "better-sqlite3";
 import { app } from "electron";
 import { Settings, settingsDataDefault, TimeLogDataIn, TimeLogDataOut } from "./api";
+import Log from "./Log";
+import * as fs from 'fs';
+import * as path from "path";
 
 export default class DatabaseClient {
+    private db;
+
     constructor(file: string) {
         const options = {
             verbose: app.isPackaged ? null : console.log
         };
-        const db = new Database(file, options);
-        console.log(db); // TODO: Remove
+        this.db = new Database(file, options);
+        console.log(this.db); // TODO: Remove
 
         // const userId = 0;
         // const row = db.prepare('SELECT * FROM users WHERE id = ?').get(userId);
         // console.log(row); // TODO: Remove
     }
 
+    async createNewDatabase() {
+        Log.info("Creating new database");
+
+        const dbStructure = fs.readFileSync(path.join(__dirname, "../db.sql"), "utf8");
+        this.db.exec(dbStructure);
+    }
+
+    async close() {
+        this.db.close();
+    }
+
     async settingsGet(): Promise<Settings> {
         // TODO
-        console.log("settingsGet")
+        Log.info("Executing settingsGet")
         return settingsDataDefault;
     }
 

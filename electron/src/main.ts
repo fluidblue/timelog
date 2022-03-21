@@ -2,10 +2,17 @@ import { app, BrowserWindow, ipcMain } from "electron";
 import { dialog, FileFilter } from "electron";
 import * as path from "path";
 import DatabaseClient from "./DatabaseClient";
+import Log from "./Log";
 
 let databaseClient: DatabaseClient | null = null;
 
-function selectDatabaseFile(): string | null | undefined {
+interface SelectDatabaseFileReturn {
+    success: boolean,
+    file: string | null,
+    createNewFile: boolean
+}
+
+function selectDatabaseFile(): SelectDatabaseFileReturn {
     const createNewFile: boolean = dialog.showMessageBoxSync({
         message: "Do you want to create a new storage file or select an existing one?",
         type: "question",
@@ -39,7 +46,11 @@ function selectDatabaseFile(): string | null | undefined {
         }
     }
 
-    return file;
+    return {
+        success: file ? true : false,
+        file: file ? file : null,
+        createNewFile: createNewFile
+    };
 }
 
 function createWindow() {
@@ -79,12 +90,23 @@ app.on("ready", () => {
     });
 
     // Setup database
-    const dbFile = selectDatabaseFile();
-    if (!dbFile) {
+    const selectDatabaseFileReturn = selectDatabaseFile();
+    if (!selectDatabaseFileReturn.success) {
         app.quit();
         return;
     }
-    databaseClient = new DatabaseClient(dbFile);
+    databaseClient = new DatabaseClient(selectDatabaseFileReturn.file);
+    if (selectDatabaseFileReturn.createNewFile) {
+        databaseClient.createNewDatabase();
+    }
+
+    // Handle shutdown of app
+    app.on("quit", () => {
+        Log.info("Shutting down");
+
+        databaseClient.close();
+        databaseClient = null;
+    });
 
     // Setup IPC
     ipcMain.handle("settings:get", async () => { return databaseClient.settingsGet() });
