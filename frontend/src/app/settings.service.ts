@@ -5,9 +5,7 @@ import { Settings, WeekDay } from './Settings';
 import { Settings as ApiSettings } from '../../../electron/src/api'; 
 import API from './API';
 import { Time } from './Time';
-import { ResponseJson } from './ResponseJson';
 import { ToastService } from './toast.service';
-import { nextTick } from 'process';
 
 @Injectable({
   providedIn: 'root'
@@ -21,17 +19,17 @@ export class SettingsService {
     private toastService: ToastService
   ) { }
 
-  private convertApiStructureToSettings(settingsJson: ApiSettings): Settings {
+  private convertApiStructureToSettings(apiSettings: ApiSettings): Settings {
     return {
-      startOfWeek: settingsJson.weekStartsOn,
+      startOfWeek: apiSettings.weekStartsOn,
       standardWorkingTimes: {
-        [WeekDay.Monday]: Time.fromMinutes(settingsJson.workingTimes.monday),
-        [WeekDay.Tuesday]: Time.fromMinutes(settingsJson.workingTimes.tuesday),
-        [WeekDay.Wednesday]: Time.fromMinutes(settingsJson.workingTimes.wednesday),
-        [WeekDay.Thursday]: Time.fromMinutes(settingsJson.workingTimes.thursday),
-        [WeekDay.Friday]: Time.fromMinutes(settingsJson.workingTimes.friday),
-        [WeekDay.Saturday]: Time.fromMinutes(settingsJson.workingTimes.saturday),
-        [WeekDay.Sunday]: Time.fromMinutes(settingsJson.workingTimes.sunday)
+        [WeekDay.Monday]: Time.fromMinutes(apiSettings.workingTimes.monday),
+        [WeekDay.Tuesday]: Time.fromMinutes(apiSettings.workingTimes.tuesday),
+        [WeekDay.Wednesday]: Time.fromMinutes(apiSettings.workingTimes.wednesday),
+        [WeekDay.Thursday]: Time.fromMinutes(apiSettings.workingTimes.thursday),
+        [WeekDay.Friday]: Time.fromMinutes(apiSettings.workingTimes.friday),
+        [WeekDay.Saturday]: Time.fromMinutes(apiSettings.workingTimes.saturday),
+        [WeekDay.Sunday]: Time.fromMinutes(apiSettings.workingTimes.sunday)
       }
     };
   }
@@ -66,7 +64,7 @@ export class SettingsService {
         }
       )
     ).pipe(
-      map((settingsJson) => this.convertApiStructureToSettings(settingsJson))
+      map((apiSettings) => this.convertApiStructureToSettings(apiSettings))
     ).pipe(
       tap((settings) => this.settings = settings)
     );
