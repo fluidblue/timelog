@@ -20,30 +20,30 @@ export default class DatabaseClient {
         // console.log(row); // TODO: Remove
     }
 
-    async createNewDatabase() {
+    createNewDatabase() {
         Log.info("Creating new database");
 
         const dbStructure = fs.readFileSync(path.join(__dirname, "../db.sql"), "utf8");
         this.db.exec(dbStructure);
     }
 
-    async close() {
+    close() {
         this.db.close();
     }
 
-    async settingsGet(): Promise<Settings> {
+    settingsGet(): Settings {
         // TODO
         Log.info("Executing settingsGet")
         return settingsDataDefault;
     }
 
-    async settingsSet(settings: Settings): Promise<boolean> {
+    settingsSet(settings: Settings): boolean {
         // TODO
         console.log("settingsSet:", settings);
         return false;
     }
 
-    async timeLogGet(date: string): Promise<TimeLogDataOut[] | null> {
+    timeLogGet(date: string): TimeLogDataOut[] | null {
         // TODO
         console.log("timeLogGet:", date);
         return null;
@@ -56,13 +56,13 @@ export default class DatabaseClient {
 			pad(date.getUTCDate());
 	}
 
-    async timeLogAdd(timeLogEntry: TimeLogDataIn): Promise<boolean> {
+    timeLogAdd(timeLogEntry: TimeLogDataIn): boolean {
         // TODO
         console.log("timeLogAdd:", timeLogEntry);
         return false;
     }
 
-    async timeLogRemove(timeLogEntry: TimeLogDataIn): Promise<boolean> {
+    timeLogRemove(timeLogEntry: TimeLogDataIn): boolean {
         // TODO
         console.log("timeLogRemove:", timeLogEntry);
         return false;
