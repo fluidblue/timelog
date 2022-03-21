@@ -62,7 +62,7 @@ export class SettingsService {
     const observable = API.convertPromise2Observable(promise);
     return observable.pipe(
       catchError(
-        (error: HttpErrorResponse) => {
+        (error) => {
           this.toastService.showError("Could not load settings.");
           return EMPTY;
         }
@@ -74,22 +74,21 @@ export class SettingsService {
     );
   }
 
-  setSettings(settings: Settings): Observable<ResponseJson> {
+  setSettings(settings: Settings): Observable<boolean> {
     this.settings = settings;
 
-    const settingsJson = this.convertSettingsToApiStructure(settings);
-    const observable = this.http.put<ResponseJson>(this.apiUri, settingsJson);
+    const apiSettings = this.convertSettingsToApiStructure(settings);
+    const promise = window.timelogAPI.settingsSet(apiSettings);
+    const observable = API.convertPromise2Observable(promise);
     observable.pipe(
       catchError(
-        (error: HttpErrorResponse) => {
-          return of({
-            result: false
-          });
+        (error) => {
+          return of(false);
         }
       )
     ).subscribe(
-      (response: ResponseJson) => {
-        if (response.result) {
+      (response: boolean) => {
+        if (response) {
           this.toastService.showInfo("The settings have been saved.");
         } else {
           this.toastService.showError("The settings could not be saved.");
