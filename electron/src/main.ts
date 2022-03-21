@@ -1,8 +1,46 @@
 import { app, BrowserWindow } from "electron";
+import { dialog, FileFilter } from "electron";
 import * as path from "path";
 import DatabaseClient from "./DatabaseClient";
 
-const databaseClient = new DatabaseClient();
+let databaseClient: DatabaseClient | null = null;
+
+function selectDatabaseFile(): string | null | undefined {
+    const createNewFile: boolean = dialog.showMessageBoxSync({
+        message: "Do you want to create a new storage file or select an existing one?",
+        type: "question",
+        buttons: [ "Create a new file", "Use existing file" ],
+        defaultId: 0,
+        cancelId: 0
+    }) !== 1;
+
+    const filters: FileFilter[] = [
+        {
+            name: "TimeLog data file",
+            extensions: [ "*.sqlite3" ]
+        }
+    ];
+
+    let file: string | null = null;
+    if (createNewFile) {
+        file = dialog.showSaveDialogSync({
+            filters: filters
+        });
+    } else {
+        const files = dialog.showOpenDialogSync({
+            properties: [
+                "openFile",
+                "createDirectory"
+            ],
+            filters: filters
+        });
+        if (files && files[0]) {
+            file = files[0];
+        }
+    }
+
+    return file;
+}
 
 function createWindow() {
     // Create the browser window
@@ -32,8 +70,6 @@ function createWindow() {
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.
 app.on("ready", () => {
-    createWindow();
-
     app.on("activate", function () {
         // On macOS it's common to re-create a window in the app when the
         // dock icon is clicked and there are no other windows open.
@@ -41,6 +77,17 @@ app.on("ready", () => {
             createWindow();
         }
     });
+
+    // Setup database
+    const dbFile = selectDatabaseFile();
+    if (!dbFile) {
+        app.quit();
+        return;
+    }
+    databaseClient = new DatabaseClient(dbFile);
+
+    // Create main window
+    createWindow();
 });
 
 // Quit when all windows are closed, except on macOS.

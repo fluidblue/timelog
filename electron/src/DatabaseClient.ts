@@ -1,11 +1,8 @@
 import Database from "better-sqlite3";
-
 import { app } from "electron";
-import * as path from "path";
 
 export default class DatabaseClient {
-    constructor() {
-        const file = path.join(app.getPath("appData"), "db.sqlite3");
+    constructor(file: string) {
         const options = {
             verbose: app.isPackaged ? null : console.log
         };
