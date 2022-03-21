@@ -14,8 +14,6 @@ import { nextTick } from 'process';
 })
 export class SettingsService {
 
-  private readonly apiUri = API.apiUri + "/settings"
-
   private settings?: Settings;
 
   constructor(
