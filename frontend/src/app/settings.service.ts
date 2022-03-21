@@ -1,7 +1,8 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, EMPTY, map, Observable, of, tap } from 'rxjs';
-import { Settings, SettingsJson, WeekDay } from './Settings';
+import { Settings, WeekDay } from './Settings';
+import { Settings as ApiSettings } from '../../../electron/src/api'; 
 import API from './API';
 import { Time } from './Time';
 import { ResponseJson } from './ResponseJson';
@@ -21,7 +22,7 @@ export class SettingsService {
     private toastService: ToastService
   ) { }
 
-  private convertJsonToSettings(settingsJson: SettingsJson): Settings {
+  private convertApiStructureToSettings(settingsJson: ApiSettings): Settings {
     return {
       startOfWeek: settingsJson.weekStartsOn,
       standardWorkingTimes: {
@@ -36,7 +37,7 @@ export class SettingsService {
     };
   }
 
-  private convertSettingsToJson(settings: Settings): SettingsJson {
+  private convertSettingsToApiStructure(settings: Settings): ApiSettings {
     return {
       weekStartsOn: settings.startOfWeek,
       workingTimes: {
@@ -56,7 +57,7 @@ export class SettingsService {
       return of(this.settings);
     }
 
-    const observable = this.http.get<SettingsJson>(this.apiUri);
+    const observable = this.http.get<ApiSettings>(this.apiUri);
     return observable.pipe(
       catchError(
         (error: HttpErrorResponse) => {
@@ -65,7 +66,7 @@ export class SettingsService {
         }
       )
     ).pipe(
-      map((settingsJson) => this.convertJsonToSettings(settingsJson))
+      map((settingsJson) => this.convertApiStructureToSettings(settingsJson))
     ).pipe(
       tap((settings) => this.settings = settings)
     );
@@ -74,7 +75,7 @@ export class SettingsService {
   setSettings(settings: Settings): Observable<ResponseJson> {
     this.settings = settings;
 
-    const settingsJson = this.convertSettingsToJson(settings);
+    const settingsJson = this.convertSettingsToApiStructure(settings);
     const observable = this.http.put<ResponseJson>(this.apiUri, settingsJson);
     observable.pipe(
       catchError(

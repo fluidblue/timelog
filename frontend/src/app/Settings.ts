@@ -1,21 +1,6 @@
 import { Time } from "./Time";
 
-export interface WorkingTimesJson {
-	monday: number;
-	tuesday: number;
-	wednesday: number;
-	thursday: number;
-	friday: number;
-	saturday: number;
-	sunday: number;
-}
-
-export type WeekDayJson = "monday" | "tuesday" | "wednesday" | "thursday" | "friday" | "saturday" | "sunday";
-
-export interface SettingsJson {
-	weekStartsOn: WeekDayJson;
-	workingTimes: WorkingTimesJson;
-}
+export type WeekDayStringLiterals = "monday" | "tuesday" | "wednesday" | "thursday" | "friday" | "saturday" | "sunday";
 
 export enum WeekDay {
     Sunday = 0,
@@ -32,6 +17,6 @@ export type StandardWorkingTimes = {
 };
 
 export interface Settings {
-    startOfWeek: WeekDayJson
+    startOfWeek: WeekDayStringLiterals
     standardWorkingTimes: StandardWorkingTimes
 }

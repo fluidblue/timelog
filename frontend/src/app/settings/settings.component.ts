@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonFunctions } from '../CommonFunctions';
-import { WeekDayJson, WeekDay } from '../Settings';
+import { WeekDay } from '../Settings';
+import { WeekDay as ApiWeekDay } from '../../../../electron/src/api'; 
 import { SettingsService } from '../settings.service';
 import { WorkingTimes } from './WorkingTimes';
 
@@ -31,7 +32,7 @@ export class SettingsComponent implements OnInit {
     "sunday": null
   };
 
-  startOfWeek: WeekDayJson = "monday";
+  startOfWeek: ApiWeekDay = "monday";
   settingsLoaded: boolean = false;
 
   parseTimeEvent = CommonFunctions.parseTimeEvent;
