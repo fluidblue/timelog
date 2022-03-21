@@ -1,12 +1,13 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { catchError, EMPTY, map, Observable, of } from 'rxjs';
+import { catchError, EMPTY, map, Observable, of, throwError } from 'rxjs';
 import { TimeDataJson } from './TimeData';
 import API from './API';
 import { ResponseJson } from './ResponseJson';
 import { Time } from './Time';
 import { ToastService } from './toast.service';
-import { WorkingTime, WorkingTimeJson } from './WorkingTime';
+import { WorkingTime } from './WorkingTime';
+import { TimeLogDataOut } from '../../../electron/src/api';
 
 @Injectable({
   providedIn: 'root'
@@ -24,24 +25,33 @@ export class WorkingTimesService {
       pad(date.getDate());
   }
 
-  private convertJsonToWorkingTime(json: WorkingTimeJson): WorkingTime {
+  private convertApiStructureToWorkingTime(workingTime: TimeLogDataOut): WorkingTime {
     return {
-      from: Time.fromMinutes(json.from),
-      to: Time.fromMinutes(json.to),
+      from: Time.fromMinutes(workingTime.from),
+      to: Time.fromMinutes(workingTime.to),
     };
   }
 
   getWorkingTimes(date: Date): Observable<WorkingTime[]> {
-    const observable = this.http.get<WorkingTimeJson[]>(this.apiUri + "/" + this.convertDateToString(date));
+    const promise = window.timelogAPI.timeLogGet(this.convertDateToString(date));
+    const observable = API.convertPromise2Observable(promise);
+
     return observable.pipe(
+      map((apiWorkingTimes) => {
+        if (!apiWorkingTimes) {
+          throw new Error("Could not load timelog data.");
+        }
+        return apiWorkingTimes;
+      })
+    ).pipe(
       catchError(
-        (error: HttpErrorResponse) => {
-          this.toastService.showError("Could not load timelog data.");
+        (error) => {
+          this.toastService.showError(error);
           return EMPTY;
         }
       )
     ).pipe(
-      map((workingTimesJson) => workingTimesJson.map((workingTimeJson) => this.convertJsonToWorkingTime(workingTimeJson)))
+      map((apiWorkingTimes) => apiWorkingTimes.map((apiWorkingTime) => this.convertApiStructureToWorkingTime(apiWorkingTime)))
     );
   }
 
