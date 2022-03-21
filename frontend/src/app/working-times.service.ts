@@ -1,13 +1,11 @@
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { catchError, EMPTY, map, Observable, of, throwError } from 'rxjs';
-import { TimeDataJson } from './TimeData';
+import { catchError, EMPTY, map, Observable, of, tap, throwError } from 'rxjs';
 import API from './API';
-import { ResponseJson } from './ResponseJson';
 import { Time } from './Time';
 import { ToastService } from './toast.service';
 import { WorkingTime } from './WorkingTime';
-import { TimeLogDataOut } from '../../../electron/src/api';
+import { TimeLogDataIn, TimeLogDataOut } from '../../../electron/src/api';
 
 @Injectable({
   providedIn: 'root'
@@ -55,32 +53,36 @@ export class WorkingTimesService {
     );
   }
 
-  addWorkingTime(addTimeDataJson: TimeDataJson): Observable<ResponseJson> {
-    const observable = this.http.post<ResponseJson>(this.apiUri, addTimeDataJson);
-    observable.pipe(
-      catchError(
-        (error) => {
-          return of({
-            result: false
-          });
+  addWorkingTime(addTimeData: TimeLogDataIn): Observable<boolean> {
+    const promise = window.timelogAPI.timeLogAdd(addTimeData);
+    const observable = API.convertPromise2Observable(promise);
+
+    return observable.pipe(
+      tap(
+        (value) => {
+          // TODO: Test message
+          if (!value) {
+            this.toastService.showError("Could not add working time");
+          }
         }
       )
     );
-    return observable;
   }
 
-  removeWorkingTime(removeTimeDataJson: TimeDataJson): Observable<ResponseJson> {
-    const observable = this.http.post<ResponseJson>(this.apiUri + "/delete", removeTimeDataJson);
-    observable.pipe(
-      catchError(
-        (error) => {
-          return of({
-            result: false
-          });
+  removeWorkingTime(removeTimeData: TimeLogDataIn): Observable<boolean> {
+    const promise = window.timelogAPI.timeLogRemove(removeTimeData);
+    const observable = API.convertPromise2Observable(promise);
+
+    return observable.pipe(
+      tap(
+        // TODO: Test message
+        (value) => {
+          if (!value) {
+            this.toastService.showError("Could not remove working time");
+          }
         }
       )
     );
-    return observable;
   }
 
 }

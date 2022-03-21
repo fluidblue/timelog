@@ -17,16 +17,19 @@ export default class DatabaseClient {
 
     async settingsGet(): Promise<Settings> {
         // TODO
+        console.log("settingsGet")
         return settingsDataDefault;
     }
 
     async settingsSet(settings: Settings): Promise<boolean> {
         // TODO
+        console.log("settingsSet:", settings);
         return false;
     }
 
     async timeLogGet(date: string): Promise<TimeLogDataOut[] | null> {
         // TODO
+        console.log("timeLogGet:", date);
         return null;
     }
 
@@ -39,11 +42,13 @@ export default class DatabaseClient {
 
     async timeLogAdd(timeLogEntry: TimeLogDataIn): Promise<boolean> {
         // TODO
+        console.log("timeLogAdd:", timeLogEntry);
         return false;
     }
 
     async timeLogRemove(timeLogEntry: TimeLogDataIn): Promise<boolean> {
         // TODO
+        console.log("timeLogRemove:", timeLogEntry);
         return false;
     }
 }

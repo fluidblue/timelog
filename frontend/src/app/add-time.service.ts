@@ -1,11 +1,10 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { TimeLogDataIn } from '../../../electron/src/api';
 import { AddTimeComponent } from './add-time/add-time.component';
 import { AddTimeDataResult } from './add-time/AddTimeDataResult';
 import API from './API';
-import { ResponseJson } from './ResponseJson';
-import { TimeDataJson } from './TimeData';
 import { ToastService } from './toast.service';
 import { WorkingTimesService } from './working-times.service';
 
@@ -29,20 +28,21 @@ export class AddTimeService {
 
       modalRef.result.then(
         (result: AddTimeDataResult) => {
-          const addTimeDataJson: TimeDataJson = {
+          const addTimeData: TimeLogDataIn = {
             date: result.date,
             from: result.from.getTotalMinutes(),
             to: result.to.getTotalMinutes(),
           };
 
-          const observable = this.workingTimesService.addWorkingTime(addTimeDataJson);
+          const observable = this.workingTimesService.addWorkingTime(addTimeData);
           observable.subscribe(
-            (reponse: ResponseJson) => {
-              if (reponse.result) {
+            (response: boolean) => {
+              // TODO: Test messages
+              if (response) {
                 this.toastService.showInfo("Successfully added time.");
                 resolve(true);
               } else {
-                this.toastService.showInfo("Failed to add time.");
+                this.toastService.showError("Failed to add time.");
                 resolve(false);
               }
             }

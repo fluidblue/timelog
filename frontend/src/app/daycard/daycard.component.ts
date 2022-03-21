@@ -1,6 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { TimeDataJson } from '../TimeData';
-import { ResponseJson } from '../ResponseJson';
+import { TimeLogDataIn } from '../../../../electron/src/api';
 import { Settings, StandardWorkingTimes } from '../Settings';
 import { SettingsService } from '../settings.service';
 import { Time } from '../Time';
@@ -79,7 +78,7 @@ export class DaycardComponent implements OnInit {
   }
 
   onRemove(date: Date, from: Time, to: Time) {
-    const removeTimeDataJson: TimeDataJson = {
+    const removeTimeDataJson: TimeLogDataIn = {
       date: date,
       from: from.getTotalMinutes(),
       to: to.getTotalMinutes(),
@@ -87,11 +86,12 @@ export class DaycardComponent implements OnInit {
 
     const observable = this.workingTimesService.removeWorkingTime(removeTimeDataJson);
     observable.subscribe(
-      (reponse: ResponseJson) => {
-        if (reponse.result) {
+      (response: boolean) => {
+        // TODO: Test messages
+        if (response) {
           this.toastService.showInfo("Successfully removed time.");
         } else {
-          this.toastService.showInfo("Failed to remove time.");
+          this.toastService.showError("Failed to remove time.");
         }
         this.ngOnInit();
       }
