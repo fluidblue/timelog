@@ -109,6 +109,7 @@ export default class DatabaseClient {
         try {
             const statement = this.db.prepare("SELECT `from`, `to` FROM `TimeLog` WHERE `date` = ? ORDER BY `from` ASC");
             const rows = statement.all(this.convertStringToTimestamp(date));
+            console.log("timeLogGet:", date, this.convertStringToTimestamp(date)); // TODO: Remove
             return rows.map(
                 (row) => {
                     return {
@@ -129,6 +130,7 @@ export default class DatabaseClient {
         try {
             const statement = this.db.prepare("INSERT INTO `TimeLog` (`date`, `from`, `to`) VALUES (?, ?, ?)");
             const result = statement.run(this.convertStringToTimestamp(timeLogEntry.date), timeLogEntry.from, timeLogEntry.to);
+            console.log("timeLogAdd:", timeLogEntry.date, this.convertStringToTimestamp(timeLogEntry.date)); // TODO: Remove
             if (result.changes !== 1) {
                 return false;
             }
