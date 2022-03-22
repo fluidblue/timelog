@@ -13,10 +13,6 @@ export default class DatabaseClient {
         };
         this.db = new Database(file, options);
         Log.info("Opened database: " + (this.db ? this.db.name : this.db));
-
-        // const userId = 0;
-        // const row = db.prepare('SELECT * FROM users WHERE id = ?').get(userId);
-        // console.log(row); // TODO: Remove
     }
 
     createNewDatabase() {
@@ -108,7 +104,6 @@ export default class DatabaseClient {
         try {
             const statement = this.db.prepare("SELECT `from`, `to` FROM `TimeLog` WHERE `date` = ? ORDER BY `from` ASC");
             const rows = statement.all(this.convertStringToTimestamp(date));
-            console.log("timeLogGet:", date, this.convertStringToTimestamp(date)); // TODO: Remove
             return rows.map(
                 (row) => {
                     return {
@@ -129,7 +124,6 @@ export default class DatabaseClient {
         try {
             const statement = this.db.prepare("INSERT INTO `TimeLog` (`date`, `from`, `to`) VALUES (?, ?, ?)");
             const result = statement.run(this.convertStringToTimestamp(timeLogEntry.date), timeLogEntry.from, timeLogEntry.to);
-            console.log("timeLogAdd:", timeLogEntry.date, this.convertStringToTimestamp(timeLogEntry.date)); // TODO: Remove
             if (result.changes !== 1) {
                 return false;
             }
@@ -142,8 +136,19 @@ export default class DatabaseClient {
     }
 
     timeLogRemove(timeLogEntry: TimeLogDataIn): boolean {
-        // TODO
         Log.info("Executing timeLogRemove");
-        return false;
+
+        try {
+            const statement = this.db.prepare("DELETE FROM `TimeLog` WHERE (`date` = ? AND `from` = ? AND `to` = ?)");
+            const result = statement.run(this.convertStringToTimestamp(timeLogEntry.date), timeLogEntry.from, timeLogEntry.to);
+            if (result.changes !== 1) {
+                return false;
+            }
+        } catch (err) {
+            Log.error(err);
+            return false;
+        }
+
+        return true;
     }
 }
