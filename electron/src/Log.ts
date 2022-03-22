@@ -36,14 +36,14 @@ export default class Log {
     }
 
     private static getLogPrefix() {
-        return "[" + this.getDate() + "]";
+        return "[" + Log.getDate() + "]";
     }
 
     static error(message: any) {
-        console.error(this.getLogPrefix(), "Error:", message);
+        console.error(Log.getLogPrefix(), "Error:", message);
     }
 
     static info(message: any) {
-        console.log(this.getLogPrefix(), "Info:", message);
+        console.log(Log.getLogPrefix(), "Info:", message);
     }
 }
