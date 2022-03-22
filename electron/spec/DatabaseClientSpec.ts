@@ -19,6 +19,10 @@ describe("Database", () => {
 		database.createNewDatabase();
 	});
 
+	it("should convert date structures to timestamps", async () => {
+		expect(database.convertStringToTimestamp("2022-03-22")).toEqual((new Date(2022, 2, 22, 0, 0, 0, 0).getTime()));
+	});
+
 	it("should get the settings", async () => {
 		const settingsData: Settings = database.settingsGet();
 

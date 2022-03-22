@@ -93,10 +93,10 @@ export default class DatabaseClient {
         return true;
     }
 
-    private convertStringToTimestamp(date: string): number | null {
+    convertStringToTimestamp(date: string): number | null {
         try {
             const dateParts = date.split("-");
-            return (new Date(parseInt(date[0]), parseInt(date[1]) - 1, parseInt(date[2]), 0, 0, 0, 0)).getTime();
+            return (new Date(parseInt(dateParts[0]), parseInt(dateParts[1]) - 1, parseInt(dateParts[2]), 0, 0, 0, 0)).getTime();
         } catch (err) {
             return null;
         }
