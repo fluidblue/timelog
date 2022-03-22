@@ -1,6 +1,6 @@
 import Database from "better-sqlite3";
 import { app } from "electron";
-import { Settings, settingsDataDefault, TimeLogDataIn, TimeLogDataOut } from "./api";
+import { Settings, settingsDataDefault, TimeLogDataIn, TimeLogDataOut, WorkingTimes } from "./api";
 import Log from "./Log";
 import * as fs from 'fs';
 import * as path from "path";
@@ -32,9 +32,27 @@ export default class DatabaseClient {
     }
 
     settingsGet(): Settings {
-        // TODO
         Log.info("Executing settingsGet");
-        return settingsDataDefault;
+
+        // Note: JSON.parse(JSON.stringify(...)) is not efficient, but does the job (of deep cloning).
+		const settingsData: Settings = JSON.parse(JSON.stringify(settingsDataDefault));
+
+        let statement = this.db.prepare("SELECT * FROM `WorkingTimes` ORDER BY `id` ASC");
+        const rows = statement.all();
+        for (let i = 0; i < rows.length; i++) {
+            const name: keyof WorkingTimes = rows[i].name;
+            const workingTime: number = rows[i].workingTime;
+            settingsData.workingTimes[name] = workingTime;
+        }
+
+        statement = this.db.prepare("SELECT * FROM `Settings`");
+        const row = statement.get();
+        if (row) {
+            const settings = row;
+            settingsData.weekStartsOn = settings.weekStartsOn;
+        }
+
+        return settingsData;
     }
 
     settingsSet(settings: Settings): boolean {
