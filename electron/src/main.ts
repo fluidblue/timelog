@@ -56,8 +56,8 @@ function selectDatabaseFile(): SelectDatabaseFileReturn {
 function createWindow() {
     // Create the browser window
     const mainWindow = new BrowserWindow({
-        width: 800,
-        height: 600,
+        width: 1024,
+        height: 768,
         minWidth: 350,
         minHeight: 350,
         webPreferences: {
