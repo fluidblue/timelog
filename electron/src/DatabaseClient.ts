@@ -56,9 +56,32 @@ export default class DatabaseClient {
     }
 
     settingsSet(settings: Settings): boolean {
-        // TODO
         Log.info("Executing settingsSet");
-        return false;
+
+        let day: keyof WorkingTimes;
+        for (day in settings.workingTimes) {
+            const workingTime = settings.workingTimes[day];
+
+            const statement = this.db.prepare("UPDATE `WorkingTimes` SET `workingTime` = ? WHERE `name` = ?");
+            const result = statement.run(workingTime, day);
+            if (result.changes !== 1) {
+                return false;
+            }
+        }
+
+        let statement = this.db.prepare("DELETE FROM `Settings`");
+        let result = statement.run();
+        if (result.changes < 1) {
+            return false;
+        }
+
+        statement = this.db.prepare("INSERT INTO `Settings` (`weekStartsOn`) VALUES (?)");
+        result = statement.run(settings.weekStartsOn);
+        if (result.changes !== 1) {
+            return false;
+        }
+
+        return true;
     }
 
     timeLogGet(date: string): TimeLogDataOut[] | null {
