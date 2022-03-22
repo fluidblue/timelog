@@ -95,7 +95,7 @@ app.on("ready", () => {
         app.quit();
         return;
     }
-    databaseClient = new DatabaseClient(selectDatabaseFileReturn.file);
+    databaseClient = new DatabaseClient(selectDatabaseFileReturn.file, app.isPackaged);
     if (selectDatabaseFileReturn.createNewFile) {
         databaseClient.createNewDatabase();
     }

@@ -1,16 +1,15 @@
 import Database from "better-sqlite3";
-import { app } from "electron";
 import { Settings, settingsDataDefault, TimeLogDataIn, TimeLogDataOut, WorkingTimes } from "./api";
 import Log from "./Log";
-import * as fs from 'fs';
-import * as path from "path";
+import fs from 'fs';
+import path from "path";
 
 export default class DatabaseClient {
     private db;
 
-    constructor(file: string) {
+    constructor(file: string, debug: boolean) {
         const options = {
-            verbose: app.isPackaged ? null : Log.info
+            verbose: debug ? null : Log.info
         };
         this.db = new Database(file, options);
         Log.info("Opened database: " + (this.db ? this.db.name : this.db));
