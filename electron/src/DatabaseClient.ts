@@ -37,19 +37,24 @@ export default class DatabaseClient {
         // Note: JSON.parse(JSON.stringify(...)) is not efficient, but does the job (of deep cloning).
 		const settingsData: Settings = JSON.parse(JSON.stringify(settingsDataDefault));
 
-        let statement = this.db.prepare("SELECT * FROM `WorkingTimes` ORDER BY `id` ASC");
-        const rows = statement.all();
-        for (let i = 0; i < rows.length; i++) {
-            const name: keyof WorkingTimes = rows[i].name;
-            const workingTime: number = rows[i].workingTime;
-            settingsData.workingTimes[name] = workingTime;
-        }
+        try {
+            let statement = this.db.prepare("SELECT * FROM `WorkingTimes` ORDER BY `id` ASC");
+            const rows = statement.all();
+            for (let i = 0; i < rows.length; i++) {
+                const name: keyof WorkingTimes = rows[i].name;
+                const workingTime: number = rows[i].workingTime;
+                settingsData.workingTimes[name] = workingTime;
+            }
 
-        statement = this.db.prepare("SELECT * FROM `Settings`");
-        const row = statement.get();
-        if (row) {
-            const settings = row;
-            settingsData.weekStartsOn = settings.weekStartsOn;
+            statement = this.db.prepare("SELECT * FROM `Settings`");
+            const row = statement.get();
+            if (row) {
+                const settings = row;
+                settingsData.weekStartsOn = settings.weekStartsOn;
+            }
+        } catch (err) {
+            Log.error(err);
+            return settingsDataDefault;
         }
 
         return settingsData;
@@ -58,26 +63,31 @@ export default class DatabaseClient {
     settingsSet(settings: Settings): boolean {
         Log.info("Executing settingsSet");
 
-        let day: keyof WorkingTimes;
-        for (day in settings.workingTimes) {
-            const workingTime = settings.workingTimes[day];
+        try {
+            let day: keyof WorkingTimes;
+            for (day in settings.workingTimes) {
+                const workingTime = settings.workingTimes[day];
 
-            const statement = this.db.prepare("UPDATE `WorkingTimes` SET `workingTime` = ? WHERE `name` = ?");
-            const result = statement.run(workingTime, day);
+                const statement = this.db.prepare("UPDATE `WorkingTimes` SET `workingTime` = ? WHERE `name` = ?");
+                const result = statement.run(workingTime, day);
+                if (result.changes !== 1) {
+                    return false;
+                }
+            }
+
+            let statement = this.db.prepare("DELETE FROM `Settings`");
+            let result = statement.run();
+            if (result.changes < 1) {
+                return false;
+            }
+
+            statement = this.db.prepare("INSERT INTO `Settings` (`weekStartsOn`) VALUES (?)");
+            result = statement.run(settings.weekStartsOn);
             if (result.changes !== 1) {
                 return false;
             }
-        }
-
-        let statement = this.db.prepare("DELETE FROM `Settings`");
-        let result = statement.run();
-        if (result.changes < 1) {
-            return false;
-        }
-
-        statement = this.db.prepare("INSERT INTO `Settings` (`weekStartsOn`) VALUES (?)");
-        result = statement.run(settings.weekStartsOn);
-        if (result.changes !== 1) {
+        } catch (err) {
+            Log.error(err);
             return false;
         }
 
