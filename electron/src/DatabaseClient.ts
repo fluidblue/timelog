@@ -115,9 +115,20 @@ export default class DatabaseClient {
     }
 
     timeLogAdd(timeLogEntry: TimeLogDataIn): boolean {
-        // TODO
         Log.info("Executing timeLogAdd");
-        return false;
+
+        try {
+            const statement = this.db.prepare("INSERT INTO `TimeLog` (`date`, `from`, `to`) VALUES (?, ?, ?)");
+            const result = statement.run(timeLogEntry.date.getTime(), timeLogEntry.from, timeLogEntry.to);
+            if (result.changes !== 1) {
+                return false;
+            }
+        } catch (err) {
+            Log.error(err);
+            return false;
+        }
+
+        return true;
     }
 
     timeLogRemove(timeLogEntry: TimeLogDataIn): boolean {
