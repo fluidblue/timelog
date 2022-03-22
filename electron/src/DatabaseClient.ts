@@ -10,10 +10,10 @@ export default class DatabaseClient {
 
     constructor(file: string) {
         const options = {
-            verbose: app.isPackaged ? null : console.log
+            verbose: app.isPackaged ? null : Log.info
         };
         this.db = new Database(file, options);
-        console.log(this.db); // TODO: Remove
+        Log.info("Opened database: " + (this.db ? this.db.name : this.db));
 
         // const userId = 0;
         // const row = db.prepare('SELECT * FROM users WHERE id = ?').get(userId);
