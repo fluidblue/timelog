@@ -16,13 +16,6 @@ export class WorkingTimesService {
 
   constructor(private http: HttpClient, private toastService: ToastService) { }
 
-  private convertDateToString(date: Date): string {
-    const pad = (num: number) => ("00" + num).slice(-2);
-    return date.getFullYear() + "-" +
-      pad(date.getMonth() + 1) + "-" +
-      pad(date.getDate());
-  }
-
   private convertApiStructureToWorkingTime(workingTime: TimeLogDataOut): WorkingTime {
     return {
       from: Time.fromMinutes(workingTime.from),
@@ -31,7 +24,7 @@ export class WorkingTimesService {
   }
 
   getWorkingTimes(date: Date): Observable<WorkingTime[]> {
-    const promise = window.timelogAPI.timeLogGet(this.convertDateToString(date));
+    const promise = window.timelogAPI.timeLogGet(date);
     const observable = API.convertPromise2Observable(promise);
 
     return observable.pipe(

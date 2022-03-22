@@ -42,7 +42,7 @@ export interface TimeLogDataOut {
 export interface TimelogAPI {
     settingsGet: () => Promise<Settings>;
     settingsSet: (settings: Settings) => Promise<boolean>;
-    timeLogGet: (date: string) => Promise<TimeLogDataOut[] | null>;
+    timeLogGet: (date: Date) => Promise<TimeLogDataOut[] | null>;
     timeLogAdd: (timeLogEntry: TimeLogDataIn) => Promise<boolean>;
     timeLogRemove: (timeLogEntry: TimeLogDataIn) => Promise<boolean>;
 }

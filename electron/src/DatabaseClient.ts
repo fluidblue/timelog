@@ -94,18 +94,25 @@ export default class DatabaseClient {
         return true;
     }
 
-    timeLogGet(date: string): TimeLogDataOut[] | null {
-        // TODO
+    timeLogGet(date: Date): TimeLogDataOut[] | null {
         Log.info("Executing timeLogGet");
-        return null;
-    }
 
-    private jsDate2MysqlDate(date: Date): string {
-		const pad = (num: number) => ("00" + num).slice(-2);
-		return date.getUTCFullYear() + "-" +
-			pad(date.getUTCMonth() + 1) + "-" +
-			pad(date.getUTCDate());
-	}
+        try {
+            const statement = this.db.prepare("SELECT `from`, `to` FROM `TimeLog` WHERE `date` = ? ORDER BY `from` ASC");
+            const rows = statement.all(date.getTime());
+            return rows.map(
+                (row) => {
+                    return {
+                        from: row.from,
+                        to: row.to
+                    }
+                }
+            );
+        } catch (err) {
+            Log.error(err);
+            return null;
+        }
+    }
 
     timeLogAdd(timeLogEntry: TimeLogDataIn): boolean {
         // TODO
