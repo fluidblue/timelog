@@ -94,12 +94,21 @@ export default class DatabaseClient {
         return true;
     }
 
-    timeLogGet(date: Date): TimeLogDataOut[] | null {
+    private convertStringToTimestamp(date: string): number | null {
+        try {
+            const dateParts = date.split("-");
+            return (new Date(parseInt(date[0]), parseInt(date[1]) - 1, parseInt(date[2]), 0, 0, 0, 0)).getTime();
+        } catch (err) {
+            return null;
+        }
+    }
+
+    timeLogGet(date: string): TimeLogDataOut[] | null {
         Log.info("Executing timeLogGet");
 
         try {
             const statement = this.db.prepare("SELECT `from`, `to` FROM `TimeLog` WHERE `date` = ? ORDER BY `from` ASC");
-            const rows = statement.all(date.getTime());
+            const rows = statement.all(this.convertStringToTimestamp(date));
             return rows.map(
                 (row) => {
                     return {
@@ -119,7 +128,7 @@ export default class DatabaseClient {
 
         try {
             const statement = this.db.prepare("INSERT INTO `TimeLog` (`date`, `from`, `to`) VALUES (?, ?, ?)");
-            const result = statement.run(timeLogEntry.date.getTime(), timeLogEntry.from, timeLogEntry.to);
+            const result = statement.run(this.convertStringToTimestamp(timeLogEntry.date), timeLogEntry.from, timeLogEntry.to);
             if (result.changes !== 1) {
                 return false;
             }

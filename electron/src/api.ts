@@ -29,7 +29,7 @@ export const settingsDataDefault: Settings = {
 };
 
 export interface TimeLogDataIn {
-    date: Date;
+    date: string;
     from: number;
     to: number;
 }
@@ -42,7 +42,7 @@ export interface TimeLogDataOut {
 export interface TimelogAPI {
     settingsGet: () => Promise<Settings>;
     settingsSet: (settings: Settings) => Promise<boolean>;
-    timeLogGet: (date: Date) => Promise<TimeLogDataOut[] | null>;
+    timeLogGet: (date: string) => Promise<TimeLogDataOut[] | null>;
     timeLogAdd: (timeLogEntry: TimeLogDataIn) => Promise<boolean>;
     timeLogRemove: (timeLogEntry: TimeLogDataIn) => Promise<boolean>;
 }

@@ -29,7 +29,7 @@ export class AddTimeService {
       modalRef.result.then(
         (result: AddTimeDataResult) => {
           const addTimeData: TimeLogDataIn = {
-            date: result.date,
+            date: API.convertDateToString(result.date),
             from: result.from.getTotalMinutes(),
             to: result.to.getTotalMinutes(),
           };

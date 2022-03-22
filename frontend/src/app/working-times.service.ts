@@ -24,7 +24,7 @@ export class WorkingTimesService {
   }
 
   getWorkingTimes(date: Date): Observable<WorkingTime[]> {
-    const promise = window.timelogAPI.timeLogGet(date);
+    const promise = window.timelogAPI.timeLogGet(API.convertDateToString(date));
     const observable = API.convertPromise2Observable(promise);
 
     return observable.pipe(

@@ -13,6 +13,13 @@ export default class API {
     return uri;
   }
 
+  static convertDateToString(date: Date): string {
+    const pad = (num: number) => ("00" + num).slice(-2);
+    return date.getFullYear() + "-" +
+      pad(date.getMonth() + 1) + "-" +
+      pad(date.getDate());
+  }
+
   static convertPromise2Observable<T>(promise: Promise<T>): Observable<T> {
     return new Observable<T>(subscriber => {
       promise.then(
