@@ -1,6 +1,6 @@
 export default class TimeFunctions {
 
-    static getListOfDays(from: Date, to: Date) {
+    static getListOfDays(from: Date, to: Date): Date[] {
         const result = [];
         const date = new Date(from);
 
