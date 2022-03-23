@@ -12,8 +12,9 @@ If you just want to use TimeLog, the standard installation is sufficient.
 git clone https://github.com/fluidblue/timelog.git
 cd timelog
 
-# For the first time, this takes a long time, as sqlite3 is compiled.
-npm install
+# Install dependencies
+npm install -g @angular/cli
+npm install # For the first time, this takes a long time, as sqlite3 is compiled.
 
 # Make application
 npm run make
@@ -30,8 +31,9 @@ Hint: On Windows, you must use an administrative shell.
 git clone https://github.com/fluidblue/timelog.git
 cd timelog
 
-# For the first time, this takes a long time, as sqlite3 is compiled.
-npm install
+# Install dependencies
+npm install -g @angular/cli
+npm install # For the first time, this takes a long time, as sqlite3 is compiled.
 
 # Start application
 npm start
