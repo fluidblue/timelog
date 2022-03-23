@@ -6,6 +6,7 @@ import { RemoveTimeComponent } from '../remove-time/remove-time.component';
 import { Settings, StandardWorkingTimes } from '../Settings';
 import { SettingsService } from '../settings.service';
 import { Time } from '../Time';
+import TimeFunctions from '../TimeFunctions';
 import { WorkingTimesService } from '../working-times.service';
 import { WorkingTime } from '../WorkingTime';
 
@@ -24,6 +25,8 @@ export class DaycardComponent implements OnInit {
   totalTime?: Time;
   underOverTime?: Time;
 
+  getTimeDifference = TimeFunctions.getTimeDifference;
+
   constructor(
     private settingsService: SettingsService,
     private workingTimesService: WorkingTimesService,
@@ -36,10 +39,10 @@ export class DaycardComponent implements OnInit {
   }
 
   updateView(): void {
-    this.totalTime = this.getTotalTime();
+    this.totalTime = TimeFunctions.getTotalTime(this.workingTimes);
 
     if (this.date && this.settings && this.settings.standardWorkingTimes) {
-      this.underOverTime = this.getUnderOverTime(this.date, this.settings.standardWorkingTimes);
+      this.underOverTime = TimeFunctions.getUnderOverTime(this.date, this.settings.standardWorkingTimes, this.totalTime);
     }
   }
 
@@ -59,24 +62,6 @@ export class DaycardComponent implements OnInit {
       this.workingTimes = workingTimes;
       this.updateView();
     });
-  }
-
-  getTimeDifference(from: Time, to: Time): Time {
-    return to.substract(from);
-  }
-
-  getTotalTime(): Time {
-    if (!this.workingTimes || this.workingTimes.length === 0) {
-      return new Time(0, 0);
-    }
-
-    const durations = this.workingTimes.map((workingTime) => this.getTimeDifference(workingTime.from, workingTime.to));
-    const totalTime = durations.reduce((previousValue, currentValue) => previousValue.add(currentValue))
-    return totalTime;
-  }
-
-  getUnderOverTime(date: Date, standardWorkingTimes: StandardWorkingTimes): Time {
-    return this.getTimeDifference(standardWorkingTimes[date.getDay()], this.getTotalTime());
   }
 
   async onRemove(date: Date, from: Time, to: Time) {

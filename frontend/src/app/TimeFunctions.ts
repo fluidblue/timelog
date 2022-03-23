@@ -1,3 +1,7 @@
+import { StandardWorkingTimes } from "./Settings";
+import { Time } from "./Time";
+import { WorkingTime } from "./WorkingTime";
+
 export default class TimeFunctions {
 
     static getListOfDays(from: Date, to: Date): Date[] {
@@ -14,5 +18,23 @@ export default class TimeFunctions {
         }
 
         return result;
+    }
+
+    static getTimeDifference(from: Time, to: Time): Time {
+        return to.substract(from);
+    }
+
+    static getTotalTime(workingTimes: WorkingTime[] | undefined): Time {
+        if (!workingTimes || workingTimes.length === 0) {
+            return new Time(0, 0);
+        }
+
+        const durations = workingTimes.map((workingTime) => this.getTimeDifference(workingTime.from, workingTime.to));
+        const totalTime = durations.reduce((previousValue, currentValue) => previousValue.add(currentValue));
+        return totalTime;
+    }
+
+    static getUnderOverTime(date: Date, standardWorkingTimes: StandardWorkingTimes, totalWorkingTime: Time): Time {
+        return this.getTimeDifference(standardWorkingTimes[date.getDay()], totalWorkingTime);
     }
 }
