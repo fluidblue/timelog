@@ -16,6 +16,8 @@ export class UnderOverTimeComponent implements OnInit {
   dateFrom?: Date;
   dateTo?: Date;
 
+  underOverTime?: Time;
+
   constructor(
     private settingsService: SettingsService,
     private workingTimesService: WorkingTimesService
@@ -29,7 +31,7 @@ export class UnderOverTimeComponent implements OnInit {
       this.dateFrom = this.dateTo;
     }
 
-    await this.calculateUnderOverTime();
+    this.updateView();
   }
 
   async setDateTo() {
@@ -64,11 +66,11 @@ export class UnderOverTimeComponent implements OnInit {
       underOverTimeTotal = underOverTimeTotal.add(underOverTime);
     }
 
-    console.log(underOverTimeTotal); // TODO: Remove
+    return underOverTimeTotal;
   }
 
-  updateView(): void {
-    console.log('Update view'); // TODO: Remove console output
+  async updateView() {
+    this.underOverTime = await this.calculateUnderOverTime();
   }
 
 }

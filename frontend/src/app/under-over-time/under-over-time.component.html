@@ -5,4 +5,16 @@
     (dateToChange)="updateView()"
 ></app-date-range>
 
-<p>under-over-time works!</p>
+<div class="container">
+    Total Under/Overtime:
+    <div
+        *ngIf="underOverTime"
+        class="underOverTime"
+        [ngClass]="{
+            'red': underOverTime.isNegativeTime(),
+            'green': !underOverTime.isNegativeTime()
+        }"
+    >
+        {{underOverTime | time:false:true}} h
+    </div>
+</div>
