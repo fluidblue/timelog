@@ -3,9 +3,21 @@
 TimeLog is a desktop application allowing you to track your time.
 
 
+## Screenshots
+
+See the [screenshots](docs/Screenshots.md) page.
+
+
 ## Installation
 
 Please see the [installation instructions](docs/Installation.md).
+
+
+## Technologies
+
+* Angular
+* Electron
+* SQLite
 
 
 ## License
