@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { TimeLogDataIn } from '../../../electron/src/api';
+import CommonFunctions from '../../../electron/src/CommonFunctions';
 import { AddTimeComponent } from './add-time/add-time.component';
 import { AddTimeDataResult } from './add-time/AddTimeDataResult';
 import API from './API';
@@ -25,7 +26,7 @@ export class AddTimeService {
       modalRef.result.then(
         (result: AddTimeDataResult) => {
           const addTimeData: TimeLogDataIn = {
-            date: API.convertDateToString(result.date),
+            date: CommonFunctions.convertDateToString(result.date),
             from: result.from.getTotalMinutes(),
             to: result.to.getTotalMinutes(),
           };

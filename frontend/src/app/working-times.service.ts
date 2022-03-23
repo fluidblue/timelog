@@ -6,6 +6,7 @@ import { Time } from './Time';
 import { ToastService } from './toast.service';
 import { WorkingTime } from './WorkingTime';
 import { TimeLogDataIn, TimeLogDataOut } from '../../../electron/src/api';
+import CommonFunctions from '../../../electron/src/CommonFunctions';
 
 @Injectable({
   providedIn: 'root'
@@ -24,7 +25,7 @@ export class WorkingTimesService {
   }
 
   getWorkingTimes(date: Date): Observable<WorkingTime[]> {
-    const promise = window.timelogAPI.timeLogGet(API.convertDateToString(date));
+    const promise = window.timelogAPI.timeLogGet(CommonFunctions.convertDateToString(date));
     const observable = API.convertPromise2Observable(promise);
 
     return observable.pipe(

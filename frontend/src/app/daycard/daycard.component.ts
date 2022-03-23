@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { TimeLogDataIn } from '../../../../electron/src/api';
-import API from '../API';
+import CommonFunctions from '../../../../electron/src/CommonFunctions';
 import { RemoveTimeComponent } from '../remove-time/remove-time.component';
 import { Settings, StandardWorkingTimes } from '../Settings';
 import { SettingsService } from '../settings.service';
@@ -93,7 +93,7 @@ export class DaycardComponent implements OnInit {
     }
 
     const removeTimeDataJson: TimeLogDataIn = {
-      date: API.convertDateToString(date),
+      date: CommonFunctions.convertDateToString(date),
       from: from.getTotalMinutes(),
       to: to.getTotalMinutes(),
     };

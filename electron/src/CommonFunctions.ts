@@ -1,5 +1,3 @@
-import API from "../../frontend/src/app/API";
-
 export default class CommonFunctions {
     static convertStringToDate(dateString: string): Date | null {
         try {
@@ -18,6 +16,13 @@ export default class CommonFunctions {
         }
     }
 
+    static convertDateToString(date: Date): string {
+        const pad = (num: number) => ("00" + num).slice(-2);
+        return date.getFullYear() + "-" +
+            pad(date.getMonth() + 1) + "-" +
+            pad(date.getDate());
+    }
+
     static convertStringToTimestamp(dateString: string): number | null {
         const date = CommonFunctions.convertStringToDate(dateString);
         if (!date) {
@@ -29,6 +34,6 @@ export default class CommonFunctions {
     static convertTimestampToString(timestamp: number): string {
         const date = new Date();
         date.setTime(timestamp);
-        return API.convertDateToString(date);
+        return CommonFunctions.convertDateToString(date);
     }
 }
