@@ -1,1 +1,13 @@
-<p>remove-time works!</p>
+<div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Remove time</h4>
+    <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+<div class="modal-body">
+    Do you really want to remove the entry?
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-outline-secondary" (click)="activeModal.dismiss('No click')">No</button>
+    <button type="button" class="btn btn-danger" (click)="activeModal.close(true)">Yes</button>
+</div>

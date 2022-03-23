@@ -1,10 +1,11 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { TimeLogDataIn } from '../../../../electron/src/api';
 import API from '../API';
+import { RemoveTimeComponent } from '../remove-time/remove-time.component';
 import { Settings, StandardWorkingTimes } from '../Settings';
 import { SettingsService } from '../settings.service';
 import { Time } from '../Time';
-import { ToastService } from '../toast.service';
 import { WorkingTimesService } from '../working-times.service';
 import { WorkingTime } from '../WorkingTime';
 
@@ -26,7 +27,7 @@ export class DaycardComponent implements OnInit {
   constructor(
     private settingsService: SettingsService,
     private workingTimesService: WorkingTimesService,
-    private toastService: ToastService
+    private modalService: NgbModal
   ) { }
 
   ngOnInit(): void {
@@ -78,7 +79,19 @@ export class DaycardComponent implements OnInit {
     return this.getTimeDifference(standardWorkingTimes[date.getDay()], this.getTotalTime());
   }
 
-  onRemove(date: Date, from: Time, to: Time) {
+  async onRemove(date: Date, from: Time, to: Time) {
+    // Show user confirmation dialog
+    const modalRef = this.modalService.open(RemoveTimeComponent);
+    try {
+      const userConfirmation = await modalRef.result;
+      if (!userConfirmation) {
+        return;
+      }
+    } catch (err) {
+      // Dialog cancelled
+      return;
+    }
+
     const removeTimeDataJson: TimeLogDataIn = {
       date: API.convertDateToString(date),
       from: from.getTotalMinutes(),
