@@ -13,9 +13,13 @@ export class UnderOverTimeComponent implements OnInit {
 
   constructor() { }
 
-  ngOnInit(): void {
-    this.setDateTo();
-    this.setDateFrom();
+  async ngOnInit() {
+    await this.setDateTo();
+    await this.setDateFrom();
+
+    if (this.dateFrom && this.dateTo && this.dateFrom > this.dateTo) {
+      this.dateFrom = this.dateTo;
+    }
   }
 
   async setDateTo() {
