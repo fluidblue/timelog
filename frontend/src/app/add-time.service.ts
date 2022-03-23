@@ -37,13 +37,17 @@ export class AddTimeService {
           const observable = this.workingTimesService.addWorkingTime(addTimeData);
           observable.subscribe(
             (response: boolean) => {
-              resolve(response);
+              if (response) {
+                if (result.addAnotherEntry) {
+                  resolve(this.openAddTimeDialog());
+                } else {
+                  resolve(true);
+                }
+              } else {
+                resolve(false);
+              }
             }
           );
-
-          if (result.addAnotherEntry) {
-            this.openAddTimeDialog();
-          }
         },
         (reason) => {
           // Silently ignore closing of dialog (e.g. by clicking x or clicking on backdrop shadow)
