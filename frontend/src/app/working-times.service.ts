@@ -52,10 +52,11 @@ export class WorkingTimesService {
 
     return observable.pipe(
       tap(
-        (value) => {
-          // TODO: Test message
-          if (!value) {
-            this.toastService.showError("Could not add working time");
+        (response) => {
+          if (response) {
+            this.toastService.showInfo("Successfully added time.");
+          } else {
+            this.toastService.showError("Failed to add time.");
           }
         }
       )
@@ -68,10 +69,11 @@ export class WorkingTimesService {
 
     return observable.pipe(
       tap(
-        // TODO: Test message
-        (value) => {
-          if (!value) {
-            this.toastService.showError("Could not remove working time");
+        (response) => {
+          if (response) {
+            this.toastService.showInfo("Successfully removed time.");
+          } else {
+            this.toastService.showError("Failed to remove time.");
           }
         }
       )

@@ -37,14 +37,7 @@ export class AddTimeService {
           const observable = this.workingTimesService.addWorkingTime(addTimeData);
           observable.subscribe(
             (response: boolean) => {
-              // TODO: Test messages
-              if (response) {
-                this.toastService.showInfo("Successfully added time.");
-                resolve(true);
-              } else {
-                this.toastService.showError("Failed to add time.");
-                resolve(false);
-              }
+              resolve(response);
             }
           );
 

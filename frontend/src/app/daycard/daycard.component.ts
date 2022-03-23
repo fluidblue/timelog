@@ -88,12 +88,6 @@ export class DaycardComponent implements OnInit {
     const observable = this.workingTimesService.removeWorkingTime(removeTimeDataJson);
     observable.subscribe(
       (response: boolean) => {
-        // TODO: Test messages
-        if (response) {
-          this.toastService.showInfo("Successfully removed time.");
-        } else {
-          this.toastService.showError("Failed to remove time.");
-        }
         this.ngOnInit();
       }
     );
