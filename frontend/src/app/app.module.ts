@@ -15,6 +15,7 @@ import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { ToastsComponent } from './toasts/toasts.component';
 import { AddTimeComponent } from './add-time/add-time.component';
+import { RemoveTimeComponent } from './remove-time/remove-time.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import { AddTimeComponent } from './add-time/add-time.component';
     SettingsComponent,
     UnderOverTimeComponent,
     ToastsComponent,
-    AddTimeComponent
+    AddTimeComponent,
+    RemoveTimeComponent
   ],
   imports: [
     BrowserModule,
