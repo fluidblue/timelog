@@ -1,4 +1,3 @@
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, EMPTY, map, Observable, of, tap } from 'rxjs';
 import { Settings, WeekDay } from './Settings';
@@ -15,7 +14,6 @@ export class SettingsService {
   private settings?: Settings;
 
   constructor(
-    private http: HttpClient,
     private toastService: ToastService
   ) { }
 

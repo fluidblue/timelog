@@ -11,7 +11,6 @@ import { AppRoutingModule } from './app-routing.module';
 import { SettingsComponent } from './settings/settings.component';
 import { UnderOverTimeComponent } from './under-over-time/under-over-time.component';
 import { FormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
 import { ToastsComponent } from './toasts/toasts.component';
 import { AddTimeComponent } from './add-time/add-time.component';
 import { RemoveTimeComponent } from './remove-time/remove-time.component';
@@ -35,8 +34,7 @@ import { DateRangeComponent } from './date-range/date-range.component';
     BrowserModule,
     FormsModule,
     NgbModule,
-    AppRoutingModule,
-    HttpClientModule
+    AppRoutingModule
   ],
   providers: [],
   bootstrap: [AppComponent]

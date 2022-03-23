@@ -1,4 +1,3 @@
-import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, EMPTY, map, Observable, of, tap, throwError } from 'rxjs';
 import API from './API';
@@ -13,9 +12,7 @@ import CommonFunctions from '../../../electron/src/CommonFunctions';
 })
 export class WorkingTimesService {
 
-  private readonly apiUri = API.apiUri + "/timelog"
-
-  constructor(private http: HttpClient, private toastService: ToastService) { }
+  constructor(private toastService: ToastService) { }
 
   private convertApiStructureToWorkingTime(workingTime: TimeLogDataOut): WorkingTime {
     return {

@@ -4,15 +4,12 @@ import { TimeLogDataIn } from '../../../electron/src/api';
 import CommonFunctions from '../../../electron/src/CommonFunctions';
 import { AddTimeComponent } from './add-time/add-time.component';
 import { AddTimeDataResult } from './add-time/AddTimeDataResult';
-import API from './API';
 import { WorkingTimesService } from './working-times.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AddTimeService {
-
-  private readonly apiUri = API.apiUri + "/timelog"
 
   constructor(
     private modalService: NgbModal,

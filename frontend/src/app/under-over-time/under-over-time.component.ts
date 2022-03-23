@@ -43,7 +43,7 @@ export class UnderOverTimeComponent implements OnInit {
   }
 
   updateView(): void {
-    console.log('Update view'); // TODO: Remove
+    console.log('Update view'); // TODO: Remove console output
   }
 
 }
