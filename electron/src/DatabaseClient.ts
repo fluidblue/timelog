@@ -1,8 +1,9 @@
 import Database from "better-sqlite3";
 import { Settings, settingsDataDefault, TimeLogDataIn, TimeLogDataOut, WorkingTimes } from "./api";
 import Log from "./Log";
-import fs from 'fs';
+import fs from "fs";
 import path from "path";
+import CommonFunctions from "./CommonFunctions";
 
 export default class DatabaseClient {
     private db;
@@ -89,21 +90,12 @@ export default class DatabaseClient {
         return true;
     }
 
-    convertStringToTimestamp(date: string): number | null {
-        try {
-            const dateParts = date.split("-");
-            return (new Date(parseInt(dateParts[0]), parseInt(dateParts[1]) - 1, parseInt(dateParts[2]), 0, 0, 0, 0)).getTime();
-        } catch (err) {
-            return null;
-        }
-    }
-
     timeLogGet(date: string): TimeLogDataOut[] | null {
         Log.info("Executing timeLogGet");
 
         try {
             const statement = this.db.prepare("SELECT `from`, `to` FROM `TimeLog` WHERE `date` = ? ORDER BY `from` ASC");
-            const rows = statement.all(this.convertStringToTimestamp(date));
+            const rows = statement.all(CommonFunctions.convertStringToTimestamp(date));
             return rows.map(
                 (row) => {
                     return {
@@ -123,7 +115,7 @@ export default class DatabaseClient {
 
         try {
             const statement = this.db.prepare("INSERT INTO `TimeLog` (`date`, `from`, `to`) VALUES (?, ?, ?)");
-            const result = statement.run(this.convertStringToTimestamp(timeLogEntry.date), timeLogEntry.from, timeLogEntry.to);
+            const result = statement.run(CommonFunctions.convertStringToTimestamp(timeLogEntry.date), timeLogEntry.from, timeLogEntry.to);
             if (result.changes !== 1) {
                 return false;
             }
@@ -140,7 +132,7 @@ export default class DatabaseClient {
 
         try {
             const statement = this.db.prepare("DELETE FROM `TimeLog` WHERE (`date` = ? AND `from` = ? AND `to` = ?)");
-            const result = statement.run(this.convertStringToTimestamp(timeLogEntry.date), timeLogEntry.from, timeLogEntry.to);
+            const result = statement.run(CommonFunctions.convertStringToTimestamp(timeLogEntry.date), timeLogEntry.from, timeLogEntry.to);
             if (result.changes < 1) {
                 return false;
             }
@@ -150,5 +142,18 @@ export default class DatabaseClient {
         }
 
         return true;
+    }
+
+    timeLogGetFirstRecordDate(): string | null {
+        Log.info("Executing timeLogGetFirstRecordDate");
+
+        try {
+            let statement = this.db.prepare("SELECT `date` FROM `TimeLog` ORDER BY `date` ASC LIMIT 1");
+            const row = statement.get();
+            return CommonFunctions.convertTimestampToString(row.date);
+        } catch (err) {
+            Log.error(err);
+            return null;
+        }
     }
 }

@@ -114,6 +114,7 @@ app.on("ready", () => {
     ipcMain.handle("timelog:get", (event, date) => { return databaseClient.timeLogGet(date); });
     ipcMain.handle("timelog:add", (event, timeLogEntry) => { return databaseClient.timeLogAdd(timeLogEntry); });
     ipcMain.handle("timelog:remove", (event, timeLogEntry) => { return databaseClient.timeLogRemove(timeLogEntry); });
+    ipcMain.handle("timelog:getFirstRecordDate", () => { return databaseClient.timeLogGetFirstRecordDate() });
 
     // Create main window
     createWindow();

@@ -45,4 +45,5 @@ export interface TimelogAPI {
     timeLogGet: (date: string) => Promise<TimeLogDataOut[] | null>;
     timeLogAdd: (timeLogEntry: TimeLogDataIn) => Promise<boolean>;
     timeLogRemove: (timeLogEntry: TimeLogDataIn) => Promise<boolean>;
+    timeLogGetFirstRecordDate: () => Promise<string | null>;
 }

@@ -10,6 +10,7 @@ const api: TimelogAPI = {
     timeLogGet: (date) => ipcRenderer.invoke("timelog:get", date),
     timeLogAdd: (timeLogEntry) => ipcRenderer.invoke("timelog:add", timeLogEntry),
     timeLogRemove: (timeLogEntry) => ipcRenderer.invoke("timelog:remove", timeLogEntry),
+    timeLogGetFirstRecordDate: () => ipcRenderer.invoke("timelog:getFirstRecordDate")
 };
 
 contextBridge.exposeInMainWorld("timelogAPI", api);
