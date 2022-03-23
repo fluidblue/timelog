@@ -1,0 +1,21 @@
+table.dateContainer {
+    width: 100%;
+
+    tr {
+        &:not(:last-child) td {
+            padding-bottom: 1rem;
+        }
+
+        td {
+            padding: 0;
+
+            &:first-child {
+                padding-right: 1rem;
+            }
+    
+            &:nth-child(2) {
+                width: 100%;
+            }
+        }
+    }
+}

@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { CommonFunctions } from '../CommonFunctions';
 
 @Component({
   selector: 'app-date-range',
@@ -6,6 +7,14 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./date-range.component.scss']
 })
 export class DateRangeComponent implements OnInit {
+
+  @Input() dateFrom?: Date;
+  @Input() dateTo?: Date;
+
+  @Output() dateFromChanged = new EventEmitter<Date>();
+  @Output() dateToChanged = new EventEmitter<Date>();
+
+  parseDateEvent = CommonFunctions.parseDateEvent;
 
   constructor() { }
 

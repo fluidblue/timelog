@@ -1,1 +1,24 @@
-<p>date-range works!</p>
+<table class="dateContainer">
+    <tr>
+        <td>From:</td>
+        <td>
+            <input
+                type="date"
+                class="form-control"
+                [value]="dateFrom | date:'yyyy-MM-dd'"
+                (input)="dateFrom = parseDateEvent($event); dateFromChanged.emit(dateFrom);"
+            />
+        </td>
+    </tr>
+    <tr>
+        <td>To:</td>
+        <td>
+            <input
+                type="date"
+                class="form-control"
+                [value]="dateTo | date:'yyyy-MM-dd'"
+                (input)="dateTo = parseDateEvent($event); dateToChanged.emit(dateTo);"
+            />
+        </td>
+    </tr>
+</table>

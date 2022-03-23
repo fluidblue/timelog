@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import { AddTimeService } from '../add-time.service';
-import { CommonFunctions } from '../CommonFunctions';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 
+import { AddTimeService } from '../add-time.service';
+import { DateRangeComponent } from '../date-range/date-range.component';
 import { Settings } from '../Settings';
 import { SettingsService } from '../settings.service';
 import { WEEK_DAYS } from '../WeekDays';
@@ -19,8 +19,6 @@ export class MainViewComponent implements OnInit {
   dateTo?: Date;
 
   daycardDates: Date[] = [];
-
-  parseDateEvent = CommonFunctions.parseDateEvent;
 
   constructor(private settingsService: SettingsService, public addTimeService: AddTimeService) { }
 
