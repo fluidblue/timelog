@@ -109,12 +109,12 @@ app.on("ready", () => {
     });
 
     // Setup IPC
-    ipcMain.handle("settings:get", () => { return databaseClient.settingsGet() });
+    ipcMain.handle("settings:get", () => { return databaseClient.settingsGet(); });
     ipcMain.handle("settings:set", (event, settings) => { return databaseClient.settingsSet(settings); });
     ipcMain.handle("timelog:get", (event, date) => { return databaseClient.timeLogGet(date); });
     ipcMain.handle("timelog:add", (event, timeLogEntry) => { return databaseClient.timeLogAdd(timeLogEntry); });
     ipcMain.handle("timelog:remove", (event, timeLogEntry) => { return databaseClient.timeLogRemove(timeLogEntry); });
-    ipcMain.handle("timelog:getFirstRecordDate", () => { return databaseClient.timeLogGetFirstRecordDate() });
+    ipcMain.handle("timelog:getFirstRecordDate", () => { return databaseClient.timeLogGetFirstRecordDate(); });
 
     // Create main window
     createWindow();
