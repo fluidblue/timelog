@@ -4,6 +4,7 @@ import { AddTimeService } from '../add-time.service';
 import { DateRangeComponent } from '../date-range/date-range.component';
 import { Settings } from '../Settings';
 import { SettingsService } from '../settings.service';
+import TimeFunctions from '../TimeFunctions';
 import { WEEK_DAYS } from '../WeekDays';
 
 @Component({
@@ -34,21 +35,7 @@ export class MainViewComponent implements OnInit {
   }
 
   updateView(): void {
-    this.setDaycardDates();
-  }
-
-  setDaycardDates(): void {
-    this.daycardDates = [];
-    const date = new Date(this.dateFrom!);
-
-    function isDateLessThanOrEqual(a: Date, b: Date) {
-      return new Date(a.getFullYear(), a.getMonth(), a.getDate()) <= new Date(b.getFullYear(), b.getMonth(), b.getDate());
-    }
-
-    while (isDateLessThanOrEqual(date, this.dateTo!)) {
-      this.daycardDates.push(new Date(date));
-      date.setDate(date.getDate() + 1);
-    }
+    this.daycardDates = TimeFunctions.getListOfDays(this.dateFrom!, this.dateTo!);
   }
 
   getSettings(): void {
