@@ -24,7 +24,7 @@ function selectDatabaseFile(): SelectDatabaseFileReturn {
     const filters: FileFilter[] = [
         {
             name: "TimeLog data file",
-            extensions: [ "*.sqlite3" ]
+            extensions: [ "sqlite3" ]
         }
     ];
 
