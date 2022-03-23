@@ -1,5 +1,5 @@
 <div class="mainContainer">
-    <app-date-range [dateFrom]="dateFrom" [dateTo]="dateTo"></app-date-range>
+    <app-date-range [(dateFrom)]="dateFrom" [(dateTo)]="dateTo" (dateFromChange)="updateView()" (dateToChange)="updateView()"></app-date-range>
 
     <div class="daycardContainer">
         <app-daycard *ngFor="let daycardDate of daycardDates" [date]="daycardDate"></app-daycard>

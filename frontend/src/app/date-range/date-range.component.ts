@@ -11,8 +11,8 @@ export class DateRangeComponent implements OnInit {
   @Input() dateFrom?: Date;
   @Input() dateTo?: Date;
 
-  @Output() dateFromChanged = new EventEmitter<Date>();
-  @Output() dateToChanged = new EventEmitter<Date>();
+  @Output() dateFromChange = new EventEmitter<Date>();
+  @Output() dateToChange = new EventEmitter<Date>();
 
   parseDateEvent = CommonFunctions.parseDateEvent;
 

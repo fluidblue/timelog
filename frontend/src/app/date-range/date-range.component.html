@@ -6,7 +6,7 @@
                 type="date"
                 class="form-control"
                 [value]="dateFrom | date:'yyyy-MM-dd'"
-                (input)="dateFrom = parseDateEvent($event); dateFromChanged.emit(dateFrom);"
+                (input)="dateFrom = parseDateEvent($event); dateFromChange.emit(dateFrom);"
             />
         </td>
     </tr>
@@ -17,7 +17,7 @@
                 type="date"
                 class="form-control"
                 [value]="dateTo | date:'yyyy-MM-dd'"
-                (input)="dateTo = parseDateEvent($event); dateToChanged.emit(dateTo);"
+                (input)="dateTo = parseDateEvent($event); dateToChange.emit(dateTo);"
             />
         </td>
     </tr>
