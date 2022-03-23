@@ -81,7 +81,7 @@ export class DaycardComponent implements OnInit {
 
   async onRemove(date: Date, from: Time, to: Time) {
     // Show user confirmation dialog
-    const modalRef = this.modalService.open(RemoveTimeComponent);
+    const modalRef = this.modalService.open(RemoveTimeComponent, { ariaLabelledBy: 'modal-basic-title' });
     try {
       const userConfirmation = await modalRef.result;
       if (!userConfirmation) {

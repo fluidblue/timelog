@@ -1,11 +1,9 @@
-import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { TimeLogDataIn } from '../../../electron/src/api';
 import { AddTimeComponent } from './add-time/add-time.component';
 import { AddTimeDataResult } from './add-time/AddTimeDataResult';
 import API from './API';
-import { ToastService } from './toast.service';
 import { WorkingTimesService } from './working-times.service';
 
 @Injectable({
@@ -17,8 +15,6 @@ export class AddTimeService {
 
   constructor(
     private modalService: NgbModal,
-    private http: HttpClient,
-    private toastService: ToastService,
     private workingTimesService: WorkingTimesService
   ) { }
 
