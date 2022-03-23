@@ -1,5 +1,10 @@
 import { Component, OnInit } from '@angular/core';
+import { firstValueFrom } from 'rxjs';
 import CommonFunctions from '../../../../electron/src/CommonFunctions';
+import { SettingsService } from '../settings.service';
+import { Time } from '../Time';
+import TimeFunctions from '../TimeFunctions';
+import { WorkingTimesService } from '../working-times.service';
 
 @Component({
   selector: 'app-under-over-time',
@@ -11,7 +16,10 @@ export class UnderOverTimeComponent implements OnInit {
   dateFrom?: Date;
   dateTo?: Date;
 
-  constructor() { }
+  constructor(
+    private settingsService: SettingsService,
+    private workingTimesService: WorkingTimesService
+  ) { }
 
   async ngOnInit() {
     await this.setDateTo();
@@ -20,6 +28,8 @@ export class UnderOverTimeComponent implements OnInit {
     if (this.dateFrom && this.dateTo && this.dateFrom > this.dateTo) {
       this.dateFrom = this.dateTo;
     }
+
+    await this.calculateUnderOverTime();
   }
 
   async setDateTo() {
@@ -40,6 +50,21 @@ export class UnderOverTimeComponent implements OnInit {
     const yesterday = new Date();
     yesterday.setDate(yesterday.getDate() - 1);
     return yesterday;
+  }
+
+  async calculateUnderOverTime() {
+    const settings = await firstValueFrom(this.settingsService.getSettings());
+
+    let days = TimeFunctions.getListOfDays(this.dateFrom!, this.dateTo!);
+    let underOverTimeTotal: Time = new Time(0, 0);
+    for (const day of days) {
+      const workingTimes = await firstValueFrom(this.workingTimesService.getWorkingTimes(day));
+      const workingTimeTotal = TimeFunctions.getTotalTime(workingTimes);
+      const underOverTime = TimeFunctions.getUnderOverTime(day, settings.standardWorkingTimes, workingTimeTotal);
+      underOverTimeTotal = underOverTimeTotal.add(underOverTime);
+    }
+
+    console.log(underOverTimeTotal); // TODO: Remove
   }
 
   updateView(): void {
