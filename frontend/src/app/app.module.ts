@@ -15,6 +15,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { ToastsComponent } from './toasts/toasts.component';
 import { AddTimeComponent } from './add-time/add-time.component';
 import { RemoveTimeComponent } from './remove-time/remove-time.component';
+import { DateRangeComponent } from './date-range/date-range.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import { RemoveTimeComponent } from './remove-time/remove-time.component';
     UnderOverTimeComponent,
     ToastsComponent,
     AddTimeComponent,
-    RemoveTimeComponent
+    RemoveTimeComponent,
+    DateRangeComponent
   ],
   imports: [
     BrowserModule,
