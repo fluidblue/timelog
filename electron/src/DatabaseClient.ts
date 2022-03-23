@@ -141,7 +141,7 @@ export default class DatabaseClient {
         try {
             const statement = this.db.prepare("DELETE FROM `TimeLog` WHERE (`date` = ? AND `from` = ? AND `to` = ?)");
             const result = statement.run(this.convertStringToTimestamp(timeLogEntry.date), timeLogEntry.from, timeLogEntry.to);
-            if (result.changes !== 1) {
+            if (result.changes < 1) {
                 return false;
             }
         } catch (err) {
