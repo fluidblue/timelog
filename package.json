@@ -6,12 +6,14 @@
   "scripts": {
     "install": "npm run frontend:install && npm run electron:install",
     "start": "npm-run-all -p frontend:start electron:start",
+    "package": "npm run frontend:build && npm run electron:package",
     "make": "npm run frontend:build && npm run electron:make",
     "frontend:install": "cd frontend && npm install && cd ..",
     "frontend:start": "cd frontend && npm start && cd ..",
     "frontend:build": "cd frontend && npm run build && cd ..",
     "electron:install": "cd electron && npm install && cd ..",
     "electron:start": "cd electron && npm start && cd ..",
+    "electron:package": "cd electron && npm run package && cd ..",
     "electron:make": "cd electron && npm run make && cd .."
   },
   "author": "fluidblue",

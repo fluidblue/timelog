@@ -17,7 +17,7 @@ npm install -g @angular/cli
 npm install # For the first time, this takes a long time, as sqlite3 is compiled.
 
 # Make application
-npm run make
+npm run package
 ```
 
 Finally open the compiled application, which is placed in the `./electron/out` directory.
