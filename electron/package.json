@@ -3,7 +3,7 @@
   "productName": "timelog",
   "version": "1.0.0",
   "private": true,
-  "description": "TimeLog is a desktop application allowing you to track your time",
+  "description": "A desktop application allowing you to track your time",
   "main": "dist/main.js",
   "scripts": {
     "start": "tsc && electron-forge start",
