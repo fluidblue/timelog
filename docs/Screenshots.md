@@ -6,4 +6,4 @@ Overview
 
 Under/Overtime
 
-<img src="screenshots/04-desktop-discovery.png" alt="Under/Overtime" width="75%" />
+<img src="screenshots/02-underovertime.png" alt="Under/Overtime" width="75%" />
