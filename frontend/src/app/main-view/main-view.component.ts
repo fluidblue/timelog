@@ -81,7 +81,7 @@ export class MainViewComponent implements OnInit {
   }
 
   /**
-   * Similar to `getStartOfWeek()`, but returns the end of the week.
+   * Similar to `getBeginOfWeek()`, but returns the end of the week.
    */
   getEndOfWeek(date = new Date(), endOfWeek = this.getEndDayOfWeek()): Date {
     const result = new Date(date);
