@@ -21,7 +21,7 @@ export class MainViewComponent implements OnInit {
 
   daycardDates: Date[] = [];
 
-  constructor(private settingsService: SettingsService, public addTimeService: AddTimeService) { }
+  constructor(private settingsService: SettingsService, private addTimeService: AddTimeService) { }
 
   ngOnInit(): void {
     this.getSettings();
