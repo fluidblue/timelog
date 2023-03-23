@@ -2,7 +2,7 @@
     <ngb-toast
         *ngFor="let toast of toastService.toasts"
         header="{{toast.header}}"
-        [autohide]="(toast.options && toast.options.autohide) || true"
+        [autohide]="(toast.options && toast.options.autohide !== undefined) ? toast.options.autohide : true"
         [delay]="(toast.options && toast.options.delay) || 5000"
         (hide)="toastService.remove(toast)"
     >
